@@ -1,0 +1,249 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Yunyay 1.0\n"
+"POT-Creation-Date: 2014-01-15 09:53-0300\n"
+"PO-Revision-Date: 2014-01-15 09:53-0300\n"
+"Last-Translator: WebModerna <info@webmoderna.com.ar>\n"
+"Language-Team: WebModerna <info@webmoderna.com.ar>\n"
+"Language: es_AR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _e;__;_x;_;gettext;gettext_noop\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.6.3\n"
+"X-Poedit-Basepath: D:\\wamp\\www\\29._Yunyay\\wp-content\\themes\\\n"
+"X-Poedit-SearchPath-0: yunyay\n"
+
+#: yunyay/404.php:3
+msgid "Error 404"
+msgstr "Error 404"
+
+#: yunyay/404.php:11
+msgid "Logo de Cabañas Yunyay"
+msgstr "Cabañas Yunyay's logo"
+
+#: yunyay/404.php:16
+msgid ""
+"La página o publicación que estás buscando no existe. Intentá de nuevo y "
+"colocá bien tu dirección URL"
+msgstr ""
+"The page what you are looking for there is not exist. Try again, and write "
+"well your url address."
+
+#: yunyay/404.php:19
+msgid "Escriba aquí lo que busca..."
+msgstr "Write here to search"
+
+#: yunyay/404.php:20
+msgid "Buscar"
+msgstr "Search"
+
+#: yunyay/cabanas.php:38 yunyay/page.php:25 yunyay/page.php:27
+#: yunyay/servicios.php:35 yunyay/single-cabana.php:37
+#: yunyay/single-cabana.php:49 yunyay/single-cabana.php:67
+#: yunyay/single-cabana.php:124 yunyay/ubicacion.php:45
+#: yunyay/ubicacion.php:47
+msgid "Sin imagen"
+msgstr "No image"
+
+#: yunyay/cabanas.php:42 yunyay/single-cabana.php:80
+msgid "Ver fotos de las cabañas"
+msgstr "View photos of cottages"
+
+#: yunyay/comments.php:3
+msgid "Por favor, no cargues esta página directamente. Gracias :-D"
+msgstr "Please. Do not load this page directly. Thanks! :-D"
+
+#: yunyay/comments.php:5
+msgid ""
+"Esta publicación está protegida con contraseña. Ingresá tu usuario y tu "
+"password para ver los comentarios."
+msgstr ""
+"This post is protected by password. Login width your user and pass to see "
+"the comments."
+
+#: yunyay/comments.php:11
+msgid "No hay respuestas"
+msgstr "No responses"
+
+#: yunyay/comments.php:11
+msgid "Una Respuesta"
+msgstr "One response"
+
+#: yunyay/comments.php:11
+msgid "% Respuestas"
+msgstr "% Responses"
+
+#: yunyay/comments.php:26
+msgid "Los comentarios están cerrados"
+msgstr "Comments are closed."
+
+#: yunyay/comments.php:31
+msgid "Dejar un Comentario"
+msgstr "Leave a comment"
+
+#: yunyay/comments.php:31
+#, php-format
+msgid "Dejar un Comentario a %s"
+msgstr "Leave a comment to %s"
+
+#: yunyay/comments.php:36
+msgid "Debes estar"
+msgstr "You must be "
+
+#: yunyay/comments.php:36
+msgid "logueado"
+msgstr "logged in"
+
+#: yunyay/comments.php:36
+msgid "para publicar un comentario"
+msgstr "to post a comment"
+
+#: yunyay/comments.php:40
+msgid "Logueado como"
+msgstr "Logged as "
+
+#: yunyay/comments.php:40
+msgid "Desloguearse »"
+msgstr "Log out »"
+
+#: yunyay/comments.php:42
+msgid "Apellido y Nombre"
+msgstr "Full name"
+
+#: yunyay/comments.php:43
+msgid "E-Mail. No será publicado"
+msgstr "E-Mail. Will not be published"
+
+#: yunyay/comments.php:46
+msgid "Comentario"
+msgstr "Comment"
+
+#: yunyay/comments.php:47
+msgid "Enviar Comentario"
+msgstr "Sent comment"
+
+#: yunyay/footer.php:3
+msgid "Imagen de fondo"
+msgstr "Background image"
+
+#: yunyay/footer.php:25
+msgid "Ir arriba"
+msgstr "Go to top"
+
+#: yunyay/functions.php:209
+msgid "Menú Principal"
+msgstr "Main Menu"
+
+#: yunyay/functions.php:210
+msgid "Menú Secundario"
+msgstr "Secondary Menu"
+
+#: yunyay/functions.php:385
+msgid "Página"
+msgstr "Page"
+
+#: yunyay/functions.php:386
+msgid "de"
+msgstr "of"
+
+#: yunyay/functions.php:440
+msgid "¡Sal de mi jardín! ¡AHORA MISMO!"
+msgstr "Get out from my garden! RIGHT NOW!"
+
+#: yunyay/functions.php:469 yunyay/functions.php:480
+msgid "Cabañas"
+msgstr "Cottages"
+
+#: yunyay/functions.php:470
+msgid "Cabaña"
+msgstr "Cottage"
+
+#: yunyay/functions.php:471
+msgid "Agregar nueva"
+msgstr "Add new"
+
+#: yunyay/functions.php:472
+msgid "Agregar nueva Cabaña"
+msgstr "Add new Cottage"
+
+#: yunyay/functions.php:473
+msgid "Editar Cabaña"
+msgstr "Edit cottage"
+
+#: yunyay/functions.php:474
+msgid "Nueva Cabaña"
+msgstr "New cottage"
+
+#: yunyay/functions.php:475
+msgid "Ver Cabaña"
+msgstr "View cottage"
+
+#: yunyay/functions.php:476
+msgid "Buscar Cabañas"
+msgstr "Search cottage"
+
+#: yunyay/functions.php:477
+msgid "No hay cabañas"
+msgstr "No founds cottages"
+
+#: yunyay/functions.php:478
+msgid "No hay cabañas en la papelera"
+msgstr "No founds cottages in trash"
+
+#: yunyay/functions.php:479
+msgid "Listado de Cabañas:"
+msgstr "All cottages"
+
+#: yunyay/header.php:53
+msgid "Logo Cabañas Yunyay"
+msgstr "Cottages Yunyay's logo"
+
+#: yunyay/index.php:10 yunyay/noticias.php:11 yunyay/single-default.php:10
+msgid "Noticias"
+msgstr "News"
+
+#: yunyay/index.php:30 yunyay/noticias.php:34 yunyay/single-default.php:28
+msgid "Publicado el: "
+msgstr "Published on: "
+
+#: yunyay/index.php:35 yunyay/noticias.php:39
+msgid "Ver más..."
+msgstr "More..."
+
+#: yunyay/index.php:40 yunyay/noticias.php:44
+msgid "No hay ninguna entrada o noticia publicada por el momento."
+msgstr "No post and no news posted up to now."
+
+#: yunyay/single-cabana.php:134
+msgid "Ver otros tipos de cabañas"
+msgstr "View other types of cottages"
+
+#: yunyay/single-default.php:36
+msgid " : Anterior"
+msgstr " : Back"
+
+#: yunyay/single-default.php:36
+msgid "Siguiente: "
+msgstr "Next:"
+
+#~ msgid "(Requerido)"
+#~ msgstr "(Required)"
+
+#~ msgid "Tu mensaje se pudo enviar exitosamente :-)"
+#~ msgstr "Your message was sent successfully"
+
+#~ msgid ""
+#~ "Hubo un error en el servidor o en tu computador; o también en la red. El "
+#~ "mensaje todavía no se pude enviar :-("
+#~ msgstr ""
+#~ "There was an error on server, or in your computer, or in your network. "
+#~ "The message can't be sent :-("
+
+#~ msgid "Cerrar"
+#~ msgstr "Close"
+
+#~ msgid "No hay entradas ni productos publicados."
+#~ msgstr "No post published and no cottages published"

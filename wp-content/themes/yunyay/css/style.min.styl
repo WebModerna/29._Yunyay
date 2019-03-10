@@ -1,0 +1,92 @@
+/* Yunyay */
+/* Pre-render */
+@import url('css/normalize.css')
+@font-face 
+  font-family 'Raleway'
+  src url('fuentes/raleway.eot')
+  src local('Raleway')
+  	url('fuentes/raleway.eot') format('embedded-opentype')
+  	url('fuentes/raleway.woff') format('woff')
+  	url('fuentes/raleway.ttf') format('truetype')
+  	url('fuentes/raleway.svg#Raleway') format('svg')
+
+@font-face 
+  font-family 'Open Sans'
+  font-style normal
+  font-weight 400
+  src url('fuentes/open-sans.eot')
+  src local('OpenSans')
+  	url('fuentes/open-sans.eot') format('embedded-opentype')
+  	url('fuentes/open-sans.ttf') format('truetype')
+  	url('fuentes/open-sans.svg#OpenSans') format('svg')
+  	url('fuentes/open-sans.woff') format('woff')
+
+/*Variables*/
+c = #1e6381
+letra = 16px
+naranja = #f60
+
+/* Funciones para reutilizarse */
+bordes()
+	border-radius arguments
+	-o-border-radius arguments
+	-ms-border-radius arguments
+	-moz-border-radius arguments
+	-webkit-border-radius arguments
+
+box-shadow_boton()
+	box-shadow 0px 1px 0px 0px rgba(255,255,255,0.5) inset	0px -15px 15px 0px rgba(0,0,0,0.25) inset
+	-o-box-shadow 0px 1px 0px 0px rgba(255,255,255,0.5) inset  0px -15px 15px 0px rgba(0,0,0,0.25) inset
+	-ms-box-shadow 0px 1px 0px 0px rgba(255,255,255,0.5) inset	0px -15px 15px 0px rgba(0,0,0,0.25) inset
+	-moz-box-shadow 0px 1px 0px 0px rgba(255,255,255,0.5) inset	0px -15px 15px 0px rgba(0,0,0,0.25) inset
+	-webkit-box-shadow 0px 1px 0px 0px rgba(255,255,255,0.5) inset	0px -15px 15px 0px rgba(0,0,0,0.25) inset
+
+box-sizing()
+	box-sizing border-box
+	-o-box-sizing border-box
+	-ms-box-sizing border-box
+	-moz-box-sizing border-box
+	-webkit-box-sizing border-box
+
+text-shadow_undido()
+	text-shadow 0px -1px 0px rgba(0,0,0,0.25)
+	-o-text-shadow 0px -1px 0px rgba(0,0,0,0.25)
+	-ms-text-shadow 0px -1px 0px rgba(0,0,0,0.25)
+	-moz-text-shadow 0px -1px 0px rgba(0,0,0,0.25)
+	-webkit-text-shadow 0px -1px 0px rgba(0,0,0,0.25)
+
+transform_rotate()
+	transform rotate(arguments)
+	-o-transform rotate(arguments)
+	-ms-transform rotate(arguments)
+	-moz-transform rotate(arguments)
+	-webkit-transform rotate(arguments)
+
+transition_ease_out()
+	transition arguments ease-in-out
+	-o-transition arguments ease-in-out
+	-ms-transition arguments ease-in-out
+	-moz-transition arguments ease-in-out
+	-webkit-transition arguments ease-in-out
+
+transition_cubic()
+	transition arguments cubic-bezier(0.64, -0.37, 0.46, 1.55)
+	-o-transition arguments cubic-bezier(0.64, -0.37, 0.46, 1.55)
+	-ms-transition arguments cubic-bezier(0.64, -0.37, 0.46, 1.55)
+	-moz-transition arguments cubic-bezier(0.64, -0.37, 0.46, 1.55)
+	-webkit-transition arguments cubic-bezier(0.64, -0.37, 0.46, 1.55)
+
+
+
+
+/* Estilos a etiquetas */
+article
+	background c
+	transition_cubic(all 2.4s)
+	&:hover
+		transform_rotate(390deg)
+		background red
+
+/* ID */
+
+/* Clases */

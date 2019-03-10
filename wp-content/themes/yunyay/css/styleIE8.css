@@ -1,0 +1,124 @@
+div.footer_bg
+{
+	background: none !important;	
+}
+form, form input, form textarea
+{
+	max-width: auto;
+}
+nav ul li, .navegacion div a, .servicios figcaption
+{
+	background: url('../img/transparent_1x1.png');
+}
+nav ul li a:hover
+{
+	background: #eee;
+}
+nav ul li ul
+{
+	margin-top: 1px;
+}
+table tr td, table caption, table thead tr th
+{
+	border: 1px solid #999;
+}
+#blog .list_item.blog figure
+{
+	display: inline-block;
+	float: left;
+	margin: auto 2em 1em 1em;
+	max-width: 250px;
+}
+#blog #respond input, #blog #respond textarea
+{
+	max-width: 400px;
+}
+#distancias table
+{
+	display: inline-block;
+	vertical-align: top;
+}
+#home_slider
+{
+	position: relative;
+}
+#home_slider #mensaje
+{
+	bottom: 0.5em;
+}
+#home_slider .footer_bg
+{
+	bottom: -1px;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	width: auto;
+	z-index: 134;
+}
+#irarriba, #ir_arriba
+{
+	background: url('../img/transparent_1x1.png');
+}
+#irarriba:hover, #irarriba:active, #irarriba:focus, #ir_arriba:hover, #ir_arriba:active, #ir_arriba:focus
+{
+	background: url('../img/transparent_1x1.png');
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#48FA3232', endColorstr='#48FA3232',GradientType=0 );
+}
+#mapa-curabrochero figure figcaption
+{
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#48000000', endColorstr='#48000000',GradientType=0 );
+}
+#mensaje
+{
+	display: absolute;
+	bottom: 7em;
+	right: 0;
+}
+#ventana
+{
+	display: none;
+}
+#tarifas div table
+{
+	display: inline-block;
+	vertical-align: top;
+}
+#servicios .list_item_img
+{
+	max-width: 600px;
+}
+.cabana_menu li
+{
+	display: inline-block;
+}
+.cabana_menu li a
+{
+	background: url('../img/transparent_1x1.png');
+	display: inline-block;
+}
+.iconos a:hover, .iconos a:active, .iconos a:focus
+{
+	background: url('../img/transparent_1x1.png');
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#48ffffff', endColorstr='#48ffffff',GradientType=0 );
+}
+.list_item
+{
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#48000000', endColorstr='#48000000',GradientType=0 );
+}
+.list_item figure figcaption
+{
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#48000000', endColorstr='#48000000',GradientType=0 );
+}
+.pagination a, .pagination li
+{
+	background: url('../img/transparent_1x1.png');
+}
+.pagination a:hover, .pagination a:active, .pagination a:focus
+{
+	background: #E6DCF0;
+}
+.servicios #slider ul li figcaption
+{
+	background: url('../img/transparent_1x1.png');
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#48166BEC', endColorstr='#48166BEC',GradientType=0 );
+}

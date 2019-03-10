@@ -1,0 +1,60 @@
+div.footer_bg
+{
+	background: none !important;	
+}
+nav ul li, .navegacion div a, .servicios figcaption
+{
+	background: url('../img/transparent_1x1.png');
+}
+nav ul li a:hover
+{
+	background: #eee;
+}
+nav ul li ul
+{
+	margin-top: 1px;
+}
+table tr td, table caption, table thead tr th
+{
+	border: 1px solid #999;
+}
+#ventana
+{
+	display: none;
+}
+.list_item figure figcaption
+{
+	background: url('../img/transparent_1x1.png');
+}
+.list_item
+{
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4deeeeee', endColorstr='#4deeeeee',GradientType=0 );
+}
+@media screen and (min-width: 650px ) {
+	div.footer_bg img
+	{
+		height: auto;
+		width: 100%;
+	}
+}
+@media screen and (min-width: 960px) {
+	h1 
+	{
+		color: red;
+		font-size: 3em;
+	}
+	div.footer_bg
+	{
+		display: none;
+	}
+	nav ul li:hover ul
+	{
+		height: 420px !important;
+	}
+	#servicios #slider div
+	{
+		display: inline-block;
+		vertical-align: top;
+		width: 45%;
+	}
+}
