@@ -696,6 +696,8 @@ function remove_meta_boxes()
 }
 add_action('admin_init','remove_meta_boxes');
 
+// Sitemap en xml
+require_once "includes/06._sitemap.php";
 
 /*
 //Función para Minificar el HTML
