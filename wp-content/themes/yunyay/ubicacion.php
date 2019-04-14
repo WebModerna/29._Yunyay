@@ -5,7 +5,9 @@
 * @since yunyay 1.0
 * Template Name: Ubicación
 */ ?>
-<?php get_header();?>
+<?php
+$mapa_de_google = of_get_option("mapa_de_google", "");
+get_header();?>
 		<?php if (have_posts()):while(have_posts()):the_post();get_page($page_id);$page_data=get_page($page_id);?>
 			<article id="ubicacion">
 				<div id="slider">
@@ -13,7 +15,7 @@
 					<div id="ventana"></div>
 					<hr class="separador" />
 					<div id="googlemaps">
-						<?php echo do_shortcode('[codepeople-post-map]');?>
+						<?php echo $mapa_de_google;?>
 					</div>
 					<div id="mapa-curabrochero">
 						<figure>

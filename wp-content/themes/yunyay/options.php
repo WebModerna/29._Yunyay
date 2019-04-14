@@ -262,6 +262,17 @@ function optionsframework_options()
 		'type' => 'editor',
 		'settings' => $wp_editor_settings,
 	);
+
+	// Google Maps
+	$options[]	=	array(
+		'name'			=>	__('Mapa de Google', 'options_framework_theme'),
+		'desc'			=>	__('Introduzca el código del mapa de Google', 'options_framework_theme'),
+		'id'			=>	'mapa_de_google',
+		'placeholder'	=>	'<iframe src="https://www.google.com/maps/e... etc.',
+		'type' 			=> 'editor',
+		'settings' 		=> $wp_editor_settings,
+	);
+
 	// Lunes a viernes de 9 a 13 hs y de 16 a 20 hs sábados de 9 a 13 hs.
 	// Días y horario de atención al público
 	/*$options[] = array(

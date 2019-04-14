@@ -1,0 +1,317 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"sli",
+				"slider__item"
+			],
+			[
+				"ba",
+				"background-attachment\tproperty"
+			],
+			[
+				"lo",
+				"logo_uploader"
+			],
+			[
+				"back",
+				"background-size\tproperty"
+			],
+			[
+				"bg",
+				"background_de_la_web"
+			],
+			[
+				"background",
+				"background_de_la_web"
+			],
+			[
+				"descr",
+				"description"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 164.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/media/webmoderna/xampp/htdocs/47._casaflor"
+	],
+	"file_history":
+	[
+		"/home/webmoderna/Escritorio/www/18._Inmobiliariadelassierras/.gitignore",
+		"/home/webmoderna/Escritorio/www/18._Inmobiliariadelassierras/README.md",
+		"/media/webmoderna/xampp/htdocs/17._Villabrochero/wp-content/themes/villabrochero/README.md",
+		"/media/webmoderna/xampp/htdocs/17._Villabrochero/wp-content/themes/villabrochero/.gitignore",
+		"/media/webmoderna/xampp/htdocs/17._Villabrochero/wp-content/themes/villabrochero/.gitattributes",
+		"/media/webmoderna/xampp/htdocs/17._Villabrochero/wp-content/themes/villabrochero/browserconfig.xml",
+		"/media/webmoderna/xampp/htdocs/17._Villabrochero/villabrochero.sublime-project",
+		"/media/webmoderna/xampp/htdocs/17._Villabrochero/instrucciones_villabrochero.trec",
+		"/home/webmoderna/Escritorio/www/55._emyth/wp-content/themes/emyth/options-framework-theme-master/options.php",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-content/themes/desarrollos/options.php",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-content/themes/desarrollos/footer.php",
+		"/home/webmoderna/Escritorio/www/55._emyth/wp-content/themes/emyth/includes/options-framework.php",
+		"/home/webmoderna/Escritorio/www/55._emyth/wp-content/themes/emyth/options.php",
+		"/home/webmoderna/Escritorio/www/43._webmoderna/wp-content/themes/webmoderna/includes/05._options-framework.php",
+		"/home/webmoderna/Escritorio/www/43._webmoderna/wp-content/themes/webmoderna/home.php",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-content/themes/desarrollos/functions.php",
+		"/home/webmoderna/Escritorio/www/43._webmoderna/wp-content/themes/webmoderna/includes/09._thumbnails.php",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-content/themes/desarrollos/home.php",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-content/themes/desarrollos/includes/09._thumbnails.php",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-content/themes/desarrollos/style.css",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-content/themes/desarrollos/includes/03._el_slider.php",
+		"/home/webmoderna/Escritorio/www/55._emyth/wp-content/themes/emyth/home.php",
+		"/home/webmoderna/Escritorio/www/55._emyth/wp-content/themes/emyth/servicios.php",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-content/themes/desarrollos/includes/04._regenerate-thumbnails.php",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-content/themes/desarrollos/page.php",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-content/themes/desarrollos/css/index.css",
+		"/home/webmoderna/Escritorio/www/55._emyth/maqueta-emyth2/stylus/style.min.styl",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-content/themes/desarrollos/stylus/normalize.styl",
+		"/home/webmoderna/Escritorio/www/24._elticotico/wp-content/themes/desarrollos/functions.php",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-content/themes/desarrollos/single.php",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-config.php",
+		"/home/webmoderna/Escritorio/www/61._zimmerman/wp-content/themes/webmoderna/options.php",
+		"/home/webmoderna/Escritorio/www/61._zimmerman/wp-config.php",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/.htaccess",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-content/upgrade/.htaccess",
+		"/home/webmoderna/Escritorio/www/20._digenno/wp-content/upgrade/wp-config.php",
+		"/home/webmoderna/Escritorio/www/20._digenno/wp-config.php",
+		"/home/webmoderna/Escritorio/www/43._webmoderna/wp-content/upgrade/wp-config.php",
+		"/home/webmoderna/Escritorio/www/42._nancymoreno/wp-config.php",
+		"/home/webmoderna/Escritorio/www/43._webmoderna/wp-content/themes/webmoderna/functions.php",
+		"/home/webmoderna/Escritorio/www/24._elticotico/wp-content/themes/desarrollos/includes/03._el_slider.php",
+		"/home/webmoderna/Escritorio/www/43._webmoderna/wp-content/themes/webmoderna/stylus/style.styl",
+		"/home/webmoderna/Escritorio/www/43._webmoderna/wp-content/themes/webmoderna/stylus/normalize.styl",
+		"/home/webmoderna/Escritorio/www/24._elticotico/wp-content/themes/desarrollos/stylus/normalize.styl-master/index.styl",
+		"/home/webmoderna/Escritorio/www/43._webmoderna/wp-content/themes/webmoderna/header.php",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-content/themes/desarrollos/index.php",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-content/themes/desarrollos/header.php",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-content/themes/desarrollos/screenshot.png",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-content/themes/desarrollos/single.php2",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-content/themes/desarrollos/scripts.php",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/.gitignore",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/README.md",
+		"/media/webmoderna/xampp/htdocs/Inactivos/24._Elticotico/wp-includes/Text/Diff/Engine/shell.php",
+		"/media/webmoderna/xampp/htdocs/Inactivos/24._Elticotico/goiar.html",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-content/themes/desarrollos/html5.html",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/index.php",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-content/themes/desarrollos/style.php",
+		"/media/webmoderna/xampp/htdocs/43._webmoderna/wp-content/themes/webmoderna/header.php",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-content/themes/desarrollos/js/jQueryCyclePlugin.js",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/wp-content/themes/desarrollos/resguardo por las dudas.txt",
+		"/media/webmoderna/xampp/htdocs/24._elticotico/datos/datos tico tico.txt",
+		"/media/webmoderna/xampp/htdocs/20._digenno/.gitignore",
+		"/media/webmoderna/xampp/htdocs/20._digenno/README.md",
+		"/media/webmoderna/xampp/htdocs/20._digenno/wp-content/upgrade/wp-config.php",
+		"/media/webmoderna/xampp/htdocs/20._digenno/maqueta-webtranslations/blog.html",
+		"/media/webmoderna/xampp/htdocs/20._digenno/robots.txt",
+		"/media/webmoderna/xampp/htdocs/20._digenno/wp-content/themes/webtranslations/stylus/base/animations.styl",
+		"/media/webmoderna/xampp/htdocs/20._digenno/wp-content/themes/webtranslations/stylus/base/fonts.styl",
+		"/media/webmoderna/xampp/htdocs/20._WebTranslation/wp-content/upgrade/wp-config.php",
+		"/media/webmoderna/xampp/htdocs/20._WebTranslation/wp-content/themes/webtranslations/functions.php",
+		"/media/webmoderna/xampp/htdocs/20._WebTranslation/wp-content/upgrade/.htaccess",
+		"/media/webmoderna/xampp/htdocs/43._webmoderna/wp-content/upgrade/wp-config.php",
+		"/media/webmoderna/xampp/htdocs/43._webmoderna/wp-content/themes/webmoderna/functions.php",
+		"/media/webmoderna/xampp/htdocs/43._webmoderna/wp-content/upgrade/.htaccess",
+		"/media/webmoderna/xampp/htdocs/42._nancymoreno/wp-content/themes/alexiamora/home.php",
+		"/media/webmoderna/xampp/htdocs/42._nancymoreno/wp-content/upgrade/.htaccess",
+		"/media/webmoderna/xampp/htdocs/42._nancymoreno/wp-content/themes/alexiamora/functions.php",
+		"/media/webmoderna/xampp/htdocs/42._nancymoreno/wp-content/upgrade/wp-config.php",
+		"/media/webmoderna/xampp/htdocs/42._nancymoreno/.gitignore",
+		"/media/webmoderna/xampp/htdocs/43._webmoderna/.gitignore",
+		"/media/webmoderna/xampp/htdocs/43._webmoderna/wp-content/wp-config.php",
+		"/media/webmoderna/xampp/htdocs/42._nancymoreno/wp-content/themes/alexiamora/css/package.json",
+		"/media/webmoderna/xampp/htdocs/42._nancymoreno/wp-content/themes/alexiamora/css/.travis.yml",
+		"/media/webmoderna/xampp/htdocs/61._zimmerman/wp-config.php",
+		"/media/webmoderna/xampp/htdocs/55._emyth/.gitignore",
+		"/home/webmoderna/maskprocessor/src/diccionarin",
+		"/opt/lampp/htdocs/28._edificarinmobiliaria/wp-content/themes/edificarinmobiliaria/includes/demo.php",
+		"/opt/lampp/htdocs/28._edificarinmobiliaria/wp-content/themes/edificarinmobiliaria/functions.php",
+		"/opt/lampp/htdocs/28._edificarinmobiliaria/wp-content/themes/edificarinmobiliaria/header.php",
+		"/opt/lampp/htdocs/28._edificarinmobiliaria/wp-content/themes/edificarinmobiliaria/includes/meta-box/inc/fields/text.php",
+		"/home/webmoderna/pixiewps-master/README.md",
+		"/media/webmoderna/Mis Documentos/Mis Programas/Lamp Linux/instrucciones de instalación.txt",
+		"/home/webmoderna/Documentos/Mis Programas/Lamp Linux/instrucciones de instalación.txt",
+		"/home/webmoderna/reaver-wps-fork-t6x-master/README.md",
+		"/home/webmoderna/Descargas/Bachatita.txt",
+		"/home/webmoderna/START",
+		"/opt/lampp/htdocs/28._edificarinmobiliaria/wp-config.php",
+		"/opt/lampp/htdocs/28._edificarinmobiliaria/wp-content/themes/edificarinmobiliaria/includes/meta-box/js/map-frontend.js",
+		"/media/webmoderna/xampp/htdocs/28._edificarinmobiliaria/mapa.html",
+		"/media/webmoderna/xampp/htdocs/43._webmoderna/wp-config.php",
+		"/opt/lampp/htdocs/28._edificarinmobiliaria/wp-config3.php",
+		"/opt/lampp/htdocs/28._edificarinmobiliaria/wp-config2.php",
+		"/opt/lampp/htdocs/28._edificarinmobiliaria/wp-content/themes/edificarinmobiliaria/includes/meta-box/inc/fields/input.php",
+		"/opt/lampp/htdocs/28._edificarinmobiliaria/wp-content/themes/edificarinmobiliaria/includes/meta-box/js/map.js",
+		"/opt/lampp/htdocs/28._edificarinmobiliaria/wp-content/themes/edificarinmobiliaria/includes/meta-box/inc/fields/map.php",
+		"/media/webmoderna/xampp/htdocs/28._edificarinmobiliaria/google5a818c41c7dacf1c.html",
+		"/opt/lampp/htdocs/28._edificarinmobiliaria/wp-content/themes/edificarinmobiliaria/includes/meta-box/inc/fields/hidden.php",
+		"/opt/lampp/htdocs/28._edificarinmobiliaria/wp-content/themes/edificarinmobiliaria/includes/meta-box/meta-box.php",
+		"/opt/lampp/htdocs/28._edificarinmobiliaria/wp-content/themes/edificarinmobiliaria/includes/wp-config.php",
+		"/opt/lampp/htdocs/28._edificarinmobiliaria/.htaccess",
+		"/opt/lampp/htdocs/28._edificarinmobiliaria/datos/datos.txt",
+		"/media/webmoderna/Mis Documentos/Mis ebooks/Informática/como migrar wordpress de local a la nube.html",
+		"/opt/lampp/htdocs/28._edificarinmobiliaria/wp-activate.php",
+		"/home/webmoderna/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/home/webmoderna/.config/sublime-text-3/Packages/Default/Default (Linux).sublime-keymap",
+		"/media/webmoderna/Datos/xampp/htdocs/28._edificarinmobiliaria/wp-content/themes/edificarinmobiliaria/functions.php"
+	],
+	"find":
+	{
+		"height": 28.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 40.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "untitled.sublime-project",
+	"replace":
+	{
+		"height": 52.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 305.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
