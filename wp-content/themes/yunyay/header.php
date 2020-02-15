@@ -30,7 +30,7 @@ if( is_front_page() || is_search() || is_404() ) {?>
 	<link type="text/css" rel="stylesheet" href="<?php bloginfo('stylesheet_directory');?>/css/datepicker.css" />
 <?php };?>
 
-<?php if (wp_is_mobile()==false) { //Condicionales para IE ?>
+<?php if (!wp_is_mobile()) { //Condicionales para IE ?>
 	<!--[if IE 8]>
 	<script async type="text/javascript" src="<?php bloginfo('stylesheet_directory');?>/js/html5.js"></script>
 	<script async type="text/javascript" src="<?php bloginfo('stylesheet_directory');?>/js/respond.js"></script>
@@ -82,9 +82,9 @@ if( is_front_page() || is_search() || is_404() ) {?>
 								}
 								else
 								{
-									bloginfo('stylesheet_directory');?>/img/logo_full_2.png
+									bloginfo('stylesheet_directory');?>/img/logo full 3.png
 								<?php }?>"
-								alt="Logo de Cabañas Yunyay" />
+								alt="Cabañas Yunyay" />
 						</h1>
 					</a>
 				</figure>

@@ -1,0 +1,55 @@
+h2:hover:after,
+h3:hover:after,
+h4:hover:after
+	left 0
+	opacity 1
+	visibility visible
+
+h3,
+h4,
+h5,
+h6
+	color #E39250
+	display inline-block
+	margin 1.2em 1em 0.1em 1em
+
+h2:after,
+h3:after,
+h4:after
+	content "  »"
+	left -0.5em
+	opacity 0
+	position relative
+	transition all 0.3s ease-in-out
+	visibility hidden
+
+h2,
+h3,
+h4,
+h5,
+h6
+	font-family 'Raleway'
+	font-weight lighter
+
+h1
+	margin 0
+	padding 0
+
+h2
+	font-size 1.2em
+	text-align center
+	text-transform uppercase
+	&:hover
+		&:before
+			opacity 1
+			right 0
+			visibility visible
+
+	&:before
+		content "«  "
+		opacity 0
+		position relative
+		right -0.5em
+		transition all 0.3s ease-in-out
+		visibility hidden
+

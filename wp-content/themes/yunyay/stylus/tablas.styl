@@ -1,0 +1,38 @@
+// Todas las tablas
+.table tbody tr:nth-child(even), .table tfoot tr:nth-child(odd)
+	background: #3F6565
+
+.table thead th, .table caption
+	padding: 0.3em
+	text-align: center
+	vertical-align: top
+
+.table tr td[colspan="2"], .table tr td[colspan="6"], .table tr td[colspan="4"], .table thead th
+	background: #8EC88D
+	border: 1px solid #ccc
+	color: #111
+	text-align: center
+	text-shadow: 1px 1px 0.5px #eee
+
+.table tr td.subtitulo, .table caption
+	background: #DC5B34
+	color: #fff
+	font-style: normal
+	padding: 0.5em
+	text-align: center
+	text-transform: uppercase
+	text-shadow: 0px -1px 0px $negro_oscuro_transparente
+
+.table
+	font-size: 0.7em
+	margin-top: 1em
+	width: auto
+	tr
+		td
+			border: 1px solid rgba(250,250,250,0.2)
+			padding: 0.5em
+			text-align: right
+			width: auto
+			&:first-child
+				text-align: left
+

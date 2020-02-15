@@ -14,20 +14,20 @@ $twitter_contact		=	of_get_option( 'twitter_contact', '');
 
 ?>
 
-				<div class="footer_bg">
+				<!-- <div class="footer_bg">-->
 					<!--[if IE 8]>
-						<img src="<?php bloginfo('stylesheet_directory');?>/img/footer_bg.png" alt="<?php _e('Imagen de fondo', 'yunyay');?>" />
+						<img src="<?php //bloginfo('stylesheet_directory');?>/img/footer_bg.png" alt="<?php //_e('Imagen de fondo', 'yunyay');?>" />
 					<![endif]-->
-				</div>
-				<div id="mensaje">
+				<!--</div> -->
+				<!-- <div id="mensaje">
 					<?php //Pie de página. Mensaje
-						$recent = new WP_Query("page_id=42");
+						/*$recent = new WP_Query("page_id=42");
 						while($recent->have_posts()) : $recent->the_post();
 						the_content();
 						endwhile; 
-						wp_reset_query();
+						wp_reset_query();*/
 					?>
-				</div>
+				</div> -->
 			</article><!-- #home_slider -->
 		</section>
 		<footer>

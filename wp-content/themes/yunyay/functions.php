@@ -579,7 +579,7 @@ function register_cpt_cabana()
 }
 
 //Relativas las urls
-// add_action( 'template_redirect', 'relative_url' );
+add_action( 'template_redirect', 'relative_url' );
 
   function relative_url() {
     // Don't do anything if:
