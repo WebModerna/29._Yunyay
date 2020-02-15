@@ -36,7 +36,8 @@
 								{
 									echo '<img src="'.get_stylesheet_directory_uri().'/img/gravatar.png" alt="'.__('Sin imagen', 'hotellosrobles').'" />';
 								};?>
-							<?php if(wpmd_is_notphone()) {
+							<?php if(wpmd_is_notphone())
+							{
 								$attachID = (get_post_meta( $post->ID, 'custom_imagenrepetible',true));
 								if ($attachID !== '')
 								{
@@ -46,11 +47,11 @@
 										$alt = get_post_meta($item, '_wp_attachment_image_alt', true);
 										$descripcion = get_post_field('post_content', $item);
 										echo '<img class="item" src="' . $imagen[0] . '"';
-										if (count($alt)) { echo ' alt="' . $alt . '"';
-									}
+										echo ' alt="' . $alt . '"';
 									echo ' />';
-								};};}; //No se porqué pero acá tiene que haber dos llaves; de lo contrario no funciona.
-							?>
+									}
+								}
+							}?>
 						</div><!-- .cycle-slideshow -->
 						<?php if(wpmd_is_notphone()) { ?>
 						<div class="navegacion">
@@ -66,7 +67,8 @@
 					<?php the_content();?>
 					<figure>
 						<div>
-						<?php if(wpmd_is_phone()) {
+						<?php if(wpmd_is_phone())
+						{
 							$attachID = (get_post_meta( $post->ID, 'custom_imagenrepetible',true));
 							if ($attachID !== '')
 							{
@@ -76,11 +78,11 @@
 									$alt = get_post_meta($item, '_wp_attachment_image_alt', true);
 									$descripcion = get_post_field('post_content', $item);
 									echo '<img class="item" src="' . $imagen[0] . '"';
-									if (count($alt)) { echo ' alt="' . $alt . '"';
+									echo ' alt="' . $alt . '"';
+									echo ' />';
 								}
-								echo ' />';
-							};};}; //No se porqué pero acá tiene que haber dos llaves; de lo contrario no funciona.
-						?>
+							}
+						}?>
 						</div>
 					</figure>
 				</div><!-- .list_item -->

@@ -24,7 +24,7 @@ if( is_front_page() || is_search() || is_404() ) {?>
 <title><?php the_title();?> | <?php bloginfo('name');?></title>
 <?php };
 ?>
-	<link type="text/css" rel="stylesheet" href="<?php bloginfo('stylesheet_directory');?>/style.css" />
+	<link type="text/css" rel="stylesheet" href="<?php bloginfo('stylesheet_directory');?>/css/style.css" />
 
 <?php if(is_page()=='contacto') { ?>
 	<link type="text/css" rel="stylesheet" href="<?php bloginfo('stylesheet_directory');?>/css/datepicker.css" />
