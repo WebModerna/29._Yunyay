@@ -40,20 +40,20 @@ if( is_front_page() || is_search() || is_404() ) {?>
 <?php };?>
 	
 <?php if (wpmd_is_ios()) { //Los Favicones para iOS ?>
-	<link rel="apple-touch-icon-precomposed" sizes="57x57" href="<?php bloginfo('url');?>/apple-touch-icon-57x57.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php bloginfo('url');?>/apple-touch-icon-114x114.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php bloginfo('url');?>/apple-touch-icon-72x72.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php bloginfo('url');?>/apple-touch-icon-144x144.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="60x60" href="<?php bloginfo('url');?>/apple-touch-icon-60x60.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="120x120" href="<?php bloginfo('url');?>/apple-touch-icon-120x120.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="76x76" href="<?php bloginfo('url');?>/apple-touch-icon-76x76.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="152x152" href="<?php bloginfo('url');?>/apple-touch-icon-152x152.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="57x57" href="<?php bloginfo('stylesheet_directory');?>/img/apple-touch-icon-57x57.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php bloginfo('stylesheet_directory');?>/img/apple-touch-icon-114x114.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php bloginfo('stylesheet_directory');?>/img/apple-touch-icon-72x72.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php bloginfo('stylesheet_directory');?>/img/apple-touch-icon-144x144.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="60x60" href="<?php bloginfo('stylesheet_directory');?>/img/apple-touch-icon-60x60.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="120x120" href="<?php bloginfo('stylesheet_directory');?>/img/apple-touch-icon-120x120.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="76x76" href="<?php bloginfo('stylesheet_directory');?>/img/apple-touch-icon-76x76.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="152x152" href="<?php bloginfo('stylesheet_directory');?>/img/apple-touch-icon-152x152.png" />
 <?php }; //Favicones generales ?>
-	<link rel="icon" type="image/png" href="<?php bloginfo('url');?>/favicon-196x196.png" sizes="196x196" />
-	<link rel="icon" type="image/png" href="<?php bloginfo('url');?>/favicon-96x96.png" sizes="96x96" />
-	<link rel="icon" type="image/png" href="<?php bloginfo('url');?>/favicon-32x32.png" sizes="32x32" />
-	<link rel="icon" type="image/png" href="<?php bloginfo('url');?>/favicon-16x16.png" sizes="16x16" />
-	<link rel="icon" type="image/png" href="<?php bloginfo('url');?>/favicon-128.png" sizes="128x128" />
+	<link rel="icon" type="image/png" href="<?php bloginfo('stylesheet_directory');?>/img/favicon-196x196.png" sizes="196x196" />
+	<link rel="icon" type="image/png" href="<?php bloginfo('stylesheet_directory');?>/img/favicon-96x96.png" sizes="96x96" />
+	<link rel="icon" type="image/png" href="<?php bloginfo('stylesheet_directory');?>/img/favicon-32x32.png" sizes="32x32" />
+	<link rel="icon" type="image/png" href="<?php bloginfo('stylesheet_directory');?>/img/favicon-16x16.png" sizes="16x16" />
+	<link rel="icon" type="image/png" href="<?php bloginfo('stylesheet_directory');?>/img/favicon-128.png" sizes="128x128" />
 <?php flush();?>
 <?php wp_head();?>
 </head>

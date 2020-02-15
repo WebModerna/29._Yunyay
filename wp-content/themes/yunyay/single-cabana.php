@@ -60,7 +60,7 @@
 											if ($imagen_chica[0]!='') 
 											{
 												echo '<img src="'.$imagen_chica[0].'" alt="'.$alt.'" />';
-												if (count($alt)) {};
+												
 											}
 											else
 											{
@@ -94,7 +94,7 @@
 										if ($imagen[0]!='') 
 										{
 											echo '<a title="'.$alt.'" class="fancybox" rel="gallery'.$post->ID.'" href="'.$imagen[0].'">';
-											if (count($alt)) {};
+											
 											echo '</a>';
 										}
 									};
@@ -118,7 +118,7 @@
 										if ($imagen[0]!='') 
 										{
 											echo '<img src="'.$imagen[0].'" alt="'.$alt.'" />';
-											if (count($alt)) {};
+											
 										}
 										else
 										{

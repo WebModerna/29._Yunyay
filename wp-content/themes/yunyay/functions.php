@@ -260,7 +260,7 @@ function hmuda_image_sizes($sizes)
 
 
 // Habilitar la compresión de imágenes
-add_filter( 'jpeg_quality', create_function( '', 'return 50;' ) );
+// add_filter( 'jpeg_quality', create_function( '', 'return 50;' ) );
 
 
 //Registrar las menúes de navegación
@@ -565,7 +565,7 @@ function register_cpt_cabana()
         'show_ui' => true,
         'show_in_menu' => true,
         'menu_position' => 20,
-        'menu_icon' => get_stylesheet_directory_uri().'/favicon.ico',
+        'menu_icon' => get_stylesheet_directory_uri().'/img/favicon.ico',
         'show_in_nav_menus' => true,
         'publicly_queryable' => true,
         'exclude_from_search' => false,
@@ -579,7 +579,7 @@ function register_cpt_cabana()
 }
 
 //Relativas las urls
-add_action( 'template_redirect', 'relative_url' );
+// add_action( 'template_redirect', 'relative_url' );
 
   function relative_url() {
     // Don't do anything if:

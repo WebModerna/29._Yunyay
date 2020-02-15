@@ -29,11 +29,11 @@
 										$alt = get_post_meta($item, '_wp_attachment_image_alt', true);
 										$descripcion = get_post_field('post_content', $item);
 										echo '<img class="item" src="' . $imagen[0] . '"';
-										if (count($alt)) { echo ' alt="' . $alt . '"';
+										echo ' alt="' . $alt . '"';
+										echo ' />';
 									}
-									echo ' />';
-								};
-							};}
+								}
+							}
 						
 							//Tablets
 							if(wpmd_is_tablet())
@@ -47,11 +47,11 @@
 										$alt = get_post_meta($item, '_wp_attachment_image_alt', true);
 										$descripcion = get_post_field('post_content', $item);
 										echo '<img class="item" src="' . $imagen[0] . '"';
-										if (count($alt)) { echo ' alt="' . $alt . '"';
+										echo ' alt="' . $alt . '"';
+										echo ' />';
 									}
-									echo ' />';
-								};
-							};}
+								}
+							}
 						
 		
 							//Desktop.
@@ -66,11 +66,11 @@
 										$alt = get_post_meta($item, '_wp_attachment_image_alt', true);
 										$descripcion = get_post_field('post_content', $item);
 										echo '<img class="item" src="' . $imagen[0] . '"';
-										if (count($alt)) { echo ' alt="' . $alt . '"';
+										echo ' alt="' . $alt . '"';
+										echo ' />';
 									}
-									echo ' />';
-								};
-							};}
+								}
+							}
 							endwhile; endif;?>
 					<div class="navegacion">
 						<div class="back"><a class="boton_general" href="#navegacion">‹</a></div>
