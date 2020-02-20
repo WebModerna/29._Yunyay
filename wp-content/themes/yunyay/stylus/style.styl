@@ -1,3 +1,6 @@
+@import 'node_modules/nib/lib/nib/index.styl'
+// @import 'nib/gradients'
+// @import 'nib/buttons'
 @import "normalize.styl"
 @import "fuentes.styl"
 @import "variables.styl"
@@ -7,11 +10,6 @@ a
 	text-decoration none
 	transition all 0.4s ease-in-out
 
-article
-	background $negro_oscuro_transparente
-	// border 2px solid transparent
-	// border-radius 5px
-	overflow hidden
 
 body
 /*
@@ -26,6 +24,7 @@ body
 	background-size 1400px
 	color #eee
 */
+	background $blanco_anaranjado
 	font-family 'Open Sans'
 	font-size 18px
 	font-weight normal
@@ -68,49 +67,50 @@ img.avatar
 {
 	width: auto;
 }
-nav
-{
+
+.header
+	position relative
+
+.barra_navegacion
 	font-family: 'Raleway';
-}
-nav ul
-{
-	margin: 0;
-	padding-left: 0;
-	padding-right: 0;
-}
-nav ul li
-{
-	list-style: none;
-	margin: 1px 0;
-}
-nav ul li a
-{
-	background: rgba(30,30,30,0.85);
-	display: block;
-	padding: 1em;
-	text-shadow: 0px -1px 0px $negro_oscuro_transparente;
-}
-nav ul li a:hover
-{
-	background: #eee;
-	color: #003333;
-}
-nav ul li ul
-{
-	display: block;
-	height: 0;
-	opacity: 0;
-	overflow: hidden;
-	transition: all 0.4s ease-in-out;
-}
-nav ul ul li.current-menu-item a
-	background: #E39150;
+	position absolute
+	right 0px
+	top 0
+	z-index 345
+
+	ul
+		margin: 0;
+		padding-left: 0;
+		padding-right: 0;
+
+		li
+			list-style: none;
+			margin: 1px 0;
+
+			a
+				background: rgba(30,30,30,0.85);
+				display: block;
+				padding: 0.5rem 1rem;
+				text-shadow: 0px -1px 0px $negro_oscuro_transparente;
+
+				&:hover
+					background: #eee;
+					color: #003333;
+
+			ul
+				display: block;
+				height: 0;
+				opacity: 0;
+				overflow: hidden;
+				transition: all 0.1s ease-in-out;
+
+				li.current-menu-item a
+					background: #E39150;
 
 
 p
-{
 	margin: 0.3em 0.5em;
-}
+
 
 // Todas las tablas
 @import "tablas.styl"
@@ -164,26 +164,32 @@ ul
 // los id's
 
 #boton_menu
-	display block
-	width 100%
+	// display block
+	// width 100%
 
 	div.circle
-		background #666
-		border-radius 1em
-		box-shadow 0px 1px 0px 0px rgba(255,255,255,0.5) inset, 0px -15px 15px 0px $negro_oscuro_transparente inset;
-		display block
+		// background #666
+		// border-radius 1em
+		// box-shadow 0px 1px 0px 0px rgba(255,255,255,0.5) inset, 0px -15px 15px 0px $negro_oscuro_transparente inset;
+		// display block
 		float right
-		font-size 1em
-		margin 0 0 0 1em
-		padding 0.3em 0.8em 0.5em 0.8em
-		line-height 100%
+		font-size 20px
+		// margin 0 0 0 1em
+		padding 0.3rem
+		// line-height 100%
 		text-align center
 		text-shadow 0px -1px 0px $negro_oscuro_transparente
 
 	&:hover div.circle
 		border-color #003333
 		color #eee
-
+#boton_menu > a
+	background none
+	display inline-block
+	float right
+	margin 0
+	color #DC5B34
+	width auto
 
 #googlemaps
 {
@@ -192,9 +198,18 @@ ul
 	overflow: hidden;
 }
 #home_slider
-{
-	overflow: hidden;
-}
+	overflow hidden
+	img
+		height 100vh
+		object-fit cover
+
+
+	
+
+.seccion_principal
+	box-sizing border-box
+	
+
 #home_slider #ventana
 {
 	z-index: 12;
@@ -225,11 +240,12 @@ ul
 
 #logo
 #logo_home
-	background $blanco_anaranjado
+	// background $blanco_anaranjado
 	margin 0
 	position relative
 	transition all 0.4s ease-in-out
 	width 100%
+	z-index 999
 
 
 #logo div, #logo figure, #logo_home figure, #logo_home div
@@ -291,7 +307,7 @@ ul
 }
 #ventana
 {
-	background: -moz-linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.65) 100%);
+/*	background: -moz-linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.65) 100%);
 	background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,0.65)));
 	background: -webkit-linear-gradient(45deg, rgba(255,255,255,0) 0%,rgba(255,255,255,0.65) 100%);
 	background: -o-linear-gradient(45deg, rgba(255,255,255,0) 0%,rgba(255,255,255,0.65) 100%);
@@ -304,6 +320,8 @@ ul
 	transform: rotate(25deg) translateX(50%) translateY(-25%);
 	width: 100%;
 	z-index: -1;
+	*/
+	display none
 }
 
 
@@ -488,7 +506,7 @@ ul
 }
 .list_item
 {
-	background: rgba(0,0,0,0.5);
+	// background: rgba(0,0,0,0.5);
 	box-sizing: border-box;
 	padding: 0.1em 0.5em 0.5em 0.5em;
 	margin: 0 0.5em 1em 0.5em;
@@ -642,6 +660,8 @@ ul
 	padding: 0;
 	margin: -2px -2px;
 }
+.separador
+	display none
 // el formulario
 div.wpcf7-response-output
 {
@@ -711,7 +731,7 @@ div.wpcf7 .placeheld
 	h1
 		font-size 1.3em
 
-	nav
+	.barra_navegacion
 		ul
 			li
 				&:hover
@@ -992,7 +1012,7 @@ div.wpcf7 .placeheld
 	}
 	.separador
 	{
-		display: block;
+		display: none !important;
 		margin-top: 3.1em;
 		width: 100%;
 	}
@@ -1017,6 +1037,46 @@ div.wpcf7 .placeheld
 	}
 }
 
+@media screen and (min-width: 961px)
+	.hidden
+		display block !important
+
+	.barra_navegacion
+		display block
+		height 100%
+		position relative
+		text-align right
+
+		ul
+			height 100%
+			padding 0
+			margin 0
+
+			li
+				display inline-block
+				height 100%
+				a
+					height 100%
+	
+	.ventanilla
+		background: linear-gradient(to bottom, rgba(255,255,255,0.95) 0%,rgba(204,204,204,0.8) 10%, rgba(204,204,204,0) 20%, rgba(51,51,51,0) 80%,rgba(0,0,0,0.4) 100%)
+		display block
+		height 100%
+		width 100%
+		z-index 112
+		position absolute
+		top 0
+		left 0
+	
+	#boton_menu
+		display none
+
+	#header_nav
+		display block !important
+		height 60px
+		opacity 1
+		overflow hidden
+		
 // Retina Display
 /*@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-ms-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 240dpi) {
 	@media only screen and (min-width: 650px) {

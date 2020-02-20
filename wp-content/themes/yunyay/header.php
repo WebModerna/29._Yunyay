@@ -59,7 +59,7 @@ if( is_front_page() || is_search() || is_404() ) {?>
 </head>
 <body>
 	<div id="contenedor">
-		<header>
+		<header class="header">
 			<?php if(is_front_page()) { 
 				/*Acá coloqué unos estilos que eliminan los contornos. Pero tuve que hacerlo detro de un condicional para que funcione solo en la home*/
 				?>
@@ -89,13 +89,12 @@ if( is_front_page() || is_search() || is_404() ) {?>
 					</a>
 				</figure>
 			</div><!-- #logo -->
-			<nav>
+			<nav class="barra_navegacion">
 				<ul>
 					<li>
 						<div id="boton_menu">
 							<a href="#">
-								Menú
-								<div class="circle boton_general">›</div>
+								<div class="circle boton_general">&#9776;</div>
 								<div class="clearfix"></div>
 							</a>
 						</div><!-- #boton_menu -->
@@ -113,4 +112,4 @@ if( is_front_page() || is_search() || is_404() ) {?>
 				</ul>
 			</nav>
 		</header>
-		<section>
+		<section class="seccion_principal">

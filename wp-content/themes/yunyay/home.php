@@ -72,6 +72,7 @@
 								}
 							}
 							endwhile; endif;?>
+					<div class="ventanilla"></div>
 					<div class="navegacion">
 						<div class="back"><a class="boton_general" href="#navegacion">‹</a></div>
 						<div class="next"><a class="boton_general" href="#navegacion">›</a></div>
