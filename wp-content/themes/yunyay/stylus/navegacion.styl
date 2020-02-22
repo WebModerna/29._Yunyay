@@ -1,0 +1,99 @@
+.navegacion
+	display block
+	font-family 'Raleway'
+	font-weight lighter
+	position absolute
+	top 35%
+	width 100%
+	z-index 120
+	div
+		display: inline-block
+		&.back
+			float left
+			a
+				border-radius 0 0.2em 0.2em 0
+				border-right 4px solid rgba(0,0,0,0.5)
+				border-top 2px solid rgba(0,0,0,0.5)
+		a
+			background rgba(0,0,0,0.3)
+			color #eee
+			cursor pointer
+			font-size 3em
+			padding 0 0.3em 0.2em 0.3em
+			&:hover
+				color #E39250
+		&.next
+			float right
+			a
+				border-left: 4px solid rgba(0,0,0,0.5)
+				border-radius: 0.2em 0 0 0.2em
+				border-top: 2px solid rgba(0,0,0,0.5)
+
+
+// BArra navegacion del menú principal
+.barra_navegacion
+	font-family: 'Raleway'
+	position absolute
+	right 0px
+	top 0
+	z-index 344
+
+	ul
+		margin: 0
+		padding-left: 0
+		padding-right: 0
+
+		li
+			list-style: none
+			margin: 1px 0
+
+			a
+				background: rgba(30,30,30,0.85)
+				display: block
+				padding: 0.5rem 1rem
+				text-shadow: 0px -1px 0px $negro_oscuro_transparente
+
+				&:hover
+					background: #eee
+					color: #003333
+
+			ul
+				display block
+				height 0
+				opacity 0
+				overflow hidden
+
+				li.current-menu-item a
+					background: #E39150
+
+
+@media screen and (min-width: 961px)
+	.barra_navegacion
+		display block
+		height 100%
+		position relative
+		text-align right
+
+		ul
+			height 100%
+			padding 0
+			margin 0
+
+			li
+				display inline-block
+				height 100%
+
+				a
+					background none
+					height 100%
+					text-shadow none
+
+					&:hover
+						background linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 64%, rgba(220, 91, 52, 0.5) 65%, rgba(220, 91, 52, 0.5) 100%)
+						color $naranja
+			
+				ul
+					li.current-menu-item a
+						background linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 64%, $naranja 65%, $naranja 100%)
+	
+	

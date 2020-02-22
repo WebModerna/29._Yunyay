@@ -94,8 +94,7 @@ if( is_front_page() || is_search() || is_404() ) {?>
 					<li>
 						<div id="boton_menu">
 							<a href="#">
-								<div class="circle boton_general">&#9776;</div>
-								<div class="clearfix"></div>
+								<div id="menu_hamburguesa" class="circle boton_general">&#9776;</div>
 							</a>
 						</div><!-- #boton_menu -->
 						<?php 
@@ -110,6 +109,7 @@ if( is_front_page() || is_search() || is_404() ) {?>
 						?>
 					</li>
 				</ul>
+				<div class="clearfix"></div>
 			</nav>
 		</header>
 		<section class="seccion_principal">

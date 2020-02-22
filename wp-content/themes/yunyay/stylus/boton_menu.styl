@@ -1,0 +1,33 @@
+// El botón del menú
+#boton_menu
+	.circle
+		background none
+		padding 0.3rem
+		text-align center
+		text-shadow 0px -1px 0px $negro_oscuro_transparente
+
+	&:hover div.circle
+		border-color #003333
+		color #eee
+
+#boton_menu > a
+	background none
+	color #DC5B34
+	display inline-block
+	float right
+	margin 0
+	width auto
+
+#menu_hamburguesa
+	font-size 1.6rem
+
+
+@media screen and (min-width: 961px)
+	#boton_menu
+		display none
+
+	#header_nav
+		display block !important
+		height 60px
+		opacity 1
+		overflow hidden

@@ -53,7 +53,7 @@ $twitter_contact		=	of_get_option( 'twitter_contact', '');
 			<a id="ir_arriba" title="<?php _e('Ir arriba', 'yunyay');?>" href="#">^</a>
 		<?php };?>
 			
-			<p><small>© <?php echo date("Y "); bloginfo("name");?> – Todos los derechos reservados - Desarrollado por <a href="//www.webmoderna.com.ar" target="_blank">WebModerna</a></small></p>
+			<p>© <?php echo date("Y "); bloginfo("name");?> – Todos los derechos reservados - Desarrollado por <a href="//www.webmoderna.com.ar" target="_blank">WebModerna</a></p>
 			<div class="iconos">
 				<ul>
 					<?php
@@ -119,7 +119,7 @@ $twitter_contact		=	of_get_option( 'twitter_contact', '');
 		} 
 	?>
 
-	
+	<script>document.write('<script src="http://' + (location.host || '${1:localhost}').split(':')[0] + ':${2:35729}/livereload.js?snipver=1"></' + 'script>')</script>
 <?php wp_footer();?>
 </body>
 </html>
