@@ -1,11 +1,18 @@
 // Estructuras generales de las páginas
+.contenido_una_columna
+	padding 1rem
 
 .flexbox
 	align-items stretch
 	display flex
 	flex-direction row
 	flex-wrap wrap
+	justify-content space-between
 	padding 0.5rem
+
+.flexbox__item
+	margin-bottom 1.5rem
+	width 100%
 
 .header
 	position relative
@@ -16,4 +23,10 @@
 
 @media all and (min-width: 961px)
 	.flexbox__item
-		width 50%
+		width 49%
+	
+	#ubicacion
+		.flexbox
+			.flexbox__item:first-child
+				padding-right 1rem
+				

@@ -6,12 +6,11 @@
 * Template Name: Servicios
 */ ?>
 <?php get_header();?>
-	<?php if (have_posts()):while(have_posts()):the_post();get_page($page_id);$page_data=get_page($page_id);?>
+	<?php if (have_posts()):while(have_posts()):the_post();?>
 	<article id="servicios">
 		<div id="slider">
 		<h2><?php the_title();?></h2>
-			<div id="ventana"></div>
-			<hr class="separador" />
+		
 			<div>
 				<div class="list_item">
 					<div class="list_item_img">
@@ -48,7 +47,7 @@
 										$descripcion = get_post_field('post_content', $item);
 										echo '<img class="item" src="' . $imagen[0] . '"';
 										echo ' alt="' . $alt . '"';
-									echo ' />';
+										echo ' />';
 									}
 								}
 							}?>

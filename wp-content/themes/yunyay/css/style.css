@@ -438,41 +438,44 @@ ul li,
 ol li {
   margin: 0.5rem auto;
 }
-form {
+#contacto form {
+  border-top: 1px solid #dc5b34;
+  border-bottom: 1px solid #dc5b34;
   display: block;
-  padding: 0.5em;
-  width: 100%;
+  overflow: hidden;
+  padding: 0.5rem;
 }
-form h3,
-form h4,
-form h5 {
+#contacto form h3,
+#contacto form h4,
+#contacto form h5 {
   display: block;
+  margin-left: 0;
 }
-form input,
-form textarea,
-form select,
-form .vermas,
-form .comment-reply-link {
+#contacto form input,
+#contacto form textarea,
+#contacto form select,
+#contacto form .vermas,
+#contacto form .comment-reply-link {
   border: none;
   color: #666;
   display: block;
-  margin: 0.2em auto 0.2em 0;
-  padding: 0.4em;
-  width: 95%;
+  margin: 0.2rem 0;
+  padding: 0.4rem;
+  width: 98%;
 }
-form *[placeholder] {
+#contacto form *[placeholder] {
   color: #4d7070;
   font-family: "Raleway";
 }
-form input[type="submit"],
-form .button,
-form .vermas,
-form .comment-reply-link {
+#contacto form input[type="submit"],
+#contacto form .button,
+#contacto form .vermas,
+#contacto form .comment-reply-link {
   background: #e39250;
   border: none;
   color: #eee;
   display: inline-block;
-  padding: 0.7em 1.5em;
+  padding: 0.7rem 1.5rem;
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
@@ -480,59 +483,57 @@ form .comment-reply-link {
   transition: all 0.2s ease-in-out;
   width: auto;
 }
-form input[type="submit"]:hover,
-form input[type="submit"]:active,
-form input[type="submit"]:focus {
+#contacto form input[type="submit"]:hover,
+#contacto form input[type="submit"]:active,
+#contacto form input[type="submit"]:focus {
   background: #dc5b34;
 }
-form .button:hover,
-form .button:active,
-form .button:focus {
+#contacto form .button:hover,
+#contacto form .button:active,
+#contacto form .button:focus {
   background: #dc5b34;
 }
-form .vermas:hover,
-form .vermas:active,
-form .vermas:focus {
+#contacto form .vermas:hover,
+#contacto form .vermas:active,
+#contacto form .vermas:focus {
   background: #dc5b34;
 }
-form .comment-reply-link:hover,
-form .comment-reply-link:active,
-form .comment-reply-link:focus {
+#contacto form .comment-reply-link:hover,
+#contacto form .comment-reply-link:active,
+#contacto form .comment-reply-link:focus {
   background: #dc5b34;
 }
-form input#captcha,
-form input#cantidadpersonas {
+#contacto form input#captcha,
+#contacto form input#cantidadpersonas {
   display: inline-block;
   width: 100px;
 }
-form p img {
+#contacto form p img {
   vertical-align: middle;
   width: 100px !important;
 }
-form select {
+#contacto form select {
   background: none;
   border-bottom: 1px dotted #999 !important;
   color: #4d7070;
   display: inline-block;
   margin: 0.1em 0.1em 0.4em 0;
+  position: relative;
   width: auto;
 }
-form select option {
+#contacto form select option {
   color: #333;
 }
-form select option[selected="selected"] {
+#contacto form select option[selected="selected"] {
   background: #043636;
   color: #d3d3d3;
 }
-form textarea {
-  height: 7em;
+#contacto form textarea {
+  height: 6rem;
 }
-form {
-  padding: 0;
-}
-form input,
-form textarea,
-form select {
+#contacto form input,
+#contacto form textarea,
+#contacto form select {
   border-bottom: 1px dotted #999;
   margin: 1rem auto;
 }
@@ -607,6 +608,9 @@ h2:before {
   transition: all 0.3s ease-in-out;
   visibility: hidden;
 }
+.contenido_una_columna {
+  padding: 1rem;
+}
 .flexbox {
   -webkit-box-align: stretch;
   -moz-box-align: stretch;
@@ -632,7 +636,17 @@ h2:before {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -moz-box-pack: justify;
+  -o-box-pack: justify;
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
   padding: 0.5rem;
+}
+.flexbox__item {
+  margin-bottom: 1.5rem;
+  width: 100%;
 }
 .header {
   position: relative;
@@ -650,7 +664,10 @@ h2:before {
 }
 @media all and (min-width: 961px) {
   .flexbox__item {
-    width: 50%;
+    width: 49%;
+  }
+  #ubicacion .flexbox .flexbox__item:first-child {
+    padding-right: 1rem;
   }
 }
 .table {
@@ -703,6 +720,11 @@ h2:before {
 @media screen and (min-width: 650px) {
   .table {
     font-size: auto;
+  }
+}
+@media screen and (min-width: 960px) {
+  .table {
+    font-size: 1.1rem;
   }
 }
 .wp-caption {
@@ -1201,13 +1223,13 @@ h2:before {
 }
 #irarriba {
   background: rgba(0,0,0,0.5);
-  bottom: 1.2rem;
-  font-size: 0.8rem;
+  bottom: 2.5rem;
+  font-size: 1.5rem;
   display: inline-block;
+  padding: 0.3rem;
   position: fixed;
   right: 0.2em;
   z-index: 999;
-  height: 40px;
 }
 #irarriba:hover {
   background: #dc5b34 !important;
@@ -1217,7 +1239,7 @@ h2:before {
     padding-bottom: 4rem;
   }
   #irarriba {
-    bottom: 0.5rem !important;
+    bottom: 0.5rem;
   }
 }
 @media all and (min-width: 960px) {
@@ -1376,11 +1398,10 @@ h2:before {
   color: #ffa500;
   padding: 0.3em 0.5em;
 }
-#googlemaps {
-  color: #232323;
-  margin: 0.5em;
-  overflow: hidden;
-}
+/*#googlemaps
+	color #232323
+	margin 0.5em
+	overflow hidden*/
 #home_slider {
   overflow: hidden;
 }
@@ -1390,29 +1411,6 @@ h2:before {
 }
 #home_slider {
   z-index: 12;
-}
-#irarriba,
-#ir_arriba {
-  background: rgba(0,0,0,0.5);
-  bottom: 2.2em;
-  display: inline-block;
-  font-family: monospace;
-  font-size: 1.5em;
-  position: fixed;
-  padding: 0.4em 0.5em 0 0.5em;
-  right: 0.2em;
-  text-decoration: none;
-  z-index: 999;
-}
-#irarriba {
-  bottom: 2.2em;
-}
-#ir_arriba {
-  bottom: 0.3em;
-}
-#irarriba:hover,
-#ir_arriba:hover {
-  background: rgba(250,50,50,0.5);
 }
 #logo,
 #logo_home {
@@ -1436,12 +1434,14 @@ h2:before {
 #logo_home figure {
   width: 150px;
 }
-#mapa-curabrochero {
-  margin: 0.5em;
+/*#mapa-curabrochero
+{
+	margin: 0.5em;
 }
-#mapa-curabrochero figcaption:hover a {
-  color: #ffa500;
-}
+#mapa-curabrochero figcaption:hover a
+{
+	color: orange;
+}*/
 #servicios .list_item {
   padding-top: 1em;
 }
@@ -2039,13 +2039,8 @@ div.wpcf7 .placeheld {
   #contenedor {
     position: relative;
   }
-  #googlemaps {
-    margin-top: 0;
-    padding: 0;
-    position: absolute;
-    right: 0;
-    display: inline-block;
-    width: 48%;
+  #googlemaps iframe {
+    height: 100% !important;
   }
   #logo,
   #logo_home {
@@ -2064,9 +2059,6 @@ div.wpcf7 .placeheld {
   #logo figure img,
   #logo_home figure img {
     width: 200px;
-  }
-  #mapa-curabrochero {
-    width: 48%;
   }
   #mensaje {
     font-size: 1.5em;

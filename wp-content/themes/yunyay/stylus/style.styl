@@ -6,7 +6,7 @@
 
 // Estilos del formulario en conjunto
 @import "formulario_en_conjunto.styl"
-@import "formulario.styl"
+
 // Titulares y subtítulos
 @import "encabezados_general.styl"
 
@@ -29,10 +29,10 @@
 @import "navegacion.styl"
 @import "paginacion.styl"
 
-#googlemaps
+/*#googlemaps
 	color #232323
 	margin 0.5em
-	overflow hidden
+	overflow hidden*/
 
 
 #home_slider
@@ -45,29 +45,7 @@
 #home_slider
 	z-index 12
 
-#irarriba,
-#ir_arriba
-	background: rgba(0,0,0,0.5);
-	bottom: 2.2em;
-	display: inline-block;
-	font-family: monospace;
-	font-size: 1.5em;
-	position: fixed;
-	padding: 0.4em 0.5em 0 0.5em;
-	right: 0.2em;
-	text-decoration: none;
-	z-index: 999;
 
-#irarriba
-	bottom 2.2em
-
-#ir_arriba
-	bottom 0.3em
-	
-#irarriba:hover, #ir_arriba:hover
-{
-	background: rgba(250,50,50,0.5);
-}
 
 #logo,
 #logo_home
@@ -87,14 +65,14 @@
 {
 	width: 150px;
 }
-#mapa-curabrochero
+/*#mapa-curabrochero
 {
 	margin: 0.5em;
 }
 #mapa-curabrochero figcaption:hover a
 {
 	color: orange;
-}
+}*/
 
 #servicios .list_item
 {
@@ -500,7 +478,7 @@ div.wpcf7 .placeheld
 		// max-width 900px
 		position relative
 	}
-	#googlemaps
+/*	#googlemaps
 	{
 		margin-top: 0;
 		padding: 0;
@@ -508,6 +486,10 @@ div.wpcf7 .placeheld
 		right: 0;
 		display: inline-block;
 		width: 48%;
+	}*/
+	#googlemaps iframe
+	{
+		height: 100% !important;
 	}
 	#logo, #logo_home
 	{
@@ -525,10 +507,10 @@ div.wpcf7 .placeheld
 	{
 		width: 200px;
 	}
-	#mapa-curabrochero
+/*	#mapa-curabrochero
 	{
 		width: 48%;
-	}
+	}*/
 	#mensaje
 	{
 		font-size: 1.5em;

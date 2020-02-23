@@ -82,9 +82,7 @@ if( is_front_page() || is_search() || is_404() ) {?>
 								}
 								else
 								{
-									bloginfo('stylesheet_directory');?>/img/logo full 3.png
-								<?php }?>"
-								alt="Cabañas Yunyay" />
+									bloginfo('stylesheet_directory');?>/img/logo full 3.png<?php }?>" alt="Cabañas Yunyay" />
 						</h1>
 					</a>
 				</figure>

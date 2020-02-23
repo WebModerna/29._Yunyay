@@ -1,91 +1,103 @@
-
-form
-	display block
-	padding 0.5em
-	width 100%
-
-	h3,
-	h4,
-	h5
+// El formulario
+#contacto
+	form
+		border-top 1px solid $naranja
+		border-bottom 1px solid $naranja
 		display block
+		overflow hidden
+		padding 0.5rem
+		// min-width 100%
 
-	input,
-	textarea,
-	select,
-	.vermas,
-	.comment-reply-link
-		border none
-		color #666
-		display block
-		margin 0.2em auto 0.2em 0
-		padding 0.4em
-		width 95%
+		h3
+		h4
+		h5
+			display block
+			margin-left 0
 
-	// input[placeholder],
-	*[placeholder]
-		color #4D7070
-		font-family "Raleway"
+		input
+		textarea
+		select
+		.vermas
+		.comment-reply-link
+			border none
+			color #666
+			display block
+			margin 0.2rem 0
+			padding 0.4rem
+			width 98%
 
-	input[type="submit"],
-	.button,
-	.vermas,
-	.comment-reply-link
-		background #E39250
-		border none
-		color #eee
-		display inline-block
-		padding 0.7em 1.5em
-		transition all 0.2s ease-in-out
-		width auto
+		// input[placeholder],
+		*[placeholder]
+			color #4D7070
+			font-family "Raleway"
 
-	input[type="submit"]
-		&:hover
-		&:active
-		&:focus		
-			background #DC5B34
+		input[type="submit"],
+		.button,
+		.vermas,
+		.comment-reply-link
+			background #E39250
+			border none
+			color #eee
+			display inline-block
+			padding 0.7rem 1.5rem
+			transition all 0.2s ease-in-out
+			width auto
 
-	.button
-		&:hover
-		&:active
-		&:focus
-			background #DC5B34
+		input[type="submit"]
+			&:hover
+			&:active
+			&:focus		
+				background #DC5B34
 
-	.vermas
-		&:hover
-		&:active
-		&:focus
-			background #DC5B34
+		.button
+			&:hover
+			&:active
+			&:focus
+				background #DC5B34
 
-	.comment-reply-link
-		&:hover
-		&:active
-		&:focus
-			background #DC5B34
+		.vermas
+			&:hover
+			&:active
+			&:focus
+				background #DC5B34
 
-	input#captcha,
-	input#cantidadpersonas
-		display inline-block
-		width 100px
+		.comment-reply-link
+			&:hover
+			&:active
+			&:focus
+				background #DC5B34
 
-	p
-		img
-			vertical-align middle
-			width 100px !important
+		input#captcha,
+		input#cantidadpersonas
+			display inline-block
+			width 100px
 
-	select
-		background none
-		border-bottom 1px dotted #999 !important
-		color #4D7070
-		display inline-block
-		margin 0.1em 0.1em 0.4em 0
-		width auto
+		p
+			img
+				vertical-align middle
+				width 100px !important
 
-		option
-			color #333
+		select
+			background none
+			border-bottom 1px dotted #999 !important
+			color #4D7070
+			display inline-block
+			margin 0.1em 0.1em 0.4em 0
+			position relative
+			width auto
 
-		option[selected="selected"]
-			background #043636
-			color #d3d3d3
+			option
+				color #333
 
-	textarea
-		height 7em
+			option[selected="selected"]
+				background #043636
+				color #d3d3d3
+			
+		textarea
+			height 6rem
+		
+		input
+		textarea
+		select
+			border-bottom 1px dotted #999
+			margin 1rem auto
