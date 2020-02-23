@@ -30,13 +30,10 @@ $twitter_contact		=	of_get_option( 'twitter_contact', '');
 				</div> -->
 			</article><!-- #home_slider -->
 		</section>
-		<footer>
-			<?php //Pie de página. Dirección y demás datos
-				/*$recent = new WP_Query("page_id=44");
-				while($recent->have_posts()) : $recent->the_post();
-				the_content();
-				endwhile; 
-				wp_reset_query();*/
+		<footer class="footer">
+			<?php
+
+				//Pie de página. Dirección y demás datos
 				if( $direccion_web )
 				{
 					echo '<p>' . $direccion_web . '</p>';
@@ -47,55 +44,53 @@ $twitter_contact		=	of_get_option( 'twitter_contact', '');
 				}
 			?>
 
-		<?php if ( wpmd_is_device() ) { ?>
-			<a id="irarriba" title="<?php _e('Ir arriba', 'yunyay');?>" href="#">^</a>
-		<?php } else { ?>
-			<a id="ir_arriba" title="<?php _e('Ir arriba', 'yunyay');?>" href="#">^</a>
-		<?php };?>
+		<?php //if ( wpmd_is_device() ) { ?>
+			<a class="icon-arrow-up" id="irarriba" title="<?php _e('Ir arriba', 'yunyay');?>" href="#"></a>
+		<?php //} else { ?>
+			<!--<a id="ir_arriba" title="<?php //_e('Ir arriba', 'yunyay');?>" href="#">^</a>-->
+		<?php //};?>
 			
 			<p>© <?php echo date("Y "); bloginfo("name");?> – Todos los derechos reservados - Desarrollado por <a href="//www.webmoderna.com.ar" target="_blank">WebModerna</a></p>
 			<div class="iconos">
 				<ul>
 					<?php
-	                // FACEBOOK
+
+	                // Facebook
 	                if ( $facebook_contact )
 					{
-						echo '<li class="autor_fb"><a target="_blank" href="//' . $facebook_contact . '" title="Facebook"></a></li>';
-					};
+						echo '<li><a class="icon-facebook3" target="_blank" href="//' . $facebook_contact . '" title="Facebook"></a></li>';
+					}
+
+					// Twitter
+					if ( $twitter_contact )
+					{
+						echo '<li><a class=" icon-twitter1" target="_blank" title="Twitter" href="//' . $twitter_contact . '"></a></li>';
+					}
+
+
+					// Correo Electrónico
+					if ( $google_plus_contact )
+					{
+						echo '<li><a class="icon-gmail" target="_blank" title="E-Mail" href="mailto:' . $google_plus_contact . '"></a></li>';
+					}
+
+					// Instagram
+					if ( $instagram_contact )
+					{
+						echo '<li><a class="icon-instagram1" target="_blank" title="Instagram" href="//instagram.com/' .  $instagram_contact . '"></a></li>';
+					}
 
 					// WhatsApp
 					if ( $telefono_celular )
 					{
 						if ( wpmd_is_device() )
 						{
-							echo '<li id="whatsapp"><a target="_blank" href="whatsapp://send?phone=' . $telefono_celular . '&text=Hola Cabañas Yunyay. " title="WhatsApp" rel="nofollow"></a></li>';
+							echo '<li><a class="icon-whatsapp1" target="_blank" href="whatsapp://send?phone=' . $telefono_celular . '&text=Hola Cabañas Yunyay. " title="WhatsApp" rel="nofollow"></a></li>';
+						} else {
+							echo '<li><a class="icon-whatsapp1" target="_blank" href="https://web.whatsapp.com/send?l=en&phone=' . $telefono_celular . '&text=Hola Cabañas Yunyay. " title="WhatsApp" rel="nofollow"></a></li>';
+							// https://web.whatsapp.com/send?l=en&phone=+5492615117948
 						}
 					}
-
-					// Instagram
-					if ( $instagram_contact )
-					{
-						echo '<li id="instagram"><a target="_blank" title="Instagram" href="//instagram.com/' .  $instagram_contact . '"></a></li>';
-					}
-
-					// Twitter
-					if ( $twitter_contact )
-					{
-						echo '<li class="autor_tw"><a target="_blank" title="Twitter" href="//' . $twitter_contact . '"></a></li>';
-					}
-					?>
-	                
-					<!-- <li class="autor_feed">
-						<a target="_blank" title="RSS" href="<?php //bloginfo("rss2_url");?>"></a>
-					</li> -->
-	                
-	                <?php
-
-	                // Google+
-	                if ( $google_plus_contact )
-	                {
-	                    echo '<li class="autor_google"><a target="_blank" title="Google+" href="' . $google_plus_contact . '"></a></li>';
-	                }
                 ?>
 				</ul>
 			</div>

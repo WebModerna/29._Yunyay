@@ -1,6 +1,7 @@
 // Todas las tablas
 .table
-	font-size 1rem
+	font-size 0.7rem
+	text-shadow none
 	width 100%
 
 	tbody tr:nth-child(even)
@@ -9,52 +10,44 @@
 	tfoot tr:nth-child(odd)
 		background $blanco_anaranjado
 
-	tbody
-		border-bottom 5px solid #fff
 
 	thead tr th,
 	caption
-		border 1px solid transparent
 		background $gris
 		padding 0.3rem
 		text-align center
 		text-transform uppercase
 		vertical-align top
+	
+	thead
+		border-bottom 2px solid $naranja
+	
+	caption
+		background-color $naranja
+		font-weight bold
+		color #fff
 
-	tr
-		td[colspan="2"],
-		td[colspan="4"],
-		td[colspan="6"],
-		thead th
-			text-align left
-		
+	tr		
 		td
-			border 1px solid rgba(250,250,250,0.2)
 			padding 0.5em
 			text-align center
-			width auto
-
-	tr td.subtitulo,
-	.table caption
-		background #DC5B34
-		color #fff
-		font-style normal
-		padding 0.5em
-		text-align center
-		text-transform uppercase
 
 	tfoot
-		border-top 10px solid #fff
+		border-top 10px solid $naranja
+		border-bottom 2px solid $naranja
+		tr
+			td
+				text-align left
+				vertical-align top
+				
+			td:first-child
+				text-transform uppercase
+				
 
-/*@media screen and (min-width: 650px)
+@media screen and (min-width: 450px)
 	.table
-		font-size 0.88em
-		display inline-block
-		margin-bottom 1em
-		margin-left 1.2em
-		vertical-align top
-		width 94%
+		font-size 0.9rem
 
-	.table thead tr th
-		padding-left 0.5em
-		padding-right 0.5em*/
+@media screen and (min-width: 650px)
+	.table
+		font-size auto

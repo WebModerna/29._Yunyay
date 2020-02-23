@@ -1,0 +1,88 @@
+// el contacto de WhatsApp
+/*
+.iconos
+	#whatsapp
+		background url("data:image/pngbase64,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") top left no-repeat
+		bottom 0
+		display inline-block
+		height 50px
+		position fixed
+		right 0
+		width 50px
+		a
+			display block
+			height 100%
+			width 100%
+
+	#instagram
+		background url("../img/2362135-instagram-photo-round-social_85523.png") center center no-repeat
+		bottom 5px
+		display inline-block
+		height 40px
+		position fixed
+		right 55px
+		width 40px
+		a
+			display block
+			height 100%
+			width 100%
+
+
+.iconos ul li a:hover,
+.iconos a:active,
+.iconos a:focus
+	color #D45832
+*/
+.footer
+	padding-bottom 6rem
+
+.iconos
+	// background-color $blanco_anaranjado
+	bottom 0
+	left 0
+	position fixed
+	width 100%
+	padding 0.2rem
+
+	ul
+		list-style none
+		padding 0
+		margin 0
+
+		li
+			display inline-block
+			padding 0
+			margin 0
+
+			a
+				font-size 2rem
+				padding 0.4rem
+				margin 0 0.2rem
+
+#irarriba
+	background rgba(0,0,0,0.5)
+	bottom 1.2rem
+	font-size 0.8rem
+	display inline-block
+	position fixed
+	right 0.2em
+	z-index 999
+	height 40px
+
+	&:hover
+		background $naranja !important
+
+@media all and (min-width: 460px)
+	.footer
+		padding-bottom 4rem
+
+	#irarriba
+		bottom 0.5rem !important
+
+@media all and (min-width: 960px)
+	.footer
+		padding-bottom 1rem
+
+	.iconos
+		padding-top 4rem
+		position static

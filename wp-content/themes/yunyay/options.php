@@ -140,10 +140,10 @@ function optionsframework_options()
 		'type' => 'text'
 	);*/
 
-	// Google+
+	// E-Mail
 	$options[] = array(
-		'name' => __('Google+', 'options_framework_theme'),
-		'desc' => __('Introduzca su enlace a Google+.', 'options_framework_theme'),
+		'name' => __('E-Mail', 'options_framework_theme'),
+		'desc' => __('Introduzca correo electrónico de contacto.', 'options_framework_theme'),
 		'id' => 'google_plus_contact',
 		'placeholder' => 'plus.google.com/usuario',
 		'class' => '',
