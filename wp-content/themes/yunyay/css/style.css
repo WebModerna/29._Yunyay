@@ -662,6 +662,14 @@ h2:before {
   -webkit-justify-content: space-between;
   justify-content: space-between;
 }
+#servicios .list_item {
+  padding-top: 1em;
+}
+#servicios .list_item .list_item_img {
+  display: block;
+  margin: auto;
+  overflow: hidden;
+}
 @media all and (min-width: 961px) {
   .flexbox__item {
     width: 49%;
@@ -1325,6 +1333,10 @@ h2:before {
 }
 .barra_navegacion ul li ul li.current-menu-item a {
   background: #e39150;
+  color: #fff;
+}
+.barra_navegacion ul li ul li.current-menu-item a:hover {
+  cursor: default;
 }
 @media screen and (min-width: 961px) {
   .barra_navegacion {
@@ -1361,6 +1373,15 @@ h2:before {
     background: -o-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 64%, #dc5b34 65%, #dc5b34 100%);
     background: -ms-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 64%, #dc5b34 65%, #dc5b34 100%);
     background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 64%, #dc5b34 65%, #dc5b34 100%);
+    color: #dc5b34;
+  }
+}
+@media screen and (max-width: 290px) {
+  .barra_navegacion ul li:hover ul,
+  .barra_navegacion ul li:focus ul,
+  .barra_navegacion ul li:active ul {
+    margin-bottom: 4em;
+    display: block;
   }
 }
 .pagination {
@@ -1433,22 +1454,6 @@ h2:before {
 #logo figure,
 #logo_home figure {
   width: 150px;
-}
-/*#mapa-curabrochero
-{
-	margin: 0.5em;
-}
-#mapa-curabrochero figcaption:hover a
-{
-	color: orange;
-}*/
-#servicios .list_item {
-  padding-top: 1em;
-}
-#servicios .list_item .list_item_img {
-  display: block;
-  margin: auto;
-  overflow: hidden;
 }
 #slider {
   overflow: hidden;
@@ -1678,12 +1683,6 @@ div.wpcf7 .placeheld {
   }
   h1 {
     font-size: 1.3em;
-  }
-  .barra_navegacion ul li:hover ul,
-  .barra_navegacion ul li:focus ul,
-  .barra_navegacion ul li:active ul {
-    margin-bottom: 4em;
-    display: block;
   }
 }
 @media screen and (max-width: 320px) {
