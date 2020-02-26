@@ -1,6 +1,14 @@
 // Estructuras generales de las páginas
 .contenido_una_columna
-	padding 1rem
+	padding 0.5rem
+
+.encolumnas
+	margin-top 1rem
+
+@media all and (min-width: 640px)
+	.encolumnas
+		column-count 2
+		column-gap 1rem
 
 .flexbox
 	align-items stretch
@@ -40,3 +48,55 @@
 			.flexbox__item:first-child
 				padding-right 1rem
 				
+.list_item
+	box-sizing border-box
+	padding 0.1em 0.5em 0.5em 0.5em
+	margin 0 0.5em 1em 0.5em
+
+	h2
+		color orange
+		padding 0.2em 0.2em 0.2em 0.5em
+		margin 1em auto
+	
+	figure
+		figcaption
+			background #DC5B34
+			border-radius 0 0 0.5em 0.5em
+			color #efefef
+			margin-top -0.4em
+			text-shadow 0px -1px 0px $negro_oscuro_transparente
+			transition all ease 0.4s
+	div
+		&.list_item_img
+			margin-top 1em
+
+	&.contacto
+		padding 1em 0
+
+@media screen and (min-width: 650px)
+	// Solo sirve para ocultar el mensaje de abajo
+	#mensaje
+		display none
+
+	.list_item
+		padding-top 1em
+
+	.list_item
+		figure
+			img
+				margin-bottom 0.25em
+				margin-top 0.25em
+	
+		.contacto
+			padding 0.1em 0.5em 0.5em 0.5em
+	
+	
+		div
+			.list_item_img
+				margin 1em auto
+	
+		.blog
+			div
+				.list_item_content
+					max-width auto
+	

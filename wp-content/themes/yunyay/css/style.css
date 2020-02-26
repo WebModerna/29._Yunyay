@@ -442,7 +442,6 @@ ol li {
   border-top: 1px solid #dc5b34;
   border-bottom: 1px solid #dc5b34;
   display: block;
-  overflow: hidden;
   padding: 0.5rem;
 }
 #contacto form h3,
@@ -609,7 +608,20 @@ h2:before {
   visibility: hidden;
 }
 .contenido_una_columna {
-  padding: 1rem;
+  padding: 0.5rem;
+}
+.encolumnas {
+  margin-top: 1rem;
+}
+@media all and (min-width: 640px) {
+  .encolumnas {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+    -webkit-column-gap: 1rem;
+    -moz-column-gap: 1rem;
+    column-gap: 1rem;
+  }
 }
 .flexbox {
   -webkit-box-align: stretch;
@@ -678,6 +690,57 @@ h2:before {
     padding-right: 1rem;
   }
 }
+.list_item {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0.1em 0.5em 0.5em 0.5em;
+  margin: 0 0.5em 1em 0.5em;
+}
+.list_item h2 {
+  color: #ffa500;
+  padding: 0.2em 0.2em 0.2em 0.5em;
+  margin: 1em auto;
+}
+.list_item figure figcaption {
+  background: #dc5b34;
+  border-radius: 0 0 0.5em 0.5em;
+  color: #efefef;
+  margin-top: -0.4em;
+  text-shadow: 0px -1px 0px rgba(0,0,0,0.35);
+  -webkit-transition: all ease 0.4s;
+  -moz-transition: all ease 0.4s;
+  -o-transition: all ease 0.4s;
+  -ms-transition: all ease 0.4s;
+  transition: all ease 0.4s;
+}
+.list_item div.list_item_img {
+  margin-top: 1em;
+}
+.list_item.contacto {
+  padding: 1em 0;
+}
+@media screen and (min-width: 650px) {
+  #mensaje {
+    display: none;
+  }
+  .list_item {
+    padding-top: 1em;
+  }
+  .list_item figure img {
+    margin-bottom: 0.25em;
+    margin-top: 0.25em;
+  }
+  .list_item .contacto {
+    padding: 0.1em 0.5em 0.5em 0.5em;
+  }
+  .list_item div .list_item_img {
+    margin: 1em auto;
+  }
+  .list_item .blog div .list_item_content {
+    max-width: auto;
+  }
+}
 .table {
   font-size: 0.7rem;
   text-shadow: none;
@@ -702,8 +765,8 @@ h2:before {
 }
 .table caption {
   background-color: #dc5b34;
-  font-weight: bold;
   color: #fff;
+  font-weight: bold;
 }
 .table tr td {
   padding: 0.5em;
@@ -1419,10 +1482,6 @@ h2:before {
   color: #ffa500;
   padding: 0.3em 0.5em;
 }
-/*#googlemaps
-	color #232323
-	margin 0.5em
-	overflow hidden*/
 #home_slider {
   overflow: hidden;
 }
@@ -1466,10 +1525,11 @@ h2:before {
   margin: 0 auto;
   text-transform: center;
 }
-#tarifas .redes_sociales {
-  margin-left: 1em;
-  padding: 0.2em 0;
-}
+/*#tarifas .redes_sociales
+{
+	margin-left: 1em;
+	padding: 0.2em 0;
+}*/
 #ventana {
   display: none;
 }
@@ -1556,39 +1616,6 @@ h2:before {
 }
 .destacada th[colspan="2"] {
   background: #ffb403;
-}
-.list_item {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 0.1em 0.5em 0.5em 0.5em;
-  margin: 0 0.5em 1em 0.5em;
-}
-.list_item.contacto {
-  padding: 1em 0;
-}
-.list_item div.list_item_img {
-  margin-top: 1em;
-}
-.list_item figure img {
-  border-radius: 0.5em;
-}
-.list_item figure figcaption {
-  background: #dc5b34;
-  border-radius: 0 0 0.5em 0.5em;
-  color: #efefef;
-  margin-top: -0.4em;
-  text-shadow: 0px -1px 0px rgba(0,0,0,0.35);
-  -webkit-transition: all ease 0.4s;
-  -moz-transition: all ease 0.4s;
-  -o-transition: all ease 0.4s;
-  -ms-transition: all ease 0.4s;
-  transition: all ease 0.4s;
-}
-.list_item h2 {
-  color: #ffa500;
-  padding: 0.2em 0.2em 0.2em 0.5em;
-  margin: 1em auto;
 }
 .redes_sociales {
   padding: 0.5em 0 0 0;
@@ -1689,15 +1716,6 @@ div.wpcf7 .placeheld {
   div.list_item {
     margin-left: 0;
     margin-right: 0;
-  }
-}
-@media screen and (max-width: 650px) {
-  #mensaje {
-    display: none;
-  }
-  .list_item figure img {
-    margin-bottom: 0.25em;
-    margin-top: 0.25em;
   }
 }
 @media screen and (min-width: 650px) {
@@ -1974,21 +1992,6 @@ div.wpcf7 .placeheld {
   }
   .commentlist {
     padding: 0.5em 0.5em 0.5em 1.5em;
-  }
-  .list_item {
-    padding-top: 1em;
-  }
-  .list_item.contacto {
-    padding: 0.1em 0.5em 0.5em 0.5em;
-  }
-  .list_item figure img {
-    border-radius: 0.5em 0.5em 0 0;
-  }
-  .list_item div.list_item_img {
-    margin: 1em auto;
-  }
-  .list_item.blog div.list_item_content {
-    max-width: auto;
   }
   .navegacion {
     top: 40%;

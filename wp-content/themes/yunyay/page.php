@@ -1,5 +1,5 @@
 <?php get_header();?>
-		<?php if (have_posts()):while(have_posts()):the_post();get_page($page_id);$page_data=get_page($page_id);?>
+		<?php if (have_posts()):while(have_posts()):the_post();?>
 			<article id="servicios">
 				<div id="slider">
 				<h2><?php the_title();?></h2>
@@ -15,7 +15,7 @@
 											$img_id = get_post_thumbnail_id($post->ID); // This gets just the ID of the img
 											$image = wp_get_attachment_image_src($img_id, 'custom-thumb-800-600'); // Get URL of the image, and size can be set here too (same as with get_the_post_thumbnail, I think)
 											$alt_text = get_post_meta($img_id , '_wp_attachment_image_alt', true);
-										?>
+										?>  
 
 									<figcaption><?php echo $alt_text;?></figcaption>
 											

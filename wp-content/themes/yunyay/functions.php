@@ -5,6 +5,9 @@
 * @since yunyay 1.0
 */
 
+// Los metaboxes
+require_once "includes/metabox.php";
+
 // Cargar Panel de Opciones
 if ( !function_exists( 'optionsframework_init' ) )
 {

@@ -6,7 +6,7 @@
 * Template Name: Paseo y Actividades
 */ ?>
 <?php get_header();?>
-		<?php if (have_posts()):while(have_posts()):the_post();get_page($page_id);$page_data=get_page($page_id);?>
+		<?php if (have_posts()):while(have_posts()):the_post();?>
 			<article class="servicios">
 				<div id="slider">
 				<h2><?php the_title();?></h2>

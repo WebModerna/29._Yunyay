@@ -32,11 +32,6 @@
 // Todos los sliders
 @import "los_sliders.styl"
 
-/*#googlemaps
-	color #232323
-	margin 0.5em
-	overflow hidden*/
-
 
 #home_slider
 	overflow hidden
@@ -83,11 +78,11 @@
 	margin: 0 auto;
 	text-transform: center;
 }
-#tarifas .redes_sociales
+/*#tarifas .redes_sociales
 {
 	margin-left: 1em;
 	padding: 0.2em 0;
-}
+}*/
 #ventana
 	display none
 
@@ -180,41 +175,6 @@
 .destacada th[colspan="2"]
 {
 	background: #FFB403;
-}
-
-.list_item
-{
-	// background: rgba(0,0,0,0.5);
-	box-sizing: border-box;
-	padding: 0.1em 0.5em 0.5em 0.5em;
-	margin: 0 0.5em 1em 0.5em;
-}
-.list_item.contacto
-{
-	padding: 1em 0;
-}
-.list_item div.list_item_img
-{
-	margin-top: 1em;
-}
-.list_item figure img
-{
-	border-radius: 0.5em;
-}
-.list_item figure figcaption
-{	
-	background: #DC5B34;
-	border-radius: 0 0 0.5em 0.5em;
-	color: #efefef;
-	margin-top: -0.4em;
-	text-shadow: 0px -1px 0px $negro_oscuro_transparente;
-	transition: all ease 0.4s;
-}
-.list_item h2
-{
-	color: orange;
-	padding: 0.2em 0.2em 0.2em 0.5em;
-	margin: 1em auto;
 }
 
 
@@ -342,14 +302,7 @@ div.wpcf7 .placeheld
 
 
 
-@media screen and (max-width: 650px)
-	// Solo sirve para ocultar el mensaje de abajo
-	#mensaje
-		display none
 
-	.list_item figure img
-		margin-bottom 0.25em
-		margin-top 0.25em
 
 
 @media screen and (min-width: 650px)
@@ -404,20 +357,6 @@ div.wpcf7 .placeheld
 	.commentlist
 		padding 0.5em 0.5em 0.5em 1.5em
 	
-	.list_item
-		padding-top 1em
-	
-	.list_item.contacto
-		padding 0.1em 0.5em 0.5em 0.5em
-	
-	.list_item figure img
-		border-radius 0.5em 0.5em 0 0
-	
-	.list_item div.list_item_img
-		margin 1em auto
-	
-	.list_item.blog div.list_item_content
-		max-width auto
 	
 	.navegacion
 		top 40%

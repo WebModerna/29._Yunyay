@@ -6,7 +6,9 @@
 * Template Name: Servicios
 */ ?>
 <?php get_header();?>
-	<?php if (have_posts()):while(have_posts()):the_post();?>
+	<?php if (have_posts()):while(have_posts()):the_post();
+		$segundo_contenido = rwmb_meta( 'tarifas_condicones_no_show', '');
+		?>
 	<article id="servicios">
 		<div id="slider">
 		<h2><?php the_title();?></h2>
@@ -58,12 +60,19 @@
 							<div class="next"><a class="boton_general">›</a></div>
 							<div class="clearfix"></div>
 						</div><!-- .navegación -->
-						<figcaption>
-						</figcaption>
 						<?php };?>
 						</figure>
 					</div><!-- .list_item_img -->
-					<?php the_content();?>
+
+					<div class="flexbox">
+						<div class="flexbox__item">
+							<?php the_content();?>
+						</div>
+						<div class="flexbox__item">
+							<?php echo $segundo_contenido; ?>
+						</div>
+					</div>
+					
 					<figure>
 						<div>
 						<?php if(wpmd_is_phone())

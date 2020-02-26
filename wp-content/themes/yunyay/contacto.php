@@ -5,10 +5,17 @@
 * @since yunyay 1.0
 * Template Name: Contacto
 */
+// Obtención del segundo contenido
+$segundo_contenido = rwmb_meta( 'tarifas_condicones_no_show', '');
+
 get_header();
-if ( have_posts() ) : while ( have_posts() ) : the_post();?>
+
+
+if ( have_posts() ) : while ( have_posts() ) : the_post();
+
+	?>
 			<article id="contacto">
-				<div id="slider">
+				<div>
 					<h2><?php the_title();?></h2>
 					<div class="flexbox">
 						
@@ -20,6 +27,13 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();?>
 						<div class="flexbox__item">
 							<?php
 							the_content();
+							?>
+						</div>
+
+
+						<div class="contenido_una_columna">
+							<?php 
+								echo $segundo_contenido;
 							?>
 						</div>
 
