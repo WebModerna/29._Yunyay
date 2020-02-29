@@ -6,6 +6,8 @@
 */
 
 // Los metaboxes
+require_once "includes/meta-box/meta-box.php";
+// require_once "includes/meta-box/inc/loader.php";
 require_once "includes/metabox.php";
 
 // Cargar Panel de Opciones

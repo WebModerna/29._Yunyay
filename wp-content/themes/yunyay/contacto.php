@@ -5,13 +5,13 @@
 * @since yunyay 1.0
 * Template Name: Contacto
 */
-// Obtención del segundo contenido
-$segundo_contenido = rwmb_meta( 'tarifas_condicones_no_show', '');
 
 get_header();
 
-
 if ( have_posts() ) : while ( have_posts() ) : the_post();
+
+// Obtención del segundo contenido
+$segundo_contenido = rwmb_meta('segundo_contenido', '');
 
 	?>
 			<article id="contacto">
@@ -25,15 +25,16 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
 
 
 						<div class="flexbox__item">
-							<?php
-							the_content();
-							?>
+							<?php the_content();?>
 						</div>
 
 
 						<div class="contenido_una_columna">
 							<?php 
+							if ($segundo_contenido)
 								echo $segundo_contenido;
+							else
+								echo "error";
 							?>
 						</div>
 

@@ -15,7 +15,7 @@
 		
 			<div>
 				<div class="list_item">
-					<div class="list_item_img">
+					<div class="list_item_img slider_secundario">
 						<figure>
 							<?php if(wpmd_is_notphone()) { ?>
 							<div class="cycle-slideshow"
@@ -64,13 +64,10 @@
 						</figure>
 					</div><!-- .list_item_img -->
 
-					<div class="flexbox">
-						<div class="flexbox__item">
-							<?php the_content();?>
-						</div>
-						<div class="flexbox__item">
-							<?php echo $segundo_contenido; ?>
-						</div>
+					<hr class="separador" />
+
+					<div class="encolumnas">
+						<?php the_content();?>
 					</div>
 					
 					<figure>
