@@ -1,35 +1,24 @@
-( function ( $, _, rwmb ) {
+jQuery( function( $ )
+{
 	'use strict';
 
-	/**
-	 * Show preview of oembeded media.
-	 */
-	function showPreview( e ) {
-		e.preventDefault();
+	$( '.rwmb-oembed-wrapper .spinner' ).hide();
 
+	$( 'body' ).on( 'click', '.rwmb-oembed-wrapper .show-embed', function() {
 		var $this = $( this ),
 			$spinner = $this.siblings( '.spinner' ),
 			data = {
 				action: 'rwmb_get_embed',
-				url: this.value,
-				not_available: $this.data( 'not-available' ),
+				url: $this.siblings( 'input' ).val()
 			};
 
-		$spinner.css( 'visibility', 'visible' );
-		$.post( ajaxurl, data, function ( response ) {
-			$spinner.css( 'visibility', 'hidden' );
-			$this.siblings( '.rwmb-embed-media' ).html( response.data );
+		$spinner.show();
+		$.post( ajaxurl, data, function( r )
+		{
+			$spinner.hide();
+			$this.siblings( '.embed-code' ).html( r.data );
 		}, 'json' );
-	}
 
-	/**
-	 * Remove oembed preview when cloning.
-	 */
-	function removePreview() {
-		$( this ).siblings( '.rwmb-embed-media' ).html( '' );
-	}
-
-	rwmb.$document
-		.on( 'change', '.rwmb-oembed', _.debounce( showPreview, 250 ) )
-	    .on( 'clone', '.rwmb-oembed', removePreview );
-} )( jQuery, _, rwmb );
+		return false;
+	} );
+} );

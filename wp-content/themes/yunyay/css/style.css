@@ -440,7 +440,6 @@ ol li {
 }
 #contacto form {
   border-top: 1px solid #dc5b34;
-  border-bottom: 1px solid #dc5b34;
   display: block;
   padding: 0.5rem;
 }
@@ -585,6 +584,9 @@ h2 {
   padding-top: 0;
   text-align: left;
 }
+.segundo_contenido {
+  margin-top: 1rem;
+}
 .flexbox {
   -webkit-box-align: stretch;
   -moz-box-align: stretch;
@@ -682,8 +684,8 @@ h2 {
     padding-top: 1em;
   }
   .list_item figure img {
-    margin-bottom: 0.25em;
-    margin-top: 0.25em;
+    display: block;
+    margin: 0;
   }
   .list_item .contacto {
     padding: 0.1em 0.5em 0.5em 0.5em;
@@ -694,6 +696,28 @@ h2 {
   .list_item .blog div .list_item_content {
     max-width: auto;
   }
+}
+.imagen_resaltar {
+  display: block;
+  padding: 0;
+  position: relative;
+}
+.imagen_resaltar:before {
+  background-color: rgba(0,0,0,0.3);
+  content: '';
+  height: 100%;
+  left: 0;
+  position: absolute;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  top: 0;
+  width: 5%;
+}
+.imagen_resaltar:hover:before {
+  width: 100%;
 }
 .table {
   font-size: 0.7rem;
@@ -1959,7 +1983,6 @@ div.wpcf7 .placeheld {
 .blog figure {
   display: inline-block;
   float: left;
-  margin: auto 2em 1em 1em;
   max-width: 250px;
 }
 .blog div.list_item_content a.button,
@@ -1982,7 +2005,7 @@ div.wpcf7 .placeheld {
 @media screen and (min-width: 960px) {
   div.wpcf7,
   form.wpcf7-form {
-    display: inline-block;
+    display: block;
   }
   h2 {
     font-size: 1.8rem;

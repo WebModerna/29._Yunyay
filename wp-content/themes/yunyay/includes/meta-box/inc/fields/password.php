@@ -1,25 +1,34 @@
 <?php
 /**
- * The secured password field.
- *
- * @package Meta Box
- */
-
-/**
  * Password field class.
  */
-class RWMB_Password_Field extends RWMB_Text_Field {
+class RWMB_Password_Field extends RWMB_Text_Field
+{
+	/**
+	 * Get the attributes for a field
+	 *
+	 * @param array $field
+	 * @param mixed $value
+	 * @return array
+	 */
+	static function get_attributes( $field, $value = null )
+	{
+		$attributes         = parent::get_attributes( $field, $value );
+		$attributes['type'] = 'password';
+		return $attributes;
+	}
+
 	/**
 	 * Store secured password in the database.
-	 *
-	 * @param mixed $new     The submitted meta value.
-	 * @param mixed $old     The existing meta value.
-	 * @param int   $post_id The post ID.
-	 * @param array $field   The field parameters.
+	 * @param mixed $new
+	 * @param mixed $old
+	 * @param int   $post_id
+	 * @param array $field
 	 * @return string
 	 */
-	public static function value( $new, $old, $post_id, $field ) {
-		$new = $new !== $old ? wp_hash_password( $new ) : $new;
+	static function value( $new, $old, $post_id, $field )
+	{
+		$new = $new != $old ? wp_hash_password( $new ) : $new;
 		return $new;
 	}
 }

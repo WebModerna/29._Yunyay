@@ -29,18 +29,19 @@
 						<div class="list_item_img">
 							<figure>
 								<?php 
-									if(has_post_thumbnail())
+									if( has_post_thumbnail() )
 									{
+										echo '<a class="imagen_resaltar" href="' . get_the_permalink() . '" title="' . get_the_title() . '">';
 										the_post_thumbnail('custom-thumb-800-600');
+										echo '</a>';
 									}
 									else
 									{
 										echo '<img src="'.get_stylesheet_directory_uri().'/img/gravatar.png" alt="'.__('Sin imagen', 'hotellosrobles').'" />';
 									};	
 								?>
-								<a href="<?php the_permalink();?>">
-									<figcaption><?php _e('Ver fotos de las cabañas', 'yunyay');?></figcaption>
-								</a>
+									<!-- <figcaption><?php //_e('Ver fotos de las cabañas', 'yunyay');?></figcaption> -->
+								
 							</figure>
 						</div><!-- .list_item_img -->
 						<div class="list_item_content">

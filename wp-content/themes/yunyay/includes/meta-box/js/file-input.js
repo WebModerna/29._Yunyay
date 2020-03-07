@@ -1,18 +1,21 @@
-( function ( $, rwmb ) {
+jQuery( function ( $ )
+{
 	'use strict';
 
 	var frame;
 
-	function openSelectPopup( e ) {
+	$( 'body' ).on( 'click', '.rwmb-file-input-select', function ( e )
+	{
 		e.preventDefault();
 		var $el = $( this );
 
 		// Create a frame only if needed
-		if ( ! frame ) {
+		if ( !frame )
+		{
 			frame = wp.media( {
 				className: 'media-frame rwmb-file-frame',
-				multiple: false,
-				title: rwmbFileInput.frameTitle
+				multiple : false,
+				title    : rwmbFileInput.frameTitle
 			} );
 		}
 
@@ -23,23 +26,17 @@
 		frame.off( 'select' );
 
 		// Handle selection
-		frame.on( 'select', function () {
+		frame.on( 'select', function ()
+		{
 			var url = frame.state().get( 'selection' ).first().toJSON().url;
-			$el.siblings( 'input' ).val( url ).trigger( 'change' ).siblings( 'a' ).removeClass( 'hidden' );
+			$el.siblings( 'input' ).val( url ).siblings( 'a' ).removeClass( 'hidden' );
 		} );
-	}
+	} );
 
-	function clearSelection( e ) {
+	// Clear selected images
+	$( 'body' ).on( 'click', '.rwmb-file-input-remove', function ( e )
+	{
 		e.preventDefault();
-		$( this ).addClass( 'hidden' ).siblings( 'input' ).val( '' ).trigger( 'change' );
-	}
-
-	function hideRemoveButtonWhenCloning() {
-		$( this ).siblings( '.rwmb-file-input-remove' ).addClass( 'hidden' );
-	}
-
-	rwmb.$document
-		.on( 'click', '.rwmb-file-input-select', openSelectPopup )
-		.on( 'click', '.rwmb-file-input-remove', clearSelection )
-		.on( 'clone', '.rwmb-file_input', hideRemoveButtonWhenCloning );
-} )( jQuery, rwmb );
+		$( this ).addClass( 'hidden' ).siblings( 'input' ).val( '' );
+	} );
+} );

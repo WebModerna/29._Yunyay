@@ -1,44 +1,31 @@
 <?php
 /**
- * The text list field which allows users to enter multiple texts.
- *
- * @package Meta Box
- */
-
-/**
  * Text list field class.
  */
-class RWMB_Text_List_Field extends RWMB_Multiple_Values_Field {
+class RWMB_Text_List_Field extends RWMB_Multiple_Values_Field
+{
 	/**
-	 * Enqueue scripts and styles.
-	 */
-	public static function admin_enqueue_scripts() {
-		wp_enqueue_style( 'rwmb-text-list', RWMB_CSS_URL . 'text-list.css', '', RWMB_VER );
-	}
-
-	/**
-	 * Get field HTML.
+	 * Get field HTML
 	 *
-	 * @param mixed $meta  Meta value.
-	 * @param array $field Field parameters.
+	 * @param mixed $meta
+	 * @param array $field
 	 *
 	 * @return string
 	 */
-	public static function html( $meta, $field ) {
-		if ( empty( $field['options'] ) ) {
-			return '';
-		}
+	static function html( $meta, $field )
+	{
 		$html  = array();
-		$input = '<label><span class="rwmb-text-list-label">%s</span> <input type="text" class="rwmb-text-list" name="%s" value="%s" placeholder="%s"></label>';
+		$input = '<label><input type="text" class="rwmb-text-list" name="%s" value="%s" placeholder="%s"> %s</label>';
 
 		$count = 0;
-		foreach ( $field['options'] as $placeholder => $label ) {
+		foreach ( $field['options'] as $placeholder => $label )
+		{
 			$html[] = sprintf(
 				$input,
-				$label,
 				$field['field_name'],
-				isset( $meta[ $count ] ) ? esc_attr( $meta[ $count ] ) : '',
-				esc_attr( $placeholder )
+				isset( $meta[$count] ) ? esc_attr( $meta[$count] ) : '',
+				$placeholder,
+				$label
 			);
 			$count ++;
 		}
@@ -47,80 +34,58 @@ class RWMB_Text_List_Field extends RWMB_Multiple_Values_Field {
 	}
 
 	/**
-	 * Normalize parameters for field.
+	 * Output the field value
+	 * Display option name instead of option value
 	 *
-	 * @param array $field Field parameters.
+	 * @param  array    $field   Field parameters
+	 * @param  array    $args    Additional arguments. Not used for these fields.
+	 * @param  int|null $post_id Post ID. null for current post. Optional.
 	 *
-	 * @return array
+	 * @return mixed Field value
 	 */
-	public static function normalize( $field ) {
-		$field = parent::normalize( $field );
-		if ( ! $field['clone'] ) {
-			$field['class'] .= ' rwmb-text_list-non-cloneable';
-		}
-		return $field;
-	}
+	static function the_value( $field, $args = array(), $post_id = null )
+	{
+		$value = self::get_value( $field, $args, $post_id );
+		if ( ! $value )
+			return '';
 
-	/**
-	 * Set value of meta before saving into database.
-	 * Do not save if all inputs has no value.
-	 *
-	 * @param mixed $new     The submitted meta value.
-	 * @param mixed $old     The existing meta value.
-	 * @param int   $post_id The post ID.
-	 * @param array $field   The field parameters.
-	 *
-	 * @return mixed
-	 */
-	public static function value( $new, $old, $post_id, $field ) {
-		$filtered = array_filter( $new );
-		return count( $filtered ) ? $new : array();
-	}
+		$output = '<ul>';
+		if ( $field['clone'] )
+		{
+			foreach ( $value as $subvalue )
+			{
+				$output .= '<li>';
+				$output .= '<ul>';
 
-	/**
-	 * Format value for the helper functions.
-	 *
-	 * @param array        $field   Field parameters.
-	 * @param string|array $value   The field meta value.
-	 * @param array        $args    Additional arguments. Rarely used. See specific fields for details.
-	 * @param int|null     $post_id Post ID. null for current post. Optional.
-	 *
-	 * @return string
-	 */
-	public static function format_value( $field, $value, $args, $post_id ) {
-		$output = '<table><thead><tr>';
-		foreach ( $field['options'] as $label ) {
-			$output .= "<th>$label</th>";
-		}
-		$output .= '</tr></thead><tbody>';
-
-		if ( ! $field['clone'] ) {
-			$output .= self::format_single_value( $field, $value, $args, $post_id );
-		} else {
-			foreach ( $value as $subvalue ) {
-				$output .= self::format_single_value( $field, $subvalue, $args, $post_id );
+				$i = 0;
+				foreach ( $field['options'] as $placeholder => $label )
+				{
+					$output .= sprintf(
+						'<li><label>%s</label>: %s</li>',
+						$label,
+						isset( $subvalue[$i] ) ? $subvalue[$i] : ''
+					);
+					$i ++;
+				}
+				$output .= '</ul>';
+				$output .= '</li>';
 			}
 		}
-		$output .= '</tbody></table>';
-		return $output;
-	}
-
-	/**
-	 * Format a single value for the helper functions. Sub-fields should overwrite this method if necessary.
-	 *
-	 * @param array    $field   Field parameters.
-	 * @param array    $value   The value.
-	 * @param array    $args    Additional arguments. Rarely used. See specific fields for details.
-	 * @param int|null $post_id Post ID. null for current post. Optional.
-	 *
-	 * @return string
-	 */
-	public static function format_single_value( $field, $value, $args, $post_id ) {
-		$output = '<tr>';
-		foreach ( $value as $subvalue ) {
-			$output .= "<td>$subvalue</td>";
+		else
+		{
+			$i = 0;
+			foreach ( $field['options'] as $placeholder => $label )
+			{
+				$output .= sprintf(
+					'<li><label>%s</label>: %s</li>',
+					$label,
+					isset( $value[$i] ) ? $value[$i] : ''
+				);
+				$i ++;
+			}
 		}
-		$output .= '</tr>';
+		$output .= '</ul>';
+
 		return $output;
 	}
 }

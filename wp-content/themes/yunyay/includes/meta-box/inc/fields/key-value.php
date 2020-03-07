@@ -1,52 +1,46 @@
 <?php
 /**
- * The key-value field which allows users to add pairs of keys and values.
- *
- * @package Meta Box
- */
-
-/**
  * Key-value field class.
  */
-class RWMB_Key_Value_Field extends RWMB_Text_Field {
+abstract class RWMB_Key_Value_Field extends RWMB_Text_Field
+{
 	/**
-	 * Get field HTML.
+	 * Get field HTML
 	 *
-	 * @param mixed $meta  Meta value.
-	 * @param array $field Field parameters.
-	 *
+	 * @param mixed $meta
+	 * @param array $field
 	 * @return string
 	 */
-	public static function html( $meta, $field ) {
-		// Key.
+	static function html( $meta, $field )
+	{
+		// Key
 		$key                       = isset( $meta[0] ) ? $meta[0] : '';
 		$attributes                = self::get_attributes( $field, $key );
-		$attributes['placeholder'] = $field['placeholder']['key'];
+		$attributes['placeholder'] = esc_attr__( 'Key', 'meta-box' );
 		$html                      = sprintf( '<input %s>', self::render_attributes( $attributes ) );
 
-		// Value.
+		// Value
 		$val                       = isset( $meta[1] ) ? $meta[1] : '';
 		$attributes                = self::get_attributes( $field, $val );
-		$attributes['placeholder'] = $field['placeholder']['value'];
-		$html                     .= sprintf( '<input %s>', self::render_attributes( $attributes ) );
+		$attributes['placeholder'] = esc_attr__( 'Value', 'meta-box' );
+		$html .= sprintf( '<input %s>', self::render_attributes( $attributes ) );
 
 		return $html;
 	}
 
 	/**
-	 * Show begin HTML markup for fields.
+	 * Show begin HTML markup for fields
 	 *
-	 * @param mixed $meta  Meta value.
-	 * @param array $field Field parameters.
-	 *
+	 * @param mixed $meta
+	 * @param array $field
 	 * @return string
 	 */
-	public static function begin_html( $meta, $field ) {
+	static function begin_html( $meta, $field )
+	{
 		$desc = $field['desc'] ? "<p id='{$field['id']}_description' class='description'>{$field['desc']}</p>" : '';
 
-		if ( empty( $field['name'] ) ) {
+		if ( empty( $field['name'] ) )
 			return '<div class="rwmb-input">' . $desc;
-		}
 
 		return sprintf(
 			'<div class="rwmb-label">
@@ -61,37 +55,31 @@ class RWMB_Key_Value_Field extends RWMB_Text_Field {
 	}
 
 	/**
-	 * Do not show field description.
+	 * Show end HTML markup for fields
+	 * Do not show field description. Field description is shown before list of fields
 	 *
-	 * @param array $field Field parameters.
-	 *
+	 * @param mixed $meta
+	 * @param array $field
 	 * @return string
 	 */
-	public static function input_description( $field ) {
-		return '';
+	static function end_html( $meta, $field )
+	{
+		$button = $field['clone'] ? self::add_clone_button( $field ) : '';
+		$html   = "$button</div>";
+		return $html;
 	}
 
 	/**
-	 * Do not show field description.
+	 * Escape meta for field output
 	 *
-	 * @param array $field Field parameters.
-	 *
-	 * @return string
-	 */
-	public static function label_description( $field ) {
-		return '';
-	}
-
-	/**
-	 * Escape meta for field output.
-	 *
-	 * @param mixed $meta Meta value.
-	 *
+	 * @param mixed $meta
 	 * @return mixed
 	 */
-	public static function esc_meta( $meta ) {
-		foreach ( (array) $meta as $k => $pairs ) {
-			$meta[ $k ] = array_map( 'esc_attr', (array) $pairs );
+	static function esc_meta( $meta )
+	{
+		foreach ( (array) $meta as $k => $pairs )
+		{
+			$meta[$k] = array_map( 'esc_attr', (array) $pairs );
 		}
 		return $meta;
 	}
@@ -99,57 +87,63 @@ class RWMB_Key_Value_Field extends RWMB_Text_Field {
 	/**
 	 * Sanitize field value.
 	 *
-	 * @param mixed $new     The submitted meta value.
-	 * @param mixed $old     The existing meta value.
-	 * @param int   $post_id The post ID.
-	 * @param array $field   The field parameters.
+	 * @param mixed $new
+	 * @param mixed $old
+	 * @param int   $post_id
+	 * @param array $field
 	 *
-	 * @return array
+	 * @return string
 	 */
-	public static function value( $new, $old, $post_id, $field ) {
-		foreach ( $new as &$arr ) {
-			if ( empty( $arr[0] ) && empty( $arr[1] ) ) {
+	static function value( $new, $old, $post_id, $field )
+	{
+		foreach ( $new as &$arr )
+		{
+			if ( empty( $arr[0] ) && empty( $arr[1] ) )
 				$arr = false;
-			}
 		}
 		$new = array_filter( $new );
 		return $new;
 	}
 
 	/**
-	 * Normalize parameters for field.
+	 * Normalize parameters for field
 	 *
-	 * @param array $field Field parameters.
-	 *
+	 * @param array $field
 	 * @return array
 	 */
-	public static function normalize( $field ) {
+	static function normalize( $field )
+	{
+		$field             = parent::normalize( $field );
 		$field['clone']    = true;
 		$field['multiple'] = true;
-		$field             = parent::normalize( $field );
-
-		$field['attributes']['type'] = 'text';
-		$field['placeholder']        = wp_parse_args(
-			(array) $field['placeholder'],
-			array(
-				'key'   => __( 'Key', 'meta-box' ),
-				'value' => __( 'Value', 'meta-box' ),
-			)
-		);
 		return $field;
 	}
 
 	/**
-	 * Format value for the helper functions.
+	 * Output the field value
+	 * Display unordered list of key - value pairs
 	 *
-	 * @param array        $field   Field parameters.
-	 * @param string|array $value   The field meta value.
-	 * @param array        $args    Additional arguments. Rarely used. See specific fields for details.
-	 * @param int|null     $post_id Post ID. null for current post. Optional.
+	 * @use self::get_value()
+	 * @see rwmb_the_value()
 	 *
-	 * @return string
+	 * @param  array    $field   Field parameters
+	 * @param  array    $args    Additional arguments. Rarely used. See specific fields for details
+	 * @param  int|null $post_id Post ID. null for current post. Optional.
+	 *
+	 * @return string HTML output of the field
 	 */
-	public static function format_clone_value( $field, $value, $args, $post_id ) {
-		return sprintf( '<label>%s:</label> %s', $value[0], $value[1] );
+	static function the_value( $field, $args = array(), $post_id = null )
+	{
+		$value = self::get_value( $field, $args, $post_id );
+		if ( ! is_array( $value ) )
+			return '';
+
+		$output = '<ul>';
+		foreach ( $value as $subvalue )
+		{
+			$output .= sprintf( '<li><label>%s</label>: %s</li>', $subvalue[0], $subvalue[1] );
+		}
+		$output .= '</ul>';
+		return $output;
 	}
 }

@@ -1,115 +1,89 @@
 <?php
 /**
- * Taxonomy advanced field which saves terms' IDs in the post meta in CSV format.
- *
- * @package Meta Box
+ * Taxonomy advanced field class which saves terms' IDs in the post meta.
  */
-
-/**
- * The taxonomy advanced field class.
- */
-class RWMB_Taxonomy_Advanced_Field extends RWMB_Taxonomy_Field {
+class RWMB_Taxonomy_Advanced_Field extends RWMB_Taxonomy_Field
+{
 	/**
-	 * Save terms in form of comma-separated IDs.
+	 * Get meta values to save
+	 * Save terms in custom field, no more by setting post terms
+	 * Save in form of comma-separated IDs
 	 *
-	 * @param mixed $new     The submitted meta value.
-	 * @param mixed $old     The existing meta value.
-	 * @param int   $post_id The post ID.
-	 * @param array $field   The field parameters.
+	 * @param mixed $new
+	 * @param mixed $old
+	 * @param int   $post_id
+	 * @param array $field
 	 *
 	 * @return string
 	 */
-	public static function value( $new, $old, $post_id, $field ) {
-		$new = parent::value( $new, $old, $post_id, $field );
-
-		return implode( ',', $new );
+	static function value( $new, $old, $post_id, $field )
+	{
+		return is_array( $new ) ? implode( ',', array_unique( $new ) ) : null;
 	}
 
 	/**
-	 * Save meta value.
+	 * Save meta value
 	 *
-	 * @param mixed $new     The submitted meta value.
-	 * @param mixed $old     The existing meta value.
-	 * @param int   $post_id The post ID.
-	 * @param array $field   The field parameters.
+	 * @param mixed $new
+	 * @param mixed $old
+	 * @param int   $post_id
+	 * @param array $field
+	 *
+	 * @return string
 	 */
-	public static function save( $new, $old, $post_id, $field ) {
-		$field['multiple'] = false; // Force to save in 1 row in the database.
-		RWMB_Field::save( $new, $old, $post_id, $field );
+	static function save( $new, $old, $post_id, $field )
+	{
+		if ( $new )
+			update_post_meta( $post_id, $field['id'], $new );
+		else
+			delete_post_meta( $post_id, $field['id'] );
 	}
 
 	/**
-	 * Get raw meta value.
+	 * Standard meta retrieval
 	 *
-	 * @param int   $object_id Object ID.
-	 * @param array $field     Field parameters.
-	 * @param array $args      Arguments of {@see rwmb_meta()} helper.
+	 * @param int   $post_id
+	 * @param bool  $saved
+	 * @param array $field
 	 *
-	 * @return mixed
+	 * @return array
 	 */
-	public static function raw_meta( $object_id, $field, $args = array() ) {
-		$args['single'] = true;
-		$meta           = RWMB_Field::raw_meta( $object_id, $field, $args );
-
-		if ( empty( $meta ) ) {
-			return $field['multiple'] ? array() : '';
-		}
-
-		$meta = $field['clone'] ? array_map( 'wp_parse_id_list', $meta ) : wp_parse_id_list( $meta );
-
-		$meta = array_filter( $meta );
-
+	static function meta( $post_id, $saved, $field )
+	{
+		$meta = get_post_meta( $post_id, $field['id'], true );
+		$meta = wp_parse_id_list( $meta );
 		return $meta;
 	}
 
 	/**
-	 * Get the field value.
-	 * Return list of post term objects.
+	 * Get the field value
+	 * Return list of post term objects
 	 *
-	 * @param  array    $field   Field parameters.
-	 * @param  array    $args    Additional arguments.
+	 * @param  array    $field   Field parameters
+	 * @param  array    $args    Additional arguments. Rarely used. See specific fields for details
 	 * @param  int|null $post_id Post ID. null for current post. Optional.
 	 *
-	 * @return array List of post term objects.
+	 * @return array List of post term objects
 	 */
-	public static function get_value( $field, $args = array(), $post_id = null ) {
-		$value = RWMB_Field::get_value( $field, $args, $post_id );
-		if ( ! $field['clone'] ) {
-			$value = self::call( 'terms_info', $field, $value, $args );
-		} else {
-			$return = array();
-			foreach ( $value as $subvalue ) {
-				$return[] = self::call( 'terms_info', $field, $subvalue, $args );
-			}
-			$value = $return;
-		}
+	static function get_value( $field, $args = array(), $post_id = null )
+	{
+		if ( ! $post_id )
+			$post_id = get_the_ID();
 
+		$value = self::meta( $post_id, '', $field );
+
+		// Allow to pass more arguments to "get_terms"
+		$args  = wp_parse_args( array(
+			'include'    => $value,
+			'hide_empty' => false,
+		), $args );
+		$value = get_terms( $field['taxonomy'], $args );
+
+		// Get single value if necessary
+		if ( ! $field['clone'] && ! $field['multiple'] )
+		{
+			$value = reset( $value );
+		}
 		return $value;
-	}
-
-	/**
-	 * Get terms information.
-	 *
-	 * @param array  $field    Field parameters.
-	 * @param string $term_ids Term IDs, in CSV format.
-	 * @param array  $args     Additional arguments (for image size).
-	 *
-	 * @return array
-	 */
-	public static function terms_info( $field, $term_ids, $args ) {
-		if ( empty( $term_ids ) ) {
-			return array();
-		}
-		$args = wp_parse_args(
-			array(
-				'include'    => $term_ids,
-				'hide_empty' => false,
-			),
-			$args
-		);
-
-		$info = get_terms( $field['taxonomy'], $args );
-		$info = is_array( $info ) ? $info : array();
-		return $field['multiple'] ? $info : reset( $info );
 	}
 }

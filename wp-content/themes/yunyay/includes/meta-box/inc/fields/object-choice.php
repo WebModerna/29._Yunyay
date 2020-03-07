@@ -1,158 +1,239 @@
 <?php
 /**
- * The object choice class which allows users to select specific objects in WordPress.
- *
- * @package Meta Box
- */
-
-/**
  * Abstract field to select an object: post, user, taxonomy, etc.
  */
-abstract class RWMB_Object_Choice_Field extends RWMB_Choice_Field {
+abstract class RWMB_Object_Choice_Field extends RWMB_Field
+{
 	/**
-	 * Show field HTML.
-	 * Populate field options before showing to make sure query is made only once.
+	 * Get field HTML
 	 *
-	 * @param array $field   Field parameters.
-	 * @param bool  $saved   Whether the meta box is saved at least once.
-	 * @param int   $post_id Post ID.
-	 */
-	public static function show( $field, $saved, $post_id = 0 ) {
-		// Get unique saved IDs for ajax fields.
-		$meta = self::call( $field, 'meta', $post_id, $saved );
-		$meta = self::filter( 'field_meta', $meta, $field, $saved );
-		$meta = RWMB_Helpers_Array::flatten( (array) $meta );
-		$meta = array_unique( array_filter( array_map( 'absint', $meta ) ) );
-		sort( $meta );
-
-		$field['options'] = self::call( $field, 'query', $meta );
-
-		parent::show( $field, $saved, $post_id );
-	}
-
-	/**
-	 * Get field HTML.
+	 * @param mixed $meta
+	 * @param array $field
 	 *
-	 * @param mixed $meta  Meta value.
-	 * @param array $field Field parameters.
 	 * @return string
 	 */
-	public static function html( $meta, $field ) {
-		$html = call_user_func( array( self::get_type_class( $field ), 'html' ), $meta, $field );
-
-		if ( $field['add_new'] ) {
-			$html .= self::call( 'add_new_form', $field );
+	static function html( $meta, $field )
+	{
+		$field_class = RW_Meta_Box::get_class_name( $field );
+		$meta        = (array) $meta;
+		$options     = call_user_func( array( $field_class, 'get_options' ), $field );
+		$output      = '';
+		switch ( $field['field_type'] )
+		{
+			case 'checkbox_list':
+			case 'radio_list':
+				$output .= call_user_func( array( $field_class, 'render_list' ), $options, $meta, $field );
+				break;
+			case 'select_tree':
+				$output .= call_user_func( array( $field_class, 'render_select_tree' ), $options, $meta, $field );
+				break;
+			case 'select_advanced':
+			case 'select':
+			default:
+				$output .= call_user_func( array( $field_class, 'render_select' ), $options, $meta, $field );
+				break;
 		}
-
-		return $html;
+		return $output;
 	}
 
 	/**
-	 * Render "Add New" form
+	 * Normalize parameters for field
 	 *
-	 * @param array $field Field settings.
-	 * @return string
-	 */
-	public static function add_new_form( $field ) {
-		return '';
-	}
-
-	/**
-	 * Normalize parameters for field.
-	 *
-	 * @param array $field Field parameters.
+	 * @param array $field
 	 *
 	 * @return array
 	 */
-	public static function normalize( $field ) {
+	static function normalize( $field )
+	{
 		$field = parent::normalize( $field );
-		$field = wp_parse_args(
-			$field,
-			array(
-				'flatten'    => true,
-				'query_args' => array(),
-				'field_type' => 'select_advanced',
-				'add_new'    => false,
-				'ajax'       => true,
-			)
-		);
-		if ( 'select_advanced' !== $field['field_type'] ) {
-			$field['ajax'] = false;
-		}
-		if ( 'checkbox_tree' === $field['field_type'] ) {
+		$field = wp_parse_args( $field, array(
+			'flatten'    => true,
+			'query_args' => array(),
+			'field_type' => 'select',
+		) );
+
+		if ( 'checkbox_tree' === $field['field_type'] )
+		{
 			$field['field_type'] = 'checkbox_list';
 			$field['flatten']    = false;
 		}
-		if ( 'radio_list' === $field['field_type'] ) {
-			$field['field_type'] = 'radio';
+
+		switch ( $field['field_type'] )
+		{
+			case 'checkbox_list':
+			case 'radio_list':
+				$field = wp_parse_args( $field, array(
+					'collapse' => true
+				) );
+				$field['flatten']  = 'radio_list' === $field['field_type'] ? true : $field['flatten'];
+				$field['multiple'] = 'radio_list' === $field['field_type'] ? false : true;
+				$field             = RWMB_Input_Field::normalize( $field );
+				break;
+			case 'select_advanced':
+				$field            = RWMB_Select_Advanced_Field::normalize( $field );
+				$field['flatten'] = true;
+				break;
+			case 'select_tree':
+				$field             = RWMB_Select_Field::normalize( $field );
+				$field['multiple'] = true;
+				break;
+			case 'select':
+			default:
+				$field = RWMB_Select_Field::normalize( $field );
+				break;
 		}
-		$field = call_user_func( array( self::get_type_class( $field ), 'normalize' ), $field );
 
 		return $field;
 	}
 
 	/**
-	 * Set ajax parameters.
+	 * Get the attributes for a field
 	 *
-	 * @param array $field Field settings.
-	 */
-	protected static function set_ajax_params( &$field ) {
-		if ( ! $field['ajax'] ) {
-			return;
-		}
-
-		$field['js_options']['ajax']      = array(
-			'url' => admin_url( 'admin-ajax.php' ),
-		);
-		$field['js_options']['ajax_data'] = array(
-			'field'    => array(
-				'id'         => $field['id'],
-				'type'       => $field['type'],
-				'query_args' => $field['query_args'],
-			),
-			'_wpnonce' => wp_create_nonce( 'query' ),
-		);
-	}
-
-	/**
-	 * Get the attributes for a field.
-	 *
-	 * @param array $field Field parameters.
-	 * @param mixed $value Meta value.
+	 * @param array $field
+	 * @param mixed $value
 	 *
 	 * @return array
 	 */
-	public static function get_attributes( $field, $value = null ) {
-		$attributes = call_user_func( array( self::get_type_class( $field ), 'get_attributes' ), $field, $value );
-		if ( 'select_advanced' === $field['field_type'] ) {
-			$attributes['class'] .= ' rwmb-select_advanced';
-		} elseif ( 'select' === $field['field_type'] ) {
-			$attributes['class'] .= ' rwmb-select';
+	static function get_attributes( $field, $value = null )
+	{
+		switch ( $field['field_type'] )
+		{
+			case 'checkbox_list':
+			case 'radio_list':
+				$attributes           = RWMB_Input_Field::get_attributes( $field, $value );
+				$attributes['class'] .= " rwmb-choice";
+				$attributes['id']     = false;
+				$attributes['type']   = 'radio_list' === $field['field_type'] ? 'radio' : 'checkbox';
+				$attributes['name'] .= ! $field['clone'] && $field['multiple'] ? '[]' : '';
+				break;
+			case 'select_advanced':
+				$attributes           = RWMB_Select_Advanced_Field::get_attributes( $field, $value );
+				$attributes['class'] .= " rwmb-select_advanced";
+				break;
+			case 'select_tree':
+				$attributes             = RWMB_Select_Field::get_attributes( $field, $value );
+				$attributes['multiple'] = false;
+				$attributes['id']       = false;
+				$attributes['class'] .= " rwmb-select";
+				break;
+			case 'select':
+			default:
+				$attributes           = RWMB_Select_Field::get_attributes( $field, $value );
+				$attributes['class'] .= " rwmb-select";
+				break;
 		}
+
+
+
 		return $attributes;
 	}
 
 	/**
-	 * Enqueue scripts and styles.
+	 * Get field names of object to be used by walker
+	 *
+	 * @return array
 	 */
-	public static function admin_enqueue_scripts() {
-		RWMB_Input_List_Field::admin_enqueue_scripts();
+	static function get_db_fields()
+	{
+		return array(
+			'parent' => '',
+			'id'     => '',
+			'label'  => '',
+		);
+	}
+
+	/**
+	 * Enqueue scripts and styles
+	 *
+	 * @return void
+	 */
+	static function admin_enqueue_scripts()
+	{
+		wp_enqueue_style( 'rwmb-object-choice', RWMB_CSS_URL . 'object-choice.css', array(), RWMB_VER );
+		wp_enqueue_script( 'rwmb-object-choice', RWMB_JS_URL . 'object-choice.js', array(), RWMB_VER, true );
 		RWMB_Select_Field::admin_enqueue_scripts();
-		RWMB_Select_Tree_Field::admin_enqueue_scripts();
 		RWMB_Select_Advanced_Field::admin_enqueue_scripts();
 	}
 
 	/**
-	 * Get correct rendering class for the field.
+	 * Render checkbox_list or radio_list using walker
 	 *
-	 * @param array $field Field parameters.
-	 * @return string
+	 * @param $options
+	 * @param $meta
+	 * @param $field
+	 *
+	 * @return array
 	 */
-	protected static function get_type_class( $field ) {
-		return RWMB_Helpers_Field::get_class(
-			array(
-				'type' => $field['field_type'],
-			)
+	static function render_list( $options, $meta, $field )
+	{
+		$field_class = RW_Meta_Box::get_class_name( $field );
+		$db_fields   = call_user_func( array( $field_class, 'get_db_fields' ), $field );
+		$walker      = new RWMB_Choice_List_Walker( $db_fields, $field, $meta );
+
+		$output = sprintf( '<ul class="rwmb-choice-list %s">', $field['collapse'] ? 'collapse' : '' );
+
+		$output .= $walker->walk( $options, $field['flatten'] ? - 1 : 0 );
+		$output .= '</ul>';
+		return $output;
+	}
+
+	/**
+	 * Render select or select_advanced using walker
+	 *
+	 * @param $options
+	 * @param $meta
+	 * @param $field
+	 *
+	 * @return array
+	 */
+	static function render_select( $options, $meta, $field )
+	{
+		$field_class = RW_Meta_Box::get_class_name( $field );
+		$attributes  = call_user_func( array( $field_class, 'get_attributes' ), $field, $meta );
+		$db_fields   = call_user_func( array( $field_class, 'get_db_fields' ), $field );
+		$walker      = new RWMB_Select_Walker( $db_fields, $field, $meta );
+
+		$output = sprintf(
+			'<select %s>',
+			self::render_attributes( $attributes )
 		);
+		if ( false === $field['multiple'] )
+		{
+			$output .= isset( $field['placeholder'] ) ? "<option value=''>{$field['placeholder']}</option>" : '<option></option>';
+		}
+		$output .= $walker->walk( $options, $field['flatten'] ? - 1 : 0 );
+		$output .= '</select>';
+		return $output;
+	}
+
+	/**
+	 * Render select_tree
+	 *
+	 * @param $options
+	 * @param $meta
+	 * @param $field
+	 *
+	 * @return array
+	 */
+	static function render_select_tree( $options, $meta, $field )
+	{
+		$field_class = RW_Meta_Box::get_class_name( $field );
+		$db_fields   = call_user_func( array( $field_class, 'get_db_fields' ), $field );
+		$walker      = new RWMB_Select_Tree_Walker( $db_fields, $field, $meta );
+		$output      = $walker->walk( $options );
+
+		return $output;
+	}
+
+	/**
+	 * Get options for walker
+	 *
+	 * @param array $field
+	 *
+	 * @return array
+	 */
+	static function get_options( $field )
+	{
+		return array();
 	}
 }

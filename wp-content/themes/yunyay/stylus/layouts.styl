@@ -22,6 +22,10 @@
 		margin-top 0
 		padding-top 0
 		text-align left
+
+.segundo_contenido
+	margin-top 1rem
+	
 /*
 @media all and (min-width: 640px)
 	.encolumnas
@@ -96,8 +100,10 @@
 	.list_item
 		figure
 			img
-				margin-bottom 0.25em
-				margin-top 0.25em
+				display block
+				margin 0
+				// margin-bottom 0.25em
+				// margin-top 0.25em
 	
 		.contacto
 			padding 0.1em 0.5em 0.5em 0.5em
@@ -111,4 +117,28 @@
 			div
 				.list_item_content
 					max-width auto
+
+
+.imagen_resaltar
+	display block
+	padding 0
+	position relative
 	
+	&:before
+		background-color rgba(0,0,0,0.3)
+		content ''
+		height 100%
+		left 0
+		position absolute
+		transition all 0.2s ease
+		top 0
+		width 5%
+		
+	&:hover
+		&:before
+			width 100%
+	
+/*	img
+		border 1px solid red
+		margin 0
+		display block*/

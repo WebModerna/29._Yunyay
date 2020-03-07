@@ -11,7 +11,7 @@ get_header();
 if ( have_posts() ) : while ( have_posts() ) : the_post();
 
 // Obtención del segundo contenido
-$segundo_contenido = rwmb_meta('segundo_contenido', '');
+$segundo_contenido = rwmb_meta('yunyay_wysiwyg', '');
 
 	?>
 			<article id="contacto">
@@ -29,13 +29,14 @@ $segundo_contenido = rwmb_meta('segundo_contenido', '');
 						</div>
 
 
-						<div class="contenido_una_columna">
+						<div class="segundo_contenido contenido_una_columna">
 							<?php 
-							if ($segundo_contenido)
+							if ($segundo_contenido) {
 								echo $segundo_contenido;
-							else
+							}
+							else {
 								echo "error";
-							?>
+							}?>
 						</div>
 
 						<?php endwhile; endif;?>

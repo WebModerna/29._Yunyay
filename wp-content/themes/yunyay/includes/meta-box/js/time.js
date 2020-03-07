@@ -1,55 +1,30 @@
-( function ( $, rwmb, i18n ) {
+jQuery( function ( $ )
+{
 	'use strict';
 
 	/**
-	 * Transform an input into a time picker.
+	 * Update datetime picker element
+	 * Used for static & dynamic added elements (when clone)
 	 */
-	function transform() {
+	function update()
+	{
 		var $this = $( this ),
-			options = $this.data( 'options' ),
-			$inline = $this.siblings( '.rwmb-datetime-inline' ),
-			current = $this.val();
+			options = $this.data( 'options' );
 
 		$this.siblings( '.ui-datepicker-append' ).remove();  // Remove appended text
-
-		options.onSelect = function() {
-			$this.trigger( 'change' );
-		}
-		options.beforeShow = function( i ) {
-			if ( $( i ).prop( 'readonly' ) ) {
-				return false;
-			}
-		}
-
-		if ( ! $inline.length ) {
-			$this.removeClass( 'hasDatepicker' ).timepicker( options );
-			return;
-		}
-
-		options.altField = '#' + $this.attr( 'id' );
-		$inline
-			.removeClass( 'hasDatepicker' )
-			.empty()
-			.prop( 'id', '' )
-			.timepicker( options )
-			.timepicker( 'setTime', current );
+		$this.removeClass( 'hasDatepicker' ).timepicker( options );
 	}
 
 	// Set language if available
-	function setTimeI18n() {
-		if ( $.timepicker.regional.hasOwnProperty( i18n.locale ) ) {
-			$.timepicker.setDefaults( $.timepicker.regional[i18n.locale] );
-		} else if ( $.timepicker.regional.hasOwnProperty( i18n.localeShort ) ) {
-			$.timepicker.setDefaults( $.timepicker.regional[i18n.localeShort] );
-		}
+	if ( $.timepicker.regional.hasOwnProperty( RWMB_Timepicker.locale ) )
+	{
+		$.timepicker.setDefaults( $.timepicker.regional[RWMB_Timepicker.locale] );
+	}
+	else if ( $.timepicker.regional.hasOwnProperty( RWMB_Timepicker.localeShort ) )
+	{
+		$.timepicker.setDefaults( $.timepicker.regional[RWMB_Timepicker.localeShort] );
 	}
 
-	function init( e ) {
-		$( e.target ).find( '.rwmb-time' ).each( transform );
-	}
-
-	setTimeI18n();
-	rwmb.$document
-		.on( 'mb_ready', init )
-		.on( 'clone', '.rwmb-time', transform );
-} )( jQuery, rwmb, RWMB_Time );
+	$( '.rwmb-time' ).each( update );
+	$( '.rwmb-input' ).on( 'clone', '.rwmb-time', update );
+} );

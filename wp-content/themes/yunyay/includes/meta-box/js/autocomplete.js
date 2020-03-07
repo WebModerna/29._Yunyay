@@ -1,55 +1,55 @@
-( function ( $, rwmb, i18n ) {
+jQuery( function ( $ )
+{
 	'use strict';
 
 	/**
-	 * Transform an input into an autocomplete.
+	 * Update date picker element
+	 * Used for static & dynamic added elements (when clone)
 	 */
-	function transform( e ) {
+	function updateAutocomplete( e )
+	{
 		var $this = $( this ),
-			$search = $this.siblings( '.rwmb-autocomplete-search' ),
+			$search = $this.siblings( '.rwmb-autocomplete-search'),
 			$result = $this.siblings( '.rwmb-autocomplete-results' ),
 			name = $this.attr( 'name' );
 
 		// If the function is called on cloning, then change the field name and clear all results
-		if ( e.hasOwnProperty( 'type' ) && 'clone' == e.type ) {
+		// @see clone.js
+		if ( e.hasOwnProperty( 'type' ) && 'clone' == e.type )
+		{
+			// Clear all results
 			$result.html( '' );
 		}
 
-		$search.removeClass( 'ui-autocomplete-input' ).autocomplete( {
+		$search.removeClass( 'ui-autocomplete-input' )
+			.autocomplete( {
 			minLength: 0,
-			source: $this.data( 'options' ),
-			select: function ( event, ui ) {
+			source   : $this.data( 'options' ),
+			select   : function ( event, ui )
+			{
 				$result.append(
 					'<div class="rwmb-autocomplete-result">' +
 					'<div class="label">' + ( typeof ui.item.excerpt !== 'undefined' ? ui.item.excerpt : ui.item.label ) + '</div>' +
-					'<div class="actions">' + i18n.delete + '</div>' +
+					'<div class="actions">' + RWMB_Autocomplete.delete + '</div>' +
 					'<input type="hidden" class="rwmb-autocomplete-value" name="' + name + '" value="' + ui.item.value + '">' +
 					'</div>'
 				);
 
-				// Reinitialize value.
-				$search.val( '' ).trigger( 'change' );
+				// Reinitialize value
+				$search.val( '' );
 
 				return false;
 			}
 		} );
 	}
 
-	function deleteSelection( e ) {
-		e.preventDefault();
-		var $item = $( this ).parent(),
-			$search = $item.parent().siblings( '.rwmb-autocomplete-search' );
+	$( '.rwmb-autocomplete-wrapper input[type="hidden"]' ).each( updateAutocomplete );
+	$( '.rwmb-input' ).on( 'clone', ':input.rwmb-autocomplete', updateAutocomplete );
 
-		$item.remove();
-		$search.trigger( 'change' );
-	}
-
-	function init( e ) {
-		$( e.target ).find( '.rwmb-autocomplete-wrapper input[type="hidden"]' ).each( transform );
-	}
-
-	rwmb.$document
-		.on( 'mb_ready', init )
-		.on( 'clone', '.rwmb-autocomplete', transform )
-		.on( 'click', '.rwmb-autocomplete-result .actions', deleteSelection );
-} )( jQuery, rwmb, RWMB_Autocomplete );
+	// Handle remove action
+	$( document ).on( 'click', '.rwmb-autocomplete-result .actions', function ()
+	{
+		// remove result
+		$( this ).parent().remove();
+	} );
+} );

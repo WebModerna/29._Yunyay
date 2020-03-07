@@ -1,174 +1,243 @@
 <?php
-/**
- * The image field which uploads images via HTML <input type="file">.
- *
- * @package Meta Box
- */
 
 /**
  * Image field class which uses <input type="file"> to upload.
  */
-class RWMB_Image_Field extends RWMB_File_Field {
+class RWMB_Image_Field extends RWMB_File_Field
+{
 	/**
 	 * Enqueue scripts and styles.
 	 */
-	public static function admin_enqueue_scripts() {
+	static function admin_enqueue_scripts()
+	{
+		// Enqueue same scripts and styles as for file field
 		parent::admin_enqueue_scripts();
-		wp_enqueue_media();
+
 		wp_enqueue_style( 'rwmb-image', RWMB_CSS_URL . 'image.css', array(), RWMB_VER );
+		wp_enqueue_script( 'rwmb-image', RWMB_JS_URL . 'image.js', array( 'jquery-ui-sortable' ), RWMB_VER, true );
 	}
 
 	/**
-	 * Get HTML for uploaded file.
+	 * Add custom actions.
+	 */
+	static function add_actions()
+	{
+		// Do same actions as file field
+		parent::add_actions();
+
+		// Reorder images via Ajax
+		add_action( 'wp_ajax_rwmb_reorder_images', array( __CLASS__, 'wp_ajax_reorder_images' ) );
+	}
+
+	/**
+	 * Ajax callback for reordering images.
+	 */
+	static function wp_ajax_reorder_images()
+	{
+		$post_id  = (int) filter_input( INPUT_POST, 'post_id', FILTER_SANITIZE_NUMBER_INT );
+		$field_id = (string) filter_input( INPUT_POST, 'field_id' );
+		$order    = (string) filter_input( INPUT_POST, 'order' );
+
+		check_ajax_referer( "rwmb-reorder-images_{$field_id}" );
+		parse_str( $order, $items );
+		delete_post_meta( $post_id, $field_id );
+		foreach ( $items['item'] as $item )
+		{
+			add_post_meta( $post_id, $field_id, $item, false );
+		}
+		wp_send_json_success();
+	}
+
+	/**
+	 * Get field HTML
 	 *
-	 * @param int   $file  Attachment (file) ID.
-	 * @param int   $index File index.
-	 * @param array $field Field data.
+	 * @param mixed $meta
+	 * @param array $field
 	 *
 	 * @return string
 	 */
-	protected static function file_html( $file, $index, $field ) {
-		$attributes = self::get_attributes( $field, $file );
+	static function html( $meta, $field )
+	{
+		$i18n_title = apply_filters( 'rwmb_image_upload_string', _x( 'Upload Images', 'image upload', 'meta-box' ), $field );
+		$i18n_more  = apply_filters( 'rwmb_image_add_string', _x( '+ Add new image', 'image upload', 'meta-box' ), $field );
 
-		$edit_link = get_edit_post_link( $file );
-		if ( $edit_link ) {
-			$edit_link = sprintf( '<a href="%s" class="rwmb-image-edit" target="_blank"><span class="dashicons dashicons-edit"></span></a>', $edit_link );
+		// Uploaded images
+		$html = self::get_uploaded_images( $meta, $field );
+
+		// Show form upload
+		$html .= sprintf(
+			'<h4>%s</h4>
+			<div class="new-files">
+				<div class="file-input"><input type="file" name="%s[]" /></div>
+				<a class="rwmb-add-file" href="#"><strong>%s</strong></a>
+			</div>',
+			$i18n_title,
+			$field['id'],
+			$i18n_more
+		);
+
+		return $html;
+	}
+
+	/**
+	 * Get HTML markup for uploaded images
+	 *
+	 * @param array $images
+	 * @param array $field
+	 *
+	 * @return string
+	 */
+	static function get_uploaded_images( $images, $field )
+	{
+		$reorder_nonce = wp_create_nonce( "rwmb-reorder-images_{$field['id']}" );
+		$delete_nonce  = wp_create_nonce( "rwmb-delete-file_{$field['id']}" );
+		$classes       = array( 'rwmb-images', 'rwmb-uploaded' );
+		if ( count( $images ) <= 0 )
+			$classes[] = 'hidden';
+		$list = '<ul class="%s" data-field_id="%s" data-delete_nonce="%s" data-reorder_nonce="%s" data-force_delete="%s" data-max_file_uploads="%s">';
+		$html = sprintf(
+			$list,
+			implode( ' ', $classes ),
+			$field['id'],
+			$delete_nonce,
+			$reorder_nonce,
+			$field['force_delete'] ? 1 : 0,
+			$field['max_file_uploads']
+		);
+
+		foreach ( $images as $image )
+		{
+			$html .= self::img_html( $image );
 		}
+		$html .= '</ul>';
+		return $html;
+	}
+
+	/**
+	 * Get HTML markup for ONE uploaded image
+	 *
+	 * @param int $image Image ID
+	 * @return string
+	 */
+	static function img_html( $image )
+	{
+		$i18n_delete = apply_filters( 'rwmb_image_delete_string', _x( 'Delete', 'image upload', 'meta-box' ) );
+		$i18n_edit   = apply_filters( 'rwmb_image_edit_string', _x( 'Edit', 'image upload', 'meta-box' ) );
+		$item        = '
+			<li id="item_%s">
+				<img src="%s" />
+				<div class="rwmb-image-bar">
+					<a title="%s" class="rwmb-edit-file" href="%s" target="_blank">%s</a> |
+					<a title="%s" class="rwmb-delete-file" href="#" data-attachment_id="%s">&times;</a>
+				</div>
+			</li>
+		';
+
+		$src  = wp_get_attachment_image_src( $image, 'thumbnail' );
+		$src  = $src[0];
+		$link = get_edit_post_link( $image );
 
 		return sprintf(
-			'<li class="rwmb-image-item attachment %s">
-				<input type="hidden" name="%s[%s]" value="%s">
-				<div class="attachment-preview">
-					<div class="thumbnail">
-						<div class="centered">
-							%s
-						</div>
-					</div>
-				</div>
-				<div class="rwmb-image-overlay"></div>
-				<div class="rwmb-image-actions">
-					%s
-					<a href="#" class="rwmb-image-delete rwmb-file-delete" data-attachment_id="%s"><span class="dashicons dashicons-no-alt"></span></a>
-				</div>
-			</li>',
-			esc_attr( $field['image_size'] ),
-			$attributes['name'],
-			$index,
-			$file,
-			wp_get_attachment_image( $file, $field['image_size'] ),
-			$edit_link,
-			$file
+			$item,
+			$image,
+			$src,
+			$i18n_edit, $link, $i18n_edit,
+			$i18n_delete, $image
 		);
 	}
 
 	/**
-	 * Normalize field settings.
+	 * Output the field value
+	 * Display unordered list of images with option for size and link to full size
 	 *
-	 * @param array $field Field settings.
+	 * @param  array    $field   Field parameters
+	 * @param  array    $args    Additional arguments. Not used for these fields.
+	 * @param  int|null $post_id Post ID. null for current post. Optional.
 	 *
-	 * @return array
+	 * @return mixed Field value
 	 */
-	public static function normalize( $field ) {
-		$field = parent::normalize( $field );
-		$field = wp_parse_args(
-			$field,
-			array(
-				'image_size' => 'thumbnail',
-			)
-		);
-		$field['attributes'] = wp_parse_args(
-			$field['attributes'],
-			array(
-				'accept' => 'image/*',
-			)
-		);
+	static function the_value( $field, $args = array(), $post_id = null )
+	{
+		$value = self::get_value( $field, $args, $post_id );
+		if ( ! $value )
+			return '';
 
-		return $field;
-	}
+		$output = '<ul>';
+		foreach ( $value as $file_info )
+		{
+			$img = sprintf(
+				'<img src="%s" alt="%s" title="%s">',
+				esc_url( $file_info['url'] ),
+				esc_attr( $file_info['alt'] ),
+				esc_attr( $file_info['title'] )
+			);
 
-	/**
-	 * Format a single value for the helper functions. Sub-fields should overwrite this method if necessary.
-	 *
-	 * @param array    $field   Field parameters.
-	 * @param array    $value   The value.
-	 * @param array    $args    Additional arguments. Rarely used. See specific fields for details.
-	 * @param int|null $post_id Post ID. null for current post. Optional.
-	 *
-	 * @return string
-	 */
-	public static function format_single_value( $field, $value, $args, $post_id ) {
-		$output = sprintf( '<img src="%s" alt="%s">', esc_url( $value['url'] ), esc_attr( $value['alt'] ) );
+			// Link thumbnail to full size image?
+			if ( isset( $args['link'] ) && $args['link'] )
+			{
+				$img = sprintf(
+					'<a href="%s" title="%s">%s</a>',
+					esc_url( $file_info['full_url'] ),
+					esc_attr( $file_info['title'] ),
+					$img
+				);
+			}
 
-		// Link thumbnail to full size image?
-		if ( ! empty( $args['link'] ) ) {
-			$output = sprintf( '<a href="%s" title="%s">%s</a>', esc_url( $value['full_url'] ), esc_attr( $value['title'] ), $output );
+			$output .= "<li>$img</li>";
 		}
+		$output .= '</ul>';
+
 		return $output;
 	}
 
 	/**
-	 * Get uploaded file information.
+	 * Get uploaded file information
 	 *
-	 * @param int   $file  Attachment image ID (post ID). Required.
-	 * @param array $args  Array of arguments (for size).
-	 * @param array $field Field settings.
+	 * @param int   $file_id Attachment image ID (post ID). Required.
+	 * @param array $args    Array of arguments (for size).
 	 *
-	 * @return array|bool False if file not found. Array of image info on success.
+	 * @return array|bool False if file not found. Array of image info on success
 	 */
-	public static function file_info( $file, $args = array(), $field = array() ) {
-		$path = get_attached_file( $file );
-		if ( ! $path ) {
+	static function file_info( $file_id, $args = array() )
+	{
+		$args = wp_parse_args( $args, array(
+			'size' => 'thumbnail',
+		) );
+
+		$img_src = wp_get_attachment_image_src( $file_id, $args['size'] );
+		if ( ! $img_src )
+		{
 			return false;
 		}
 
-		$args       = wp_parse_args(
-			$args,
-			array(
-				'size' => 'thumbnail',
-			)
-		);
-		$image      = wp_get_attachment_image_src( $file, $args['size'] );
-		$attachment = get_post( $file );
+		$attachment = get_post( $file_id );
+		$path       = get_attached_file( $file_id );
 		$info       = array(
-			'ID'          => $file,
+			'ID'          => $file_id,
 			'name'        => basename( $path ),
 			'path'        => $path,
-			'url'         => $image[0],
-			'full_url'    => wp_get_attachment_url( $file ),
+			'url'         => $img_src[0],
+			'width'       => $img_src[1],
+			'height'      => $img_src[2],
+			'full_url'    => wp_get_attachment_url( $file_id ),
 			'title'       => $attachment->post_title,
 			'caption'     => $attachment->post_excerpt,
 			'description' => $attachment->post_content,
-			'alt'         => get_post_meta( $file, '_wp_attachment_image_alt', true ),
+			'alt'         => get_post_meta( $file_id, '_wp_attachment_image_alt', true ),
+
+
+			// Tamaños personalizados Agregados por mi
+			'large'						=> wp_get_attachment_image_src($file_id, 'large')[0],
+			'medium'					=> wp_get_attachment_image_src($file_id, 'medium')[0],
+			'custom-thumb-1024-500'		=> wp_get_attachment_image_src($file_id, 'custom-thumb-1024-500')[0],
+			'custom-thumb-400-300'		=> wp_get_attachment_image_src($file_id, 'custom-thumb-400-300')[0],
+			'custom-thumb-800-x'		=> wp_get_attachment_image_src($file_id, 'custom-thumb-800-x')[0],
+			'custom-thumb-600-x'		=> wp_get_attachment_image_src($file_id, 'custom-thumb-600-x')[0],
 		);
-		if ( function_exists( 'wp_get_attachment_image_srcset' ) ) {
-			$info['srcset'] = wp_get_attachment_image_srcset( $file, $args['size'] );
+		if ( function_exists( 'wp_get_attachment_image_srcset' ) )
+		{
+			$info['srcset'] = wp_get_attachment_image_srcset( $file_id );
 		}
-
-		$info = wp_parse_args( $info, self::get_image_meta_data( $file ) );
-
-		// Do not overwrite width and height by returned value of image meta.
-		$info['width']  = $image[1];
-		$info['height'] = $image[2];
-
 		return $info;
-	}
-
-	/**
-	 * Get image meta data.
-	 *
-	 * @param  int $attachment_id Attachment ID.
-	 * @return array
-	 */
-	protected static function get_image_meta_data( $attachment_id ) {
-		$metadata = wp_get_attachment_metadata( $attachment_id );
-		if ( empty( $metadata['sizes'] ) ) {
-			return $metadata;
-		}
-
-		$dir_url  = dirname( wp_get_attachment_url( $attachment_id ) );
-		foreach ( $metadata['sizes'] as &$size ) {
-			$size['url'] = "{$dir_url}/{$size['file']}";
-		}
-		return $metadata;
 	}
 }

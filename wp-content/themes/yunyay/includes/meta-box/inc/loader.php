@@ -3,60 +3,78 @@
  * Load plugin's files with check for installing it as a standalone plugin or
  * a module of a theme / plugin. If standalone plugin is already installed, it
  * will take higher priority.
- *
  * @package Meta Box
  */
 
 /**
  * Plugin loader class.
- *
  * @package Meta Box
  */
-class RWMB_Loader {
+class RWMB_Loader
+{
+	/**
+	 * Class constructor.
+	 */
+	public function __construct()
+	{
+		$this->constants();
+		spl_autoload_register( array( $this, 'autoload' ) );
+		$this->init();
+	}
+
 	/**
 	 * Define plugin constants.
 	 */
-	protected function constants() {
-		// Script version, used to add version for scripts and styles.
-		define( 'RWMB_VER', '5.2.7' );
+	public function constants()
+	{
+		// Script version, used to add version for scripts and styles
+		define( 'RWMB_VER', '4.8.3' );
 
-		list( $path, $url ) = self::get_path( dirname( dirname( __FILE__ ) ) );
+		list( $path, $url ) = self::get_path();
 
-		// Plugin URLs, for fast enqueuing scripts and styles.
+		// Plugin URLs, for fast enqueuing scripts and styles
 		define( 'RWMB_URL', $url );
 		define( 'RWMB_JS_URL', trailingslashit( RWMB_URL . 'js' ) );
 		define( 'RWMB_CSS_URL', trailingslashit( RWMB_URL . 'css' ) );
 
-		// Plugin paths, for including files.
+		// Plugin paths, for including files
 		define( 'RWMB_DIR', $path );
 		define( 'RWMB_INC_DIR', trailingslashit( RWMB_DIR . 'inc' ) );
+		define( 'RWMB_FIELDS_DIR', trailingslashit( RWMB_INC_DIR . 'fields' ) );
 	}
 
 	/**
 	 * Get plugin base path and URL.
 	 * The method is static and can be used in extensions.
-	 *
 	 * @link http://www.deluxeblogtips.com/2013/07/get-url-of-php-file-in-wordpress.html
-	 * @param string $path Base folder path.
+	 * @param string $base Base folder path
 	 * @return array Path and URL.
 	 */
-	public static function get_path( $path = '' ) {
-		// Plugin base path.
-		$path       = wp_normalize_path( untrailingslashit( $path ) );
-		$themes_dir = wp_normalize_path( untrailingslashit( dirname( get_stylesheet_directory() ) ) );
+	static public function get_path( $base = '' )
+	{
+		// Plugin base path
+		$path    = $base ? $base : dirname( dirname( __FILE__ ) );
+		$path    = untrailingslashit( $path );
+		$abspath = untrailingslashit( ABSPATH );
 
-		// Default URL.
-		$url = plugins_url( '', $path . '/' . basename( $path ) . '.php' );
-
-		// Included into themes.
-		if (
-			0 !== strpos( $path, wp_normalize_path( WP_PLUGIN_DIR ) )
-			&& 0 !== strpos( $path, wp_normalize_path( WPMU_PLUGIN_DIR ) )
-			&& 0 === strpos( $path, $themes_dir )
-		) {
-			$themes_url = untrailingslashit( dirname( get_stylesheet_directory_uri() ) );
-			$url        = str_replace( $themes_dir, $themes_url, $path );
+		// Check if plugin is a symbolic link (only when it's installed as a standalone plugin).
+		if ( false === strpos( $path, $abspath ) )
+		{
+			if ( ! function_exists( 'is_plugin_active' ) )
+			{
+				require_once ABSPATH . 'wp-admin/includes/plugin.php';
+			}
+			$basename = basename( $path );
+			if ( is_plugin_active( "$basename/$basename.php" ) )
+			{
+				$path = trailingslashit( WP_PLUGIN_DIR ) . $basename;
+			}
 		}
+
+		// Get plugin base URL
+		$content_url = untrailingslashit( dirname( dirname( get_stylesheet_directory_uri() ) ) );
+		$content_dir = untrailingslashit( WP_CONTENT_DIR );
+		$url         = str_replace( wp_normalize_path( $content_dir ), $content_url, wp_normalize_path( $path ) );
 
 		$path = trailingslashit( $path );
 		$url  = trailingslashit( $url );
@@ -65,57 +83,56 @@ class RWMB_Loader {
 	}
 
 	/**
-	 * Bootstrap the plugin.
+	 * Autoload fields' classes.
+	 * @param string $class Class name
 	 */
-	public function init() {
-		$this->constants();
-
-		// Register autoload for classes.
-		require_once RWMB_INC_DIR . 'autoloader.php';
-		$autoloader = new RWMB_Autoloader();
-		$autoloader->add( RWMB_INC_DIR, 'RW_' );
-		$autoloader->add( RWMB_INC_DIR, 'RWMB_' );
-		$autoloader->add( RWMB_INC_DIR . 'about', 'RWMB_' );
-		$autoloader->add( RWMB_INC_DIR . 'fields', 'RWMB_', '_Field' );
-		$autoloader->add( RWMB_INC_DIR . 'walkers', 'RWMB_Walker_' );
-		$autoloader->add( RWMB_INC_DIR . 'interfaces', 'RWMB_', '_Interface' );
-		$autoloader->add( RWMB_INC_DIR . 'storages', 'RWMB_', '_Storage' );
-		$autoloader->add( RWMB_INC_DIR . 'helpers', 'RWMB_Helpers_' );
-		$autoloader->add( RWMB_INC_DIR . 'update', 'RWMB_Update_' );
-		$autoloader->register();
-
-		// Plugin core.
-		$core = new RWMB_Core();
-		$core->init();
-
-		// Validation module.
-		new RWMB_Validation();
-
-		$sanitizer = new RWMB_Sanitizer();
-		$sanitizer->init();
-
-		$media_modal = new RWMB_Media_Modal();
-		$media_modal->init();
-
-		// WPML Compatibility.
-		$wpml = new RWMB_WPML();
-		$wpml->init();
-
-		// Update.
-		$update_option  = new RWMB_Update_Option();
-		$update_checker = new RWMB_Update_Checker( $update_option );
-		$update_checker->init();
-		$update_settings = new RWMB_Update_Settings( $update_checker, $update_option );
-		$update_settings->init();
-		$update_notification = new RWMB_Update_Notification( $update_checker, $update_option );
-		$update_notification->init();
-
-		if ( is_admin() ) {
-			$about = new RWMB_About( $update_checker );
-			$about->init();
+	public function autoload( $class )
+	{
+		// Only load plugin's classes
+		if ( 'RW_Meta_Box' != $class && 0 !== strpos( $class, 'RWMB_' ) )
+		{
+			return;
 		}
 
-		// Public functions.
-		require_once RWMB_INC_DIR . 'functions.php';
+		// Get file name
+		$file = 'meta-box';
+		if ( 'RW_Meta_Box' != $class )
+		{
+			// Remove prefix 'RWMB_'
+			$file = substr( $class, 5 );
+
+			// Optional '_Field'
+			$file = preg_replace( '/_Field$/', '', $file );
+		}
+
+		$file = strtolower( str_replace( '_', '-', $file ) ) . '.php';
+
+		$dirs = array( RWMB_INC_DIR, RWMB_FIELDS_DIR, trailingslashit( RWMB_INC_DIR . 'walkers' ) );
+		foreach ( $dirs as $dir )
+		{
+			if ( file_exists( $dir . $file ) )
+			{
+				require $dir . $file;
+				return;
+			}
+		}
+	}
+
+	/**
+	 * Initialize plugin.
+	 */
+	public function init()
+	{
+		// Plugin core
+		new RWMB_Core;
+
+		if ( is_admin() )
+		{
+			// Validation module
+			new RWMB_Validation;
+		}
+
+		// Public functions
+		require RWMB_INC_DIR . 'functions.php';
 	}
 }
