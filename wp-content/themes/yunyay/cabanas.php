@@ -7,10 +7,8 @@
 */ ?>
 <?php get_header();?>
 			<article id="cabanas">
-				<div id="slider">
-				<h2><?php the_title();?></h2>
-					<div id="ventana"></div>
-					<hr class="separador" />
+				<div>
+
 					<?php
 						$args=array(
 						  'post_type' => 'cabana',
@@ -24,8 +22,15 @@
 						{
 						  while ($my_query->have_posts()) : $my_query->the_post();
 					?>	
+
 					<div class="list_item">
-						<a href="<?php the_permalink();?>"><h2><?php the_title();?></h2></a>
+
+						<h2>
+							<a href="<?php the_permalink();?>">
+								<?php the_title();?>
+							</a>
+						</h2>
+
 						<div class="list_item_img">
 							<figure>
 								<?php 
@@ -40,14 +45,15 @@
 										echo '<img src="'.get_stylesheet_directory_uri().'/img/gravatar.png" alt="'.__('Sin imagen', 'hotellosrobles').'" />';
 									};	
 								?>
-									<!-- <figcaption><?php //_e('Ver fotos de las cabañas', 'yunyay');?></figcaption> -->
 								
 							</figure>
-						</div><!-- .list_item_img -->
+						</div>
+
 						<div class="list_item_content">
 							<?php the_content();?>
-						</div><!-- .list_item_content -->
-					</div><!-- .list_item -->
+						</div>
+
+					</div>
 					<?php endwhile;} wp_reset_query();?>
 				</div><!-- #slider -->
 
