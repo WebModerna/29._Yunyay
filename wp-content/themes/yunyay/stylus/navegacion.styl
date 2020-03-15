@@ -6,28 +6,53 @@
 	top 35%
 	width 100%
 	z-index 120
+
 	div
 		display: inline-block
+		a
+			background rgba(0,0,0,0.4)
+			color #eee
+			cursor pointer
+			font-size 3rem
+			padding 0 0.3em 0.2em 0.3em
+
+			&:hover			
+				color #E39250
+
 		&.back
 			float left
 			a
-				border-radius 0 0.2em 0.2em 0
-				border-right 4px solid rgba(0,0,0,0.5)
-				border-top 2px solid rgba(0,0,0,0.5)
-		a
-			background rgba(0,0,0,0.3)
-			color #eee
-			cursor pointer
-			font-size 3em
-			padding 0 0.3em 0.2em 0.3em
-			&:hover
-				color #E39250
+				border-radius 0 50% 50% 0
+
 		&.next
 			float right
+
 			a
-				border-left: 4px solid rgba(0,0,0,0.5)
-				border-radius: 0.2em 0 0 0.2em
-				border-top: 2px solid rgba(0,0,0,0.5)
+				border-radius: 50% 0 0 50%
+
+
+@media screen and (min-width: 650px)
+	.navegacion
+		top 43%
+
+
+@media screen and (min-width: 860px)
+	.navegacion
+		top: 43%
+
+		.back
+			a
+				&:hover
+					background: rgba(0,0,0,0.7)
+					padding-left: 0.4em
+		.next
+			a
+				&:hover
+					background: rgba(0,0,0,0.7)
+					padding-right: 0.4em
+
+
+
 
 
 // BArra navegacion del menú principal

@@ -5,19 +5,21 @@
 * @since yunyay 1.0
 * Template Name: Cabañas - Listado
 */ ?>
+
 <?php get_header();?>
 			<article id="cabanas">
 				<div>
-
 					<?php
 						$args=array(
-						  'post_type' => 'cabana',
-						  'posts_per_page' => 10,
-						  'order' => 'ASC',
+						  'post_type' 			=> 'cabana',
+						  'posts_per_page' 		=> 10,
+						  'order' 				=> 'ASC',
 						  'ignore_sticky_posts' => 1
 						);
+
 						$my_query = null;
 						$my_query = new WP_Query($args);
+						
 						if( $my_query->have_posts() )
 						{
 						  while ($my_query->have_posts()) : $my_query->the_post();
@@ -42,7 +44,7 @@
 									}
 									else
 									{
-										echo '<img src="'.get_stylesheet_directory_uri().'/img/gravatar.png" alt="'.__('Sin imagen', 'hotellosrobles').'" />';
+										echo '<img src="'.get_stylesheet_directory_uri().'/img/gravatar.png" alt="'.__('Sin imagen', 'yunyay').'" />';
 									};	
 								?>
 								
@@ -54,7 +56,9 @@
 						</div>
 
 					</div>
-					<?php endwhile;} wp_reset_query();?>
-				</div><!-- #slider -->
+					<?php endwhile;
+				}
+				wp_reset_query();?>
+				</div>
 
 <?php get_footer();?>

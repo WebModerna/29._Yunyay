@@ -540,113 +540,11 @@ add_filter('sanitize_title', 'remove_short_words');
 
 
 // Registra Custom Post Type de las Cabañas
-add_action( 'init', 'register_cpt_cabana' );
+require_once "includes/cpt_cabanas.php";
 
-function register_cpt_cabana()
-{
-
-    $labels = array( 
-        'name' => __( 'Cabañas', 'yunyay' ),
-        'singular_name' => __( 'Cabaña', 'yunyay' ),
-        'add_new' => __( 'Agregar nueva', 'yunyay' ),
-        'add_new_item' => __( 'Agregar nueva Cabaña', 'yunyay' ),
-        'edit_item' => __( 'Editar Cabaña', 'yunyay' ),
-        'new_item' => __( 'Nueva Cabaña', 'yunyay' ),
-        'view_item' => __( 'Ver Cabaña', 'yunyay' ),
-        'search_items' => __( 'Buscar Cabañas', 'yunyay' ),
-        'not_found' => __( 'No hay cabañas', 'yunyay' ),
-        'not_found_in_trash' => __( 'No hay cabañas en la papelera', 'yunyay' ),
-        'parent_item_colon' => __( 'Listado de Cabañas:', 'yunyay' ),
-        'menu_name' => __( 'Cabañas', 'yunyay' )
-    );
-
-    $args = array( 
-        'labels' => $labels,
-        'hierarchical' => true,
-        'description' => 'Tipo de cabañas de uno, dos, tres o etc... ambientes',
-        'supports' => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'custom-fields', 'comments', 'revisions', 'page-attributes', 'page-category' ),
-        'taxonomies' => array( 'category', 'page-category', 'Departamento' ),
-        'public' => true,
-        'show_ui' => true,
-        'show_in_menu' => true,
-        'menu_position' => 20,
-        'menu_icon' => get_stylesheet_directory_uri().'/img/favicon.ico',
-        'show_in_nav_menus' => true,
-        'publicly_queryable' => true,
-        'exclude_from_search' => false,
-        'has_archive' => true,
-        'query_var' => true,
-        'can__xport' => true,
-        'rewrite' => true,
-        'capability_type' => 'page'
-    );
-    register_post_type( 'cabana', $args );
-}
 
 //Relativas las urls
-add_action( 'template_redirect', 'relative_url' );
-
-  function relative_url() {
-    // Don't do anything if:
-    // - In feed
-    // - In sitemap by WordPress SEO plugin
-    if ( is_feed() || get_query_var( 'sitemap' ) )
-      return;
-    $filters = array(
-      'post_link',       // Normal post link
-      'post_type_link',  // Custom post type link
-      'page_link',       // Page link
-      'attachment_link', // Attachment link
-      'get_shortlink',   // Shortlink
-      'post_type_archive_link',    // Post type archive link
-      'get_pagenum_link',          // Paginated link
-      'get_comments_pagenum_link', // Paginated comment link
-      'term_link',   // Term link, including category, tag
-      'search_link', // Search link
-      'day_link',   // Date archive link
-      'month_link',
-      'year_link',
-
-      // site location
-      // 'option_siteurl',
-      // 'blog_option_siteurl',
-      // 'option_home',
-      // 'admin_url',
-      // 'home_url',
-      'includes_url',
-      // 'site_url',
-      'site_option_siteurl',
-      'network_home_url',
-      'network_site_url',
-
-      // debug only filters
-      'get_the_author_url',
-      'get_comment_link',
-      'wp_get_attachment_image_src',
-      'wp_get_attachment_thumb_url',
-      'wp_get_attachment_url',
-      'wp_login_url',
-      'wp_logout_url',
-      'wp_lostpassword_url',
-      'get_stylesheet_uri',
-      'get_stylesheet_directory_uri',//
-      'plugins_url',//
-      'plugin_dir_url',//
-      'stylesheet_directory_uri',//
-      'get_template_directory_uri',//
-      'template_directory_uri',//
-      'get_locale_stylesheet_uri',
-      'script_loader_src', // plugin scripts url
-      'style_loader_src', // plugin styles url
-      // 'get_theme_root_uri',
-      // 'home_url'
-    );
-
-    foreach ( $filters as $filter ) {
-      add_filter( $filter, 'wp_make_link_relative' );
-    }
-    home_url($path = '', $scheme = null);
-  }
+require_once "includes/url_relativas.php";
 
 
 // Eliminar cajas innecesarias del dashboard

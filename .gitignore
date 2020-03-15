@@ -34,7 +34,7 @@ xmlrpc.php
 *.txt
 readme.html
 sitemap.xml
-sitemap.xml.gz
+*.gz
 .htaccess_*
 .git*
 *.zip

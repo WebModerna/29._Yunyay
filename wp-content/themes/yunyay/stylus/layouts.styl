@@ -3,7 +3,7 @@
 	padding 0.5rem
 
 .list_item
-	padding-top: 1em
+	// padding-top: 1em
 
 	.list_item_img
 		display: block
@@ -67,21 +67,30 @@
 .list_item
 	box-sizing border-box
 	padding 0.1em 0.5em 0.5em 0.5em
-	margin 0 0.5em 1em 0.5em
+	// margin 0 0.5em 1em 0.5em
 
 	h2
 		color orange
-		padding 0.2em 0.2em 0.2em 0.5em
-		margin 1em auto
+		// padding 0.2em 0.2em 0.2em 0.5em
+		// margin 1em auto
 	
 	figure
 		figcaption
 			background #DC5B34
-			border-radius 0 0 0.5em 0.5em
+			// border-radius 0 0 0.5em 0.5em
 			color #efefef
+			padding 0
 			margin-top -0.4em
 			text-shadow 0px -1px 0px $negro_oscuro_transparente
 			transition all ease 0.4s
+			text-align center
+			a
+				padding 1rem
+				color #fff
+				margin 0
+				display block
+				&:hover
+					background-color #343434
 	div
 		&.list_item_img
 			margin-top 1em
@@ -99,6 +108,8 @@
 
 	.list_item
 		figure
+			display block
+
 			img
 				display block
 				margin 0
@@ -127,12 +138,13 @@
 	&:before
 		background-color rgba(0,0,0,0.3)
 		content ''
+		display block
 		height 100%
 		left 0
 		position absolute
 		transition all 0.2s ease
 		top 0
-		width 5%
+		width 0
 		
 	&:hover
 		&:before

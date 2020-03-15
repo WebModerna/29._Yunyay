@@ -135,24 +135,65 @@ function yunyay_register_meta_boxes( $meta_boxes )
 		)
 	);
 */
+			// Cabañas
+			array(
+				'name'  => __( 'Tipos de Cabañas', 'yunyay' ),
+				'id'    => "yunyay_cabanas",
+				'desc'  => __( 'Monoambiente, dos ambientes, etc...', 'yunyay' ),
+				'type'  => 'text',
+				'std'   => __( '', 'yunyay' ),
+				'clone' => true,
+			),
+
+			// DIVIDER
+			array(
+				'type' => 'divider',
+				'id'   => 'yunyay_2', // Not used, but needed
+			),
+			
+			// Cantidad de personas
+			array(
+				'name'  => __( 'Cantidad de personas por cabañas', 'yunyay' ),
+				'id'    => "yunyay_personas",
+				'desc'  => __( 'Una, dos, tres, etc...', 'yunyay' ),
+				'type'  => 'number',
+				'std'   => __( '', 'yunyay' ),
+				'clone' => true,
+			),
+			
+			// DIVIDER
+			array(
+				'type' => 'divider',
+				'id'   => 'yunyay_3', // Not used, but needed
+			),
+			
+			// Temporadas
+			array(
+				'name'  => __( 'Títulos de las Temporadas', 'yunyay' ),
+				'id'    => "yunyay_temporada",
+				'desc'  => __( 'Alta, media, baja, etc...', 'yunyay' ),
+				'type'  => 'text',
+				'std'   => __( '', 'yunyay' ),
+				'clone' => true,
+			),
+
+			// DIVIDER
+			array(
+				'type' => 'divider',
+				'id'   => 'yunyay_4', // Not used, but needed
+			),
 
 			// Precio
 			array(
-				'name' => __( 'Precio en $', 'yunyay' ),
+				'name' => __( 'Listado de tarifas en $', 'yunyay' ),
 				'id'   => "yunyay_precio",
 				'type' => 'number',
 				'min'  => 0,
+				'desc'  => __( 'Primero colocar los precios de la primer temporada, luego de la siguiente. Y así sucesivamente.', 'yunyay' ),
 				'step' => 1,
+				'clone'   => true,
 			),
 
-			// Precio u$s
-			array(
-				'name' => __( 'Precio en U$s', 'yunyay' ),
-				'id'   => "yunyay_precio_dolar",
-				'type' => 'number',
-				'min'  => 0,
-				'step' => 1,
-			),
 
 
 			/*
@@ -205,9 +246,10 @@ function yunyay_register_meta_boxes( $meta_boxes )
 				'id'   => "yunyay_color",
 				'type' => 'color',
 			),
+			
 			// AUTOCOMPLETE
 			array(
-				'name'    => __( 'Autocomplete', 'yunyay' ),
+				'name'    => __( 'Temporadas', 'yunyay' ),
 				'id'      => "yunyay_autocomplete",
 				'type'    => 'autocomplete',
 				// Options of autocomplete, in format 'value' => 'Label'
@@ -218,8 +260,9 @@ function yunyay_register_meta_boxes( $meta_boxes )
 				// Input size
 				'size'    => 30,
 				// Clone?
-				'clone'   => false,
+				'clone'   => true,
 			),
+			
 			// EMAIL
 			array(
 				'name' => __( 'Email', 'yunyay' ),

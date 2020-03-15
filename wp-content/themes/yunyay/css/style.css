@@ -563,9 +563,6 @@ h2 {
 .contenido_una_columna {
   padding: 0.5rem;
 }
-.list_item {
-  padding-top: 1em;
-}
 .list_item .list_item_img {
   display: block;
   margin: auto;
@@ -651,17 +648,14 @@ h2 {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 0.1em 0.5em 0.5em 0.5em;
-  margin: 0 0.5em 1em 0.5em;
 }
 .list_item h2 {
   color: #ffa500;
-  padding: 0.2em 0.2em 0.2em 0.5em;
-  margin: 1em auto;
 }
 .list_item figure figcaption {
   background: #dc5b34;
-  border-radius: 0 0 0.5em 0.5em;
   color: #efefef;
+  padding: 0;
   margin-top: -0.4em;
   text-shadow: 0px -1px 0px rgba(0,0,0,0.35);
   -webkit-transition: all ease 0.4s;
@@ -669,6 +663,16 @@ h2 {
   -o-transition: all ease 0.4s;
   -ms-transition: all ease 0.4s;
   transition: all ease 0.4s;
+  text-align: center;
+}
+.list_item figure figcaption a {
+  padding: 1rem;
+  color: #fff;
+  margin: 0;
+  display: block;
+}
+.list_item figure figcaption a:hover {
+  background-color: #343434;
 }
 .list_item div.list_item_img {
   margin-top: 1em;
@@ -682,6 +686,9 @@ h2 {
   }
   .list_item {
     padding-top: 1em;
+  }
+  .list_item figure {
+    display: block;
   }
   .list_item figure img {
     display: block;
@@ -705,6 +712,7 @@ h2 {
 .imagen_resaltar:before {
   background-color: rgba(0,0,0,0.3);
   content: '';
+  display: block;
   height: 100%;
   left: 0;
   position: absolute;
@@ -714,7 +722,7 @@ h2 {
   -ms-transition: all 0.2s ease;
   transition: all 0.2s ease;
   top: 0;
-  width: 5%;
+  width: 0;
 }
 .imagen_resaltar:hover:before {
   width: 100%;
@@ -1312,31 +1320,45 @@ h2 {
 .navegacion div {
   display: inline-block;
 }
-.navegacion div.back {
-  float: left;
-}
-.navegacion div.back a {
-  border-radius: 0 0.2em 0.2em 0;
-  border-right: 4px solid rgba(0,0,0,0.5);
-  border-top: 2px solid rgba(0,0,0,0.5);
-}
 .navegacion div a {
-  background: rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.4);
   color: #eee;
   cursor: pointer;
-  font-size: 3em;
+  font-size: 3rem;
   padding: 0 0.3em 0.2em 0.3em;
 }
 .navegacion div a:hover {
   color: #e39250;
 }
+.navegacion div.back {
+  float: left;
+}
+.navegacion div.back a {
+  border-radius: 0 50% 50% 0;
+}
 .navegacion div.next {
   float: right;
 }
 .navegacion div.next a {
-  border-left: 4px solid rgba(0,0,0,0.5);
-  border-radius: 0.2em 0 0 0.2em;
-  border-top: 2px solid rgba(0,0,0,0.5);
+  border-radius: 50% 0 0 50%;
+}
+@media screen and (min-width: 650px) {
+  .navegacion {
+    top: 43%;
+  }
+}
+@media screen and (min-width: 860px) {
+  .navegacion {
+    top: 43%;
+  }
+  .navegacion .back a:hover {
+    background: rgba(0,0,0,0.7);
+    padding-left: 0.4em;
+  }
+  .navegacion .next a:hover {
+    background: rgba(0,0,0,0.7);
+    padding-right: 0.4em;
+  }
 }
 .barra_navegacion {
   font-family: 'Raleway';
@@ -1469,6 +1491,36 @@ h2 {
     margin-right: 2rem !important;
   }
 }
+.cabana_menu {
+  padding: 0;
+}
+.cabana_menu li {
+  display: block;
+  list-style: none;
+  margin-bottom: 1rem;
+}
+.cabana_menu li a {
+  background: #dc5b34;
+  border-radius: 0.2rem;
+  color: #eee;
+  display: block;
+  padding: 0.5em;
+  text-shadow: 0px -1px 0px rgba(0,0,0,0.35);
+  text-align: center;
+}
+.cabana_menu li a:hover {
+  background: #343434;
+}
+.cabana_menu li.current-menu-item,
+.cabana_menu li.current_page_item {
+  display: none;
+}
+@media screen and (min-width: 450px) {
+  .cabana_menu li {
+    display: inline-block;
+    margin-right: 1rem;
+  }
+}
 #home_slider {
   overflow: hidden;
 }
@@ -1548,30 +1600,6 @@ h2 {
 .comment-meta.commentmetadata a:active,
 .comment-meta.commentmetadata a:focus {
   color: #ffa500;
-}
-.cabana_menu {
-  padding: 0;
-}
-.cabana_menu li {
-  list-style: none;
-}
-.cabana_menu li a {
-  background: rgba(250,50,50,0.5);
-  border-radius: 0.2em;
-  color: #ffa500;
-  display: block;
-  margin: 2px 0;
-  padding: 0.5em;
-  text-shadow: 0px -1px 0px rgba(0,0,0,0.35);
-}
-.cabana_menu li a:hover,
-.cabana_menu li a:active,
-.cabana_menu li a:focus {
-  background: #343434;
-}
-.cabana_menu li.current-menu-item,
-.cabana_menu li.current_page_item {
-  display: none;
 }
 .clearfix {
   clear: both;
@@ -1990,20 +2018,13 @@ div.wpcf7 .placeheld {
 .vermas {
   float: right;
 }
-.cabana_menu li,
-.cabana_menu li a {
-  display: inline;
-}
 .commentlist {
   padding: 0.5em 0.5em 0.5em 1.5em;
-}
-.navegacion {
-  top: 40%;
 }
 .servicios figcaption {
   padding: 1em;
 }
-@media screen and (min-width: 960px) {
+@media screen and (min-width: 860px) {
   div.wpcf7,
   form.wpcf7-form {
     display: block;
@@ -2059,11 +2080,9 @@ div.wpcf7 .placeheld {
   }
   .list_item {
     display: block;
-    padding-top: 1.2em;
   }
   .list_item h2 {
     display: block;
-    padding: 0.3em 1em;
   }
   .list_item div.list_item_content {
     display: inline-block;
@@ -2079,25 +2098,6 @@ div.wpcf7 .placeheld {
     margin: 0.6em 0 1em 3%;
     max-width: 46%;
     vertical-align: top;
-  }
-  .navegacion {
-    top: 43%;
-  }
-  .navegacion .back a,
-  .navegacion .next a {
-    -webkit-transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-    -ms-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
-  }
-  .navegacion .back a:hover {
-    background: rgba(0,0,0,0.7);
-    padding-left: 0.4em;
-  }
-  .navegacion .next a:hover {
-    background: rgba(0,0,0,0.7);
-    padding-right: 0.4em;
   }
   .separador {
     display: none !important;
@@ -2129,18 +2129,6 @@ div.wpcf7 .placeheld {
     width: 70%;
   }
 }
-/*
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-ms-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-resolution: 240dpi)
-	@media only screen and (min-width: 650px)
-		div.footer_bg
-			background url("../img/footer_bg_tablet@2x.png") bottom center no-repeat
-			background-size 600px 94px
-
-	@media only screen and (min-width: 960px)
-		div.footer_bg
-			background url("../img/footer_bg@2x.png") bottom center no-repeat
-			background-size 900px 142px
-*/
 @media print {
   *,
   *:before,

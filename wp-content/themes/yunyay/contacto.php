@@ -13,6 +13,13 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
 // Obtención del segundo contenido
 $segundo_contenido = rwmb_meta('yunyay_wysiwyg', '');
 
+$yunyay_cabanas = rwmb_meta('yunyay_cabanas', '');
+$yunyay_personas = rwmb_meta('yunyay_personas', '');
+$yunyay_temporada = rwmb_meta('yunyay_temporada', '');
+$yunyay_precio = rwmb_meta('yunyay_precio', '');
+$matriz_precios = sizeof($yunyay_precio);
+$filas = $matriz_precios / sizeof($yunyay_cabanas);
+
 	?>
 			<article id="contacto">
 				<div>
@@ -25,18 +32,37 @@ $segundo_contenido = rwmb_meta('yunyay_wysiwyg', '');
 
 
 						<div class="flexbox__item">
-							<?php the_content();?>
+							<?php //the_content();?>
+							<?php
+							echo $filas;
+
+							if($yunyay_temporada)
+							{
+								echo '<table class="table">';
+
+								foreach ($yunyay_cabanas as $key => $value)
+								{
+									echo $yunyay_cabanas[$key]. '<br />';
+								}
+
+								foreach ($yunyay_precio as $key1 => $value1)
+								{
+									echo $yunyay_precio[$key1]. '<br />';
+								}
+
+								echo '</table>';
+							}
+							?>
 						</div>
 
 
 						<div class="segundo_contenido contenido_una_columna">
-							<?php 
-							if ($segundo_contenido) {
+						<?php 
+							if ($segundo_contenido)
+							{
 								echo $segundo_contenido;
 							}
-							else {
-								echo "error";
-							}?>
+						?>
 						</div>
 
 						<?php endwhile; endif;?>
