@@ -8,19 +8,10 @@
 
 get_header();
 
-if ( have_posts() ) : while ( have_posts() ) : the_post();
-
 // Obtención del segundo contenido
-$segundo_contenido = rwmb_meta('yunyay_wysiwyg', '');
-
-$yunyay_cabanas = rwmb_meta('yunyay_cabanas', '');
-$yunyay_personas = rwmb_meta('yunyay_personas', '');
-$yunyay_temporada = rwmb_meta('yunyay_temporada', '');
-$yunyay_precio = rwmb_meta('yunyay_precio', '');
-$matriz_precios = sizeof($yunyay_precio);
-$filas = $matriz_precios / sizeof($yunyay_cabanas);
-
-	?>
+$segundo_contenido 		= rwmb_meta('yunyay_wysiwyg', '');
+if (have_posts()):while(have_posts()):the_post();
+?>
 			<article id="contacto">
 				<div>
 					<h2><?php the_title();?></h2>
@@ -32,27 +23,7 @@ $filas = $matriz_precios / sizeof($yunyay_cabanas);
 
 
 						<div class="flexbox__item">
-							<?php //the_content();?>
-							<?php
-							echo $filas;
-
-							if($yunyay_temporada)
-							{
-								echo '<table class="table">';
-
-								foreach ($yunyay_cabanas as $key => $value)
-								{
-									echo $yunyay_cabanas[$key]. '<br />';
-								}
-
-								foreach ($yunyay_precio as $key1 => $value1)
-								{
-									echo $yunyay_precio[$key1]. '<br />';
-								}
-
-								echo '</table>';
-							}
-							?>
+							<?php the_content();?>
 						</div>
 
 
@@ -64,8 +35,7 @@ $filas = $matriz_precios / sizeof($yunyay_cabanas);
 							}
 						?>
 						</div>
-
-						<?php endwhile; endif;?>
 					</div>
+					<?php endwhile; endif;?>
 				</div><!-- #slider -->
 <?php get_footer();?>

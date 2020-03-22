@@ -136,19 +136,31 @@
 	position relative
 	
 	&:before
-		background-color rgba(0,0,0,0.3)
-		content ''
-		display block
+		align-items center
+		background-color rgba(0,0,0,0.5)
+		content "\e9cb"
+		color #fff
+		font-family 'icomoon' !important
+		display flex
+		flex-direction row
+		flex-wrap wrap
+		justify-content center
 		height 100%
 		left 0
+		font-size 3rem
+		opacity 0.1
+		transform scale(1.5)
 		position absolute
 		transition all 0.2s ease
 		top 0
-		width 0
+		text-align center
+		vertical-align middle
+		width 100%
 		
 	&:hover
 		&:before
-			width 100%
+			opacity 1
+			transform scale(1)
 	
 /*	img
 		border 1px solid red

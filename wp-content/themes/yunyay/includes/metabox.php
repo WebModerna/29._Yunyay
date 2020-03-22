@@ -37,10 +37,10 @@ function yunyay_register_meta_boxes( $meta_boxes )
 		'id'         => 'standard',
 
 		// Meta box title - Will appear at the drag and drop handle bar. Required.
-		'title'      => __( 'Segundo contenido', 'yunyay' ),
+		'title'      => __( 'Tarifario para las cabañas', 'yunyay' ),
 
 		// Post types, accept custom post types as well - DEFAULT is 'post'. Can be array (multiple post types) or string (1 post type). Optional.
-		'post_types' => array( 'page' ),
+		'post_types' => array( 'temporada_tarifa' ),
 
 		// 'post_types' => array( 'home_page' ),
 
@@ -57,141 +57,68 @@ function yunyay_register_meta_boxes( $meta_boxes )
 		'fields'     => array(
 
 
-			// WYSIWYG/RICH TEXT EDITOR
-			array(
-				'name'    => __( '', 'yunyay' ),
-				'id'      => "yunyay_wysiwyg",
-				'type'    => 'wysiwyg',
-				// Set the 'raw' parameter to TRUE to prevent data being passed through wpautop() on save
-				'raw'     => false,
-				// 'std'     => __( 'WYSIWYG default value', 'yunyay' ),
-				// Editor settings, see wp_editor() function: look4wp.com/wp_editor
-				'options' => array(
-					'textarea_rows' => 8,
-					'teeny'         => true,
-					'media_buttons' => false,
-				),
-			),
 
-
-
-			// RADIO BUTTONS
-			/*array(
-				'name'    => __( 'Radio', 'yunyay' ),
-				'id'      => "yunyay_radio",
-				'type'    => 'radio',
-				// Array of 'value' => 'Label' pairs for radio options.
-				// Note: the 'value' is stored in meta field, not the 'Label'
-				'options' => array(
-					'value1' => __( 'Label1', 'yunyay' ),
-					'value2' => __( 'Label2', 'yunyay' ),
-				),
-			),
-			// SELECT BOX
+			// POST
 			array(
-				'name'        => __( 'Select', 'yunyay' ),
-				'id'          => "yunyay_select",
-				'type'        => 'select',
-				// Array of 'value' => 'Label' pairs for select box
-				'options'     => array(
-					'value1' => __( 'Label1', 'yunyay' ),
-					'value2' => __( 'Label2', 'yunyay' ),
+				'name'			=> __( 'Seleccionar una cabaña', 'yunyay' ),
+				'id'          => "yunyay_pages",
+				'type'        => 'post',
+				// Post type
+				'post_type'   => 'cabana',
+				// Field type, either 'select' or 'select_advanced' (default)
+				'field_type'  => 'select_advanced',
+				'placeholder'	=> __( 'Seleccionar una cabaña', 'yunyay' ),
+				'desc'  		=> __( 'Monoambiente, dos ambientes, etc...', 'yunyay' ),
+				// Query arguments (optional). No settings means get all published posts
+				'query_args'  => array(
+					'post_status'    => 'publish',
+					'posts_per_page' => - 1,
 				),
-				// Select multiple values, optional. Default is false.
-				'multiple'    => false,
-				'std'         => 'value2',
-				'placeholder' => __( 'Select an Item', 'yunyay' ),
-			),
-			// HIDDEN
-			array(
-				'id'   => "yunyay_hidden",
-				'type' => 'hidden',
-				// Hidden field must have predefined value
-				'std'  => __( 'Hidden value', 'yunyay' ),
-			),
-			// PASSWORD
-			array(
-				'name' => __( 'Password', 'yunyay' ),
-				'id'   => "yunyay_password",
-				'type' => 'password',
-			),*/
-
-/*
-		),
-		'validation' => array(
-			'rules'    => array(
-				"yunyay_password" => array(
-					'required'  => true,
-					'minlength' => 7,
-				),
-			),
-			// optional override of default jquery.validate messages
-			'messages' => array(
-				"yunyay_password" => array(
-					'required'  => __( 'Password is required', 'yunyay' ),
-					'minlength' => __( 'Password must be at least 7 characters', 'yunyay' ),
-				),
-			)
-		)
-	);
-*/
-			// Cabañas
-			array(
-				'name'  => __( 'Tipos de Cabañas', 'yunyay' ),
-				'id'    => "yunyay_cabanas",
-				'desc'  => __( 'Monoambiente, dos ambientes, etc...', 'yunyay' ),
-				'type'  => 'text',
-				'std'   => __( '', 'yunyay' ),
 				'clone' => true,
 			),
-
+			
 			// DIVIDER
 			array(
 				'type' => 'divider',
-				'id'   => 'yunyay_2', // Not used, but needed
+				'id'   => 'yunyay_1',
 			),
-			
+
 			// Cantidad de personas
 			array(
 				'name'  => __( 'Cantidad de personas por cabañas', 'yunyay' ),
 				'id'    => "yunyay_personas",
-				'desc'  => __( 'Una, dos, tres, etc...', 'yunyay' ),
+				'desc'  => __( '1, 2, 3, etc... una cantidad por cada cabaña.', 'yunyay' ),
 				'type'  => 'number',
 				'std'   => __( '', 'yunyay' ),
 				'clone' => true,
 			),
-			
-			// DIVIDER
-			array(
-				'type' => 'divider',
-				'id'   => 'yunyay_3', // Not used, but needed
-			),
-			
-			// Temporadas
-			array(
-				'name'  => __( 'Títulos de las Temporadas', 'yunyay' ),
-				'id'    => "yunyay_temporada",
-				'desc'  => __( 'Alta, media, baja, etc...', 'yunyay' ),
-				'type'  => 'text',
-				'std'   => __( '', 'yunyay' ),
-				'clone' => true,
-			),
 
 			// DIVIDER
 			array(
 				'type' => 'divider',
-				'id'   => 'yunyay_4', // Not used, but needed
+				'id'   => 'yunyay_2',
 			),
+			
 
 			// Precio
 			array(
-				'name' => __( 'Listado de tarifas en $', 'yunyay' ),
-				'id'   => "yunyay_precio",
-				'type' => 'number',
-				'min'  => 0,
-				'desc'  => __( 'Primero colocar los precios de la primer temporada, luego de la siguiente. Y así sucesivamente.', 'yunyay' ),
-				'step' => 1,
-				'clone'   => true,
+				'name'	=> __( 'Tarifas en $', 'yunyay' ),
+				'id'	=> "yunyay_precio",
+				'type'	=> 'number',
+				'min'	=> 0,
+				'desc'	=> __( '$1000, $2.000, etc... un precio por cada cabaña.', 'yunyay' ),
+				'step'	=> 1,
+				'clone' => true,
+			),
+
+			// TEXTAREA
+			array(
+				'name' => __( 'Descripción', 'yunyay' ),
+				'desc' => __( '¿En qué consiste esta temporada?', 'yunyay' ),
+				'id'   => "descripcion_temporada",
+				'type' => 'textarea',
+				'cols' => 20,
+				'rows' => 2,
 			),
 
 
@@ -240,141 +167,7 @@ function yunyay_register_meta_boxes( $meta_boxes )
 					'stepSecond' => 10,
 				),
 			),
-			// COLOR
-			array(
-				'name' => __( 'Color picker', 'yunyay' ),
-				'id'   => "yunyay_color",
-				'type' => 'color',
-			),
-			
-			// AUTOCOMPLETE
-			array(
-				'name'    => __( 'Temporadas', 'yunyay' ),
-				'id'      => "yunyay_autocomplete",
-				'type'    => 'autocomplete',
-				// Options of autocomplete, in format 'value' => 'Label'
-				'options' => array(
-					'value1' => __( 'Label1', 'yunyay' ),
-					'value2' => __( 'Label2', 'yunyay' ),
-				),
-				// Input size
-				'size'    => 30,
-				// Clone?
-				'clone'   => true,
-			),
-			
-			// EMAIL
-			array(
-				'name' => __( 'Email', 'yunyay' ),
-				'id'   => "yunyay_email",
-				'desc' => __( 'Email description', 'yunyay' ),
-				'type' => 'email',
-				'std'  => 'name@email.com',
-			),
-			// RANGE
-			array(
-				'name' => __( 'Range', 'yunyay' ),
-				'id'   => "yunyay_range",
-				'desc' => __( 'Range description', 'yunyay' ),
-				'type' => 'range',
-				'min'  => 0,
-				'max'  => 100,
-				'step' => 5,
-				'std'  => 0,
-			),
-			// URL
-			array(
-				'name' => __( 'URL', 'yunyay' ),
-				'id'   => "yunyay_url",
-				'desc' => __( 'URL description', 'yunyay' ),
-				'type' => 'url',
-				'std'  => 'http://google.com',
-			),
-			// OEMBED
-			array(
-				'name' => __( 'oEmbed', 'yunyay' ),
-				'id'   => "yunyay_oembed",
-				'desc' => __( 'oEmbed description', 'yunyay' ),
-				'type' => 'oembed',
-			),
-			// SELECT ADVANCED BOX
-			array(
-				'name'        => __( 'Select', 'yunyay' ),
-				'id'          => "yunyay_select_advanced",
-				'type'        => 'select_advanced',
-				// Array of 'value' => 'Label' pairs for select box
-				'options'     => array(
-					'value1' => __( 'Label1', 'yunyay' ),
-					'value2' => __( 'Label2', 'yunyay' ),
-				),
-				// Select multiple values, optional. Default is false.
-				'multiple'    => false,
-				// 'std'         => 'value2', // Default value, optional
-				'placeholder' => __( 'Select an Item', 'yunyay' ),
-			),
-			// TAXONOMY
-			array(
-				'name'    => __( 'Taxonomy', 'yunyay' ),
-				'id'      => "yunyay_taxonomy",
-				'type'    => 'taxonomy',
-				'options' => array(
-					// Taxonomy name
-					'taxonomy' => 'category',
-					// How to show taxonomy: 'checkbox_list' (default) or 'checkbox_tree', 'select_tree', select_advanced or 'select'. Optional
-					'type'     => 'checkbox_list',
-					// Additional arguments for get_terms() function. Optional
-					'args'     => array()
-				),
-			),
-			// POST
-			array(
-				'name'        => __( 'Posts (Pages)', 'yunyay' ),
-				'id'          => "yunyay_pages",
-				'type'        => 'post',
-				// Post type
-				'post_type'   => 'page',
-				// Field type, either 'select' or 'select_advanced' (default)
-				'field_type'  => 'select_advanced',
-				'placeholder' => __( 'Select an Item', 'yunyay' ),
-				// Query arguments (optional). No settings means get all published posts
-				'query_args'  => array(
-					'post_status'    => 'publish',
-					'posts_per_page' => - 1,
-				)
-			),
-			// WYSIWYG/RICH TEXT EDITOR
-			array(
-				'name'    => __( 'WYSIWYG / Rich Text Editor', 'yunyay' ),
-				'id'      => "yunyay_wysiwyg",
-				'type'    => 'wysiwyg',
-				// Set the 'raw' parameter to TRUE to prevent data being passed through wpautop() on save
-				'raw'     => false,
-				'std'     => __( 'WYSIWYG default value', 'yunyay' ),
-				// Editor settings, see wp_editor() function: look4wp.com/wp_editor
-				'options' => array(
-					'textarea_rows' => 4,
-					'teeny'         => true,
-					'media_buttons' => false,
-				),
-			),
-			// CHECKBOX LIST
-			array(
-				'name'    => __( 'Checkbox list', 'yunyay' ),
-				'id'      => "yunyay_checkbox_list",
-				'type'    => 'checkbox_list',
-				// Options of checkboxes, in format 'value' => 'Label'
-				'options' => array(
-					'value1' => __( 'Label1', 'yunyay' ),
-					'value2' => __( 'Label2', 'yunyay' ),
-				),
-			),
-			*/
 
-			// DIVIDER
-			array(
-				'type' => 'divider',
-				'id'   => 'yunyay_1', // Not used, but needed
-			),
 
 			// HEADING
 			array(
@@ -393,7 +186,7 @@ function yunyay_register_meta_boxes( $meta_boxes )
 				'max_file_uploads' => false,
 			),
 
-			/*
+			
 			// HEADING
 			array(
 				'type' => 'heading',
@@ -479,6 +272,60 @@ function yunyay_register_meta_boxes( $meta_boxes )
 };
 
 
+
+// El segundo contenido
+add_filter( 'rwmb_meta_boxes', 'meta_box_segundo_contenido' );
+function meta_box_segundo_contenido( $meta_boxes )
+{
+	// Better has an underscore as last sign
+	$prefix = 'meta_';
+
+	// 1st meta box
+	$meta_boxes[] = array(
+
+		// Meta box id, UNIQUE per meta box. Optional since 4.1.5
+		'id'         => 'second_content',
+
+		// Meta box title - Will appear at the drag and drop handle bar. Required.
+		'title'      => __( 'Segundo contenido', 'yunyay' ),
+
+		// Post types, accept custom post types as well - DEFAULT is 'post'. Can be array (multiple post types) or string (1 post type). Optional.
+		'post_types' => array( 'page' ),
+
+		// 'post_types' => array( 'home_page' ),
+		// Where the meta box appear: normal (default), advanced, side. Optional.
+
+		'context'    => 'normal',
+		// Order of meta box: high (default), low. Optional.
+
+		'priority'   => 'high',
+		// Auto save: true, false (default). Optional.
+
+		'autosave'   => true,
+		// List of meta fields
+
+		'fields'     => array(
+
+		// WYSIWYG/RICH TEXT EDITOR
+			array(
+				'name'    => __( '', 'yunyay' ),
+				'id'      => "yunyay_wysiwyg",
+				'type'    => 'wysiwyg',
+				// Set the 'raw' parameter to TRUE to prevent data being passed through wpautop() on save
+				'raw'     => false,
+				// 'std'     => __( 'Agregar otro tipo de contenido y aclaraciones.', 'yunyay' ),
+				// Editor settings, see wp_editor() function: look4wp.com/wp_editor
+				'options' => array(
+					'textarea_rows' => 12,
+					'teeny'         => false,
+					'media_buttons' => true,
+				),
+			),
+		));
+	return $meta_boxes;
+};
+
+
 // Es para las páginas
 add_filter( 'rwmb_meta_boxes', 'meta_paginas_register_meta_boxes' );
 function meta_paginas_register_meta_boxes( $meta_boxes )
@@ -537,3 +384,4 @@ function meta_paginas_register_meta_boxes( $meta_boxes )
 		));
 	return $meta_boxes;
 };
+

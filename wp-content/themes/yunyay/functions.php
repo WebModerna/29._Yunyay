@@ -10,6 +10,9 @@ require_once "includes/meta-box/meta-box.php";
 // require_once "includes/meta-box/inc/loader.php";
 require_once "includes/metabox.php";
 
+// Las tarifas
+require_once "includes/tarifa.php";
+
 // Cargar Panel de Opciones
 if ( !function_exists( 'optionsframework_init' ) )
 {
@@ -50,6 +53,14 @@ add_action('get_header','enable_threaded_comments');
 // Deshabilitar Iconos Emoji
 remove_action('wp_head', 'print_emoji_detection_script', 7);
 remove_action('wp_print_styles', 'print_emoji_styles');
+
+// Agregando un favicon al área de administración
+function admin_favicon()
+{
+	echo '<link rel="shortcut icon" type="image/x-icon" href="' . get_bloginfo('stylesheet_directory') . '/img/favicon.ico" />';
+}
+add_action('admin_head', 'admin_favicon', 1);
+
 
 
 // Remover clases automáticas del the_post_thumbnail
@@ -104,6 +115,13 @@ function cc_mime_types($mimes)
 	$mimes['svg']='image/svg+xml';return $mimes;
 };
 add_filter('upload_mimes','cc_mime_types');
+
+// Modifica el pie de página del panel de administarción
+function remove_footer_admin()
+{
+	echo _e('Desarrollado por', 'webmoderna') . ' <a title="'.__('WebModerna | el futuro de la web', 'webmoderna') . '" href="http://www.webmoderna.com.ar" target="_blank"> <img title="WebModerna" src="' . get_bloginfo("stylesheet_directory") . '/img/webmoderna.png" width="150" style="display:inline-block;vertical-align:middle;" alt="WebModerna" /></a>';
+};
+add_filter('admin_footer_text', 'remove_footer_admin');
 
 
 // Deshabilitar la edición desde otros programas, el link corto y la versión del WP.
@@ -160,14 +178,6 @@ function nuevoGravatar($avatar_defaults)
     return $avatar_defaults;
 }
 add_filter('avatar_defaults', 'nuevoGravatar');
-
-
-//Modifica el pie de página del panel de administarción
-function remove_footer_admin()
-{
-	echo 'Creado por <a href="http://www.webmoderna.com.ar" target="_blank">...:: WebModerna | el futuro de la web ::...</a></p>';
-};
-add_filter('admin_footer_text','remove_footer_admin');
 
 
 //Modificar los campos del perfil de usuario de WordPress
