@@ -6,11 +6,9 @@
 * Template Name: Servicios
 */ ?>
 <?php get_header();?>
-	<?php if (have_posts()):while(have_posts()):the_post();
-		$segundo_contenido = rwmb_meta( 'tarifas_condicones_no_show', '');
-		?>
+	<?php if (have_posts()):while(have_posts()):the_post();?>
 	<article id="servicios">
-		<div id="slider">
+		<div>
 		<h2><?php the_title();?></h2>
 		
 			<div>
@@ -64,7 +62,6 @@
 						</figure>
 					</div><!-- .list_item_img -->
 
-					<hr class="separador" />
 
 					<div class="encolumnas">
 						<?php the_content();?>

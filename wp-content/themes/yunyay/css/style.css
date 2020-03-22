@@ -1730,9 +1730,6 @@ h2 {
   padding: 0;
   margin: -2px -2px;
 }
-.separador {
-  display: none;
-}
 @media screen and (max-width: 290px) {
   article,
   section,
@@ -1994,29 +1991,6 @@ h2 {
   h1 {
     font-size: 1.5em;
   }
-  #mensaje {
-    font-size: 1.1em;
-    padding: 0.5em;
-  }
-  .blog {
-    padding-top: 0.05em;
-  }
-  .blog h2 {
-    display: block;
-  }
-  .blog figure {
-    display: inline-block;
-    float: left;
-    margin: auto 2em 1em 1em;
-    max-width: 250px;
-  }
-  .blog div.list_item_content a.button,
-  .vermas {
-    float: right;
-  }
-  .commentlist {
-    padding: 0.5em 0.5em 0.5em 1.5em;
-  }
   .servicios figcaption {
     padding: 1em;
   }
@@ -2064,15 +2038,6 @@ h2 {
   }
   #googlemaps iframe {
     height: 100% !important;
-  }
-  #logo_home {
-    border: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-  }
-  #logo figure img,
-  #logo_home figure img {
-    width: 200px;
   }
   #mensaje {
     font-size: 1.5em;

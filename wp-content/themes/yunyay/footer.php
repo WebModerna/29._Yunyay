@@ -4,7 +4,6 @@
 $telefono_celular		=	of_get_option( 'telefono_celular', '' );
 $telefono_fijo			=	of_get_option( 'telefono_fijo', '');
 $facebook_contact		=	of_get_option( 'facebook_contact', '' );
-$google_plus_contact	=	of_get_option( 'google_plus_contact', '' );
 $add_this_script		=	of_get_option( 'add_this_script', '');
 $google_analitycs		=	of_get_option( 'google_analitycs', '');
 $direccion_web			=	of_get_option( 'direccion_web', '');
@@ -14,20 +13,6 @@ $twitter_contact		=	of_get_option( 'twitter_contact', '');
 
 ?>
 
-				<!-- <div class="footer_bg">-->
-					<!--[if IE 8]>
-						<img src="<?php //bloginfo('stylesheet_directory');?>/img/footer_bg.png" alt="<?php //_e('Imagen de fondo', 'yunyay');?>" />
-					<![endif]-->
-				<!--</div> -->
-				<!-- <div id="mensaje">
-					<?php //Pie de página. Mensaje
-						/*$recent = new WP_Query("page_id=42");
-						while($recent->have_posts()) : $recent->the_post();
-						the_content();
-						endwhile; 
-						wp_reset_query();*/
-					?>
-				</div> -->
 			</article><!-- #home_slider -->
 		</section>
 		<footer class="footer">
@@ -69,9 +54,9 @@ $twitter_contact		=	of_get_option( 'twitter_contact', '');
 
 
 					// Correo Electrónico
-					if ( $google_plus_contact )
+					if ( $email_contact	 )
 					{
-						echo '<li><a class="icon-gmail" target="_blank" title="E-Mail" href="mailto:' . $google_plus_contact . '"></a></li>';
+						echo '<li><a class="icon-gmail" target="_blank" title="E-Mail" href="mailto:' . $email_contact . '"></a></li>';
 					}
 
 					// Instagram

@@ -1,10 +1,8 @@
 <?php get_header();?>
 		<?php if (have_posts()):while(have_posts()):the_post();?>
 			<article id="servicios">
-				<div id="slider">
+				<div>
 				<h2><?php the_title();?></h2>
-					<div id="ventana"></div>
-					<hr class="separador" />
 					<div>
 						<div class="list_item">
 							<div class="list_item_img">
