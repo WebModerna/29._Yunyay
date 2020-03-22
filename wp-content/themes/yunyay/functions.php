@@ -11,7 +11,7 @@ require_once "includes/meta-box/meta-box.php";
 require_once "includes/metabox.php";
 
 // Las tarifas
-require_once "includes/tarifa.php";
+// require_once "includes/tarifa.php";
 
 // Cargar Panel de Opciones
 if ( !function_exists( 'optionsframework_init' ) )

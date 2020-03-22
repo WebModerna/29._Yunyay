@@ -1,14 +1,36 @@
 // Logotipo de la home
-#logo, #logo_home
+#logo
+#logo_home
 	margin 0
 	position relative
 	transition all 0.4s ease-in-out
 	width 100%
 
 
-#logo div, #logo figure, #logo_home figure, #logo_home div
-	display inline-block
-	text-shadow 0px -1px 0px $negro_oscuro_transparente
+#logo
+#logo_home
+	figure
+	div
+		display inline-block
+		text-shadow 0px -1px 0px $negro_oscuro_transparente
 
-#logo figure, #logo_home figure
-	width 150px
+#logo
+#logo_home
+	figure
+		width 150px
+
+@media all and (min-width: 960px)
+	#logo
+	#logo_home
+		display inline-block
+		box-sizing border-box
+		position absolute
+		z-index 122
+
+		figure
+			img
+				width 200px
+
+	#logo_home
+		border none
+		box-shadow none

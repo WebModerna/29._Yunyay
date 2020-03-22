@@ -1602,9 +1602,9 @@ h2 {
   transition: all 0.4s ease-in-out;
   width: 100%;
 }
-#logo div,
 #logo figure,
 #logo_home figure,
+#logo div,
 #logo_home div {
   display: inline-block;
   text-shadow: 0px -1px 0px rgba(0,0,0,0.35);
@@ -1612,6 +1612,26 @@ h2 {
 #logo figure,
 #logo_home figure {
   width: 150px;
+}
+@media all and (min-width: 960px) {
+  #logo,
+  #logo_home {
+    display: inline-block;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 122;
+  }
+  #logo figure img,
+  #logo_home figure img {
+    width: 200px;
+  }
+  #logo_home {
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
 }
 .boton_general {
   -webkit-transition: all 0.4s ease-in-out;
@@ -2044,15 +2064,6 @@ h2 {
   }
   #googlemaps iframe {
     height: 100% !important;
-  }
-  #logo,
-  #logo_home {
-    display: inline-block;
-    position: absolute;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    z-index: 122;
   }
   #logo_home {
     border: none;
