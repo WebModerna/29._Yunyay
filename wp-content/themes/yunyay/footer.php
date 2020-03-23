@@ -73,7 +73,7 @@ $twitter_contact		=	of_get_option( 'twitter_contact', '');
 							echo '<li><a class="icon-whatsapp1" target="_blank" href="whatsapp://send?phone=' . $telefono_celular . '&text=Hola Cabañas Yunyay. " title="WhatsApp" rel="nofollow"></a></li>';
 						} else {
 							echo '<li><a class="icon-whatsapp1" target="_blank" href="https://web.whatsapp.com/send?l=en&phone=' . $telefono_celular . '&text=Hola Cabañas Yunyay. " title="WhatsApp" rel="nofollow"></a></li>';
-							// https://web.whatsapp.com/send?l=en&phone=+5492615117948
+
 						}
 					}
                 ?>
@@ -82,24 +82,20 @@ $twitter_contact		=	of_get_option( 'twitter_contact', '');
 		</footer>
 	</div>
 	<script type="text/javascript" src="<?php bloginfo('stylesheet_directory');?>/js/scripts.js"></script>
-	<?php if(is_page( 'contacto' )) { //Solo se cargará en la página del formulario ?>
+	<script type="text/javascript" src="https://www.google.com/Captcha/api.js"></script>
+
+<?php if( is_page( 'contacto' ) ) {
+	//Solo se cargará en la página del formulario ?>
 	<script type="text/javascript" src="<?php bloginfo('stylesheet_directory');?>/js/datepicker-completo.js"></script>
-	<?php };
+<?php
+	}
 
-		// Google Analitics
-		if ( $google_analitycs )
-		{
-			echo '<script type="text/javascript">' . $google_analitycs . '</script>';
-		}
-
-		// AddThis para compartir en redes sociales
-		if ( $add_this_script )
-		{
-			echo '<script type="text/javascript" src="https:' . $add_this_script . '"></script>';
-		} 
-	?>
-
-	<script>document.write('<script src="http://' + (location.host || '${1:localhost}').split(':')[0] + ':${2:35729}/livereload.js?snipver=1"></' + 'script>')</script>
+	// Google Analitics
+	if ( $google_analitycs )
+	{
+		echo '<script type="text/javascript">' . $google_analitycs . '</script>';
+	}
+?>
 <?php wp_footer();?>
 </body>
 </html>

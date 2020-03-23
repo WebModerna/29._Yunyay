@@ -563,15 +563,15 @@ function quita_cajas_escritorio()
 {
 	// if( !current_user_can('manage_options') )
 	// {
-		remove_meta_box('dashboard_activity', 'dashboard', 'normal' ); // Actividad
-		remove_meta_box('dashboard_right_now', 'dashboard', 'normal');   // Ahoramismo
-		remove_meta_box('dashboard_recent_comments', 'dashboard', 'normal'); // Comentarios recientes
-		remove_meta_box('dashboard_incoming_links', 'dashboard', 'normal');  // Enlaces entrantes
-		remove_meta_box('dashboard_plugins', 'dashboard', 'normal');   // Plugins
-		remove_meta_box('dashboard_quick_press', 'dashboard', 'side');  // Publicación rápida
-		remove_meta_box('dashboard_recent_drafts', 'dashboard', 'side');  // Borradores recientes
-		remove_meta_box('dashboard_primary', 'dashboard', 'side');   // Noticas del blog de WordPress
-		remove_meta_box('dashboard_secondary', 'dashboard', 'side');   // Otras noticias de WordPress
+	remove_meta_box('dashboard_activity', 'dashboard', 'normal' ); // Actividad
+	remove_meta_box('dashboard_right_now', 'dashboard', 'normal');   // Ahoramismo
+	remove_meta_box('dashboard_recent_comments', 'dashboard', 'normal'); // Comentarios recientes
+	remove_meta_box('dashboard_incoming_links', 'dashboard', 'normal');  // Enlaces entrantes
+	remove_meta_box('dashboard_plugins', 'dashboard', 'normal');   // Plugins
+	remove_meta_box('dashboard_quick_press', 'dashboard', 'side');  // Publicación rápida
+	remove_meta_box('dashboard_recent_drafts', 'dashboard', 'side');  // Borradores recientes
+	remove_meta_box('dashboard_primary', 'dashboard', 'side');   // Noticas del blog de WordPress
+	remove_meta_box('dashboard_secondary', 'dashboard', 'side');   // Otras noticias de WordPress
 	// utiliza 'dashboard-network' como segundo parámetro para quitar cajas del escritorio de red.
 	// }
 }
@@ -590,8 +590,8 @@ function remove_meta_boxes()
 	remove_meta_box('trackbacksdiv','post','normal');
 	remove_meta_box('commentstatusdiv','post','normal');
 	remove_meta_box('commentsdiv','post','normal');
-	// remove_meta_box('categorydiv','post','normal');
-	// remove_meta_box('tagsdiv-post_tag','post','normal');
+	remove_meta_box('categorydiv','post','normal');
+	remove_meta_box('tagsdiv-post_tag','post','normal');
 	remove_meta_box('slugdiv','post','normal');
 	remove_meta_box('authordiv','post','normal');
 	remove_meta_box('postexcerpt','post','normal');
@@ -612,7 +612,7 @@ add_action('admin_init','remove_meta_boxes');
 // Sitemap en xml
 require_once "includes/06._sitemap.php";
 
-/*
+
 //Función para Minificar el HTML
 class WP_HTML_Compression
 {
@@ -726,14 +726,16 @@ class WP_HTML_Compression
 		return $str;
 	}
 }
+
 function wp_html_compression_finish($html)
 {
 	return new WP_HTML_Compression($html);
 }
+
 function wp_html_compression_start()
 {
 	ob_start('wp_html_compression_finish');
 }
-add_action('get_header', 'wp_html_compression_start');
-*/
+// add_action('get_header', 'wp_html_compression_start');
+
 ?>

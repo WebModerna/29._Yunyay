@@ -58,3 +58,28 @@ if (i.type=="text")
 		});
 	});
 };
+
+jQuery(function($)
+{
+	$(document).ready(function()
+	{
+		console.clear();
+
+		let ingreso = $("#ingreso").val();
+		let egreso	= $("#egreso").val();
+		
+		$('#ingreso').on("change", mostrar(ingreso));
+		$('#egreso').on("change", mostrar(egreso));
+		
+		function mostrar(par)
+		{
+			console.log(par);
+			return;
+		}
+
+		if(ingreso > egreso)
+		{
+			mostrar("La fecha de egreso debe ser igual o posterior a la de ingreso.");
+		}
+	});
+});
