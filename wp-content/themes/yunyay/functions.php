@@ -360,10 +360,14 @@ add_action('add_meta_boxes', 'add_custom_meta_box');
 
 
 // Para imágenes cargamos el script sólo si estamos en páginas.
-function add_admin_scripts ($hook) {
+function add_admin_scripts ($hook)
+{
 	global $post;
-	if ( $hook == 'post-new.php' || $hook == 'post.php' ) {wp_enqueue_script('custom-js', get_stylesheet_directory_uri().'/js/custom-js.js');}
-};
+	if ( $hook == 'post-new.php' || $hook == 'post.php' )
+	{
+		wp_enqueue_script('custom-js', get_stylesheet_directory_uri().'/js/custom-js.js');
+	}
+}
 add_action( 'admin_enqueue_scripts', 'add_admin_scripts', 10, 1 );
 
 //Nombre del campo personalizado.
@@ -387,20 +391,24 @@ function show_custom_meta_box()
     
     wp_nonce_field( basename( __FILE__ ), 'custom_meta_box_nonce' );
  	// Creamos la tabla de campos personalizados y empezamos un loop con todos ellos
+	
 	echo '<table class="form-table">';
-	foreach ($custom_meta_fields as $field) { // Hacemos un loop con todos los campos personalizados
-					// obtenemos el valor del campo personalizado si existe para este $post->ID
+	foreach ($custom_meta_fields as $field)
+	{
+		// Hacemos un loop con todos los campos personalizados
+		// obtenemos el valor del campo personalizado si existe para este $post->ID
 		$meta = get_post_meta($post->ID, $field['id'], true);
-					// comenzamos una fila de la tabla
-	echo '<tr><th><label for="'.$field['id'].'">'.$field['label'].'</label></th><td>';
-	switch($field['type']) {
-	case 'imagenrepetible':
-		$image = get_stylesheet_directory_uri().'/img/gravatar.png';
+		// comenzamos una fila de la tabla
+		echo '<tr><th><label for="'.$field['id'].'">'.$field['label'].'</label></th><td>';
+		switch($field['type'])
+		{
+			case 'imagenrepetible':
+			$image = get_stylesheet_directory_uri().'/img/gravatar.png';
 
-		echo '<i class="custom_default_image" style="display:none">'.$image.'</i>';
+			echo '<i class="custom_default_image" style="display:none">'.$image.'</i>';
 
-		echo '<ul id="'.$field['id'].'-repeatable" class="custom_repeatable">';
-		$i = 0;
+			echo '<ul id="'.$field['id'].'-repeatable" class="custom_repeatable">';
+			$i = 0;
 	if ($meta)
 	{
 		// Si get_post_meta nos ha dado valores, hacemos un foreach
