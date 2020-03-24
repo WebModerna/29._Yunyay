@@ -82,8 +82,7 @@ $twitter_contact		=	of_get_option( 'twitter_contact', '');
 		</footer>
 	</div>
 	<script type="text/javascript" src="<?php bloginfo('stylesheet_directory');?>/js/scripts.js"></script>
-	<script type="text/javascript" src="https://www.google.com/Captcha/api.js"></script>
-
+	
 <?php if( is_page( 'contacto' ) ) {
 	//Solo se cargará en la página del formulario ?>
 	<script type="text/javascript" src="<?php bloginfo('stylesheet_directory');?>/js/datepicker-completo.js"></script>

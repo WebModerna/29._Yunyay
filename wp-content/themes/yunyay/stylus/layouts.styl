@@ -25,12 +25,7 @@
 
 .segundo_contenido
 	margin-top 1rem
-	
-/*
-@media all and (min-width: 640px)
-	.encolumnas
-		column-count 2
-		column-gap 1rem*/
+
 
 .flexbox
 	align-items stretch
@@ -55,29 +50,43 @@
 
 
 
-@media all and (min-width: 961px)
+@media all and (min-width: 960px)
 	.flexbox__item
 		width 49%
+	
+	.segundo_contenido
+		h3
+		h4
+			display block
+
+		h2
+			color $naranja
+			
+		ul
+		ol
+			column-count 2
+			column-gap 3rem
+
+			li
+				margin-top 0
+				margin-bottom 1rem
 	
 	#ubicacion
 		.flexbox
 			.flexbox__item:first-child
 				padding-right 1rem
-				
+
+			
 .list_item
 	box-sizing border-box
 	padding 0.1em 0.5em 0.5em 0.5em
-	// margin 0 0.5em 1em 0.5em
 
 	h2
 		color orange
-		// padding 0.2em 0.2em 0.2em 0.5em
-		// margin 1em auto
 	
 	figure
 		figcaption
 			background #DC5B34
-			// border-radius 0 0 0.5em 0.5em
 			color #efefef
 			padding 0
 			margin-top -0.4em
@@ -91,6 +100,7 @@
 				display block
 				&:hover
 					background-color #343434
+
 	div
 		&.list_item_img
 			margin-top 1em
@@ -113,8 +123,7 @@
 			img
 				display block
 				margin 0
-				// margin-bottom 0.25em
-				// margin-top 0.25em
+
 	
 		.contacto
 			padding 0.1em 0.5em 0.5em 0.5em
@@ -161,8 +170,3 @@
 		&:before
 			opacity 1
 			transform scale(1)
-	
-/*	img
-		border 1px solid red
-		margin 0
-		display block*/

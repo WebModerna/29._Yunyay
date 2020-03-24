@@ -635,9 +635,30 @@ h2 {
   -webkit-justify-content: space-between;
   justify-content: space-between;
 }
-@media all and (min-width: 961px) {
+@media all and (min-width: 960px) {
   .flexbox__item {
     width: 49%;
+  }
+  .segundo_contenido h3,
+  .segundo_contenido h4 {
+    display: block;
+  }
+  .segundo_contenido h2 {
+    color: #dc5b34;
+  }
+  .segundo_contenido ul,
+  .segundo_contenido ol {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+    -webkit-column-gap: 3rem;
+    -moz-column-gap: 3rem;
+    column-gap: 3rem;
+  }
+  .segundo_contenido ul li,
+  .segundo_contenido ol li {
+    margin-top: 0;
+    margin-bottom: 1rem;
   }
   #ubicacion .flexbox .flexbox__item:first-child {
     padding-right: 1rem;

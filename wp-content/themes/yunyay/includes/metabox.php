@@ -385,3 +385,48 @@ function meta_paginas_register_meta_boxes( $meta_boxes )
 	return $meta_boxes;
 };
 
+
+// Es para las cabañas
+add_filter( 'rwmb_meta_boxes', 'cabana_meta_boxes' );
+function cabana_meta_boxes( $meta_boxes )
+{
+	// Better has an underscore as last sign
+	$prefix = 'meta_cabana';
+
+	// 1st meta box
+	$meta_boxes[] = array(
+
+		// Meta box id, UNIQUE per meta box. Optional since 4.1.5
+		'id'         => 'meta_box_cabana',
+
+		// Meta box title - Will appear at the drag and drop handle bar. Required.
+		'title'      => __( 'Subir las fotos de las cabañas desde aqui', 'yunyay' ),
+
+		// Post types, accept custom post types as well - DEFAULT is 'post'. Can be array (multiple post types) or string (1 post type). Optional.
+		'post_types' => array( 'cabana' ),
+
+		// 'post_types' => array( 'home_page' ),
+		// Where the meta box appear: normal (default), advanced, side. Optional.
+
+		'context'    => 'normal',
+		// Order of meta box: high (default), low. Optional.
+
+		'priority'   => 'high',
+		// Auto save: true, false (default). Optional.
+
+		'autosave'   => true,
+		// List of meta fields
+
+		'fields'     => array(
+
+			// PLUPLOAD IMAGE UPLOAD (WP 3.3+)
+			array(
+				'name'             => __( 'Subir varias fotos desde aquí.', 'yunyay' ),
+				'id'               => "yunyay_plupload",
+				'type'             => 'plupload_image',
+				'max_file_uploads' => false,
+			),
+		));
+	return $meta_boxes;
+};
+

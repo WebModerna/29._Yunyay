@@ -7,7 +7,6 @@
 
 // Los metaboxes
 require_once "includes/meta-box/meta-box.php";
-// require_once "includes/meta-box/inc/loader.php";
 require_once "includes/metabox.php";
 
 // Las tarifas
@@ -342,22 +341,23 @@ add_filter("mce_buttons_3","habilitar_mas_botones");
 // Agregar varias imágenes a las entradas y páginas
 function add_custom_meta_box() {
 	add_meta_box(
-	'custom_meta_box', // id
-	'<strong>Subir las fotos del producto desde aquí</strong>', // título
-	'show_custom_meta_box', // función a la que llamamos
-	'page', // sólo para páginas
-	'normal', // contexto
-	'high'); // prioridad
+	'custom_meta_box',
+	'<strong>Subir las fotos del producto desde aquí</strong>',
+	'show_custom_meta_box',
+	'page',
+	'normal',
+	'high');
 
 	add_meta_box(
-	'custom_meta_box', // id
-	'<strong>Subir las fotos del producto desde aquí</strong>', // título
-	'show_custom_meta_box', // función a la que llamamos
-	'cabana', // sólo para entradas
-	'normal', // contexto
-	'high'); // prioridad
+	'custom_meta_box',
+	'<strong>Subir las fotos del producto desde aquí</strong>',
+	'show_custom_meta_box',
+	'cabana',
+	'normal',
+	'high');
 };
 add_action('add_meta_boxes', 'add_custom_meta_box');
+
 
 // Para imágenes cargamos el script sólo si estamos en páginas.
 function add_admin_scripts ($hook) {
@@ -376,50 +376,58 @@ $custom_meta_fields = array( // Dentro de este array podemos incluir más tipos
 	   'id'     => $prefix.'imagenrepetible',
 	   'type'   => 'imagenrepetible' ));
 
-// Función show custom metabox. Es larguísimaaaa!!!
-function show_custom_meta_box() {
+// Función show custom metabox
+function show_custom_meta_box()
+{
 	global $custom_meta_fields, $post;
+	
 	// Usamos nonce para verificación
-    /*echo '<input type="hidden" name="custom_meta_box_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
-    Reemplazé por lo de más abajo para desaparecer los errores del depurador
-    */
+    // echo '<input type="hidden" name="custom_meta_box_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
+    // Reemplazé por lo de más abajo para desaparecer los errores del depurador
+    
     wp_nonce_field( basename( __FILE__ ), 'custom_meta_box_nonce' );
- // Creamos la tabla de campos personalizados y empezamos un loop con todos ellos
+ 	// Creamos la tabla de campos personalizados y empezamos un loop con todos ellos
 	echo '<table class="form-table">';
 	foreach ($custom_meta_fields as $field) { // Hacemos un loop con todos los campos personalizados
 					// obtenemos el valor del campo personalizado si existe para este $post->ID
 		$meta = get_post_meta($post->ID, $field['id'], true);
 					// comenzamos una fila de la tabla
 	echo '<tr><th><label for="'.$field['id'].'">'.$field['label'].'</label></th><td>';
-	switch($field['type']) { // Si tenemos varios tipos de campos aquí se seleccionan
-// En nuestro caso tenemos solo uno: Imagen repetible
-	case 'imagenrepetible': // Lo que pone en "type" más arriba
-		$image = get_stylesheet_directory_uri().'/img/gravatar.png'; // Ponemos una imagen por defecto
-		echo '<i class="custom_default_image" style="display:none">'.$image.'</i>'; // Al principio no la mostramos
+	switch($field['type']) {
+	case 'imagenrepetible':
+		$image = get_stylesheet_directory_uri().'/img/gravatar.png';
+
+		echo '<i class="custom_default_image" style="display:none">'.$image.'</i>';
+
 		echo '<ul id="'.$field['id'].'-repeatable" class="custom_repeatable">';
 		$i = 0;
-	if ($meta) { // Si get_post_meta nos ha dado valores, hacemos un foreach
-		foreach($meta as $row) {
+	if ($meta)
+	{
+		// Si get_post_meta nos ha dado valores, hacemos un foreach
+		foreach($meta as $row)
+		{
 
-// Obtenemos la imagen en su tamaño máximo. Podéis poner en su lugar thumbnail, medium o large      
+		// Obtenemos la imagen en su tamaño máximo. Podéis poner en su lugar thumbnail, medium o large      
 		$image = wp_get_attachment_image_src($row, 'custom-thumb-500-x');
-// la primera parte de wp_get_attachment_image_src nos da su url.
+
+		// la primera parte de wp_get_attachment_image_src nos da su url.
 		$image = $image[0]; ?>
-	<li><!-- Añadimos la imagen que se arrastra para cambiar posición, dentro de tu tema -->
+	<li>
 		<i class="sort hndle" style="float:left;"><img src="<?php echo get_stylesheet_directory_uri().'/img/drag_drop.gif';?>" />&nbsp;&nbsp;&nbsp;</i>
-	<!-- El input con el valor del meta. Su attributo "name" tiene un número que se irá incrementando a medida que creamos nuevos campos -->
+
 	<input name="<?php echo $field['id'] . '['.$i.']'; ?>" id="<?php echo $field['id']; ?>" type="hidden" class="custom_upload_image" value="<?php echo $row; ?>" />
-	<!-- mostramos la imagen con 200px de ancho para ver lo que hemos subido -->
+
 	<img src="<?php echo $image; ?>" class="custom_preview_image" alt="" width="200"/><br />
-	<!-- El botón de Seleccionar Imagen -->
+
 	<input class="custom_upload_image_button button" type="button" value="Seleccionar imagen" />
-	<!-- Los botones de eliminar imagen y de quitar fila-->
+
+
 	<small><a href="#" class="custom_clear_image_button">Eliminar imagen</a></small>                      
 	&nbsp;&nbsp;&nbsp;<a class="repeatable-remove button" href="#">Quitar fila</a>
 </li>
-	<?php $i++; // Incrementamos el contador para que no se repita el atributo "name"
-} // Fin del foreach
-	} else { // Si no hay datos ?>
+	<?php $i++;
+}
+	} else { ?>
 
 <li><i class="sort hndle" style="float:left;"><img src="<?php echo get_stylesheet_directory_uri().'/img/gravatar.png';?>" />&nbsp;&nbsp;&nbsp;</i>
 	<input name="<?php echo $field['id'] . '['.$i.']'; ?>" id="<?php echo $field['id']; ?>" type="hidden" class="custom_upload_image" value="<?php echo $row; ?>" />
@@ -430,44 +438,56 @@ function show_custom_meta_box() {
 </li>
 <?php } ?>
 </ul><br />
-<!-- Botón para añadir una nueva fila -->
+
 <a class="repeatable-add button-primary" href="#">+ Agregar Imagen</a>
-<!-- Aquí va la descripción -->
+
 <br clear="all" /><br /><p class="description"><?php echo $field['desc']; ?></p>
-<?php break;} // fin del switch
-	echo '</td></tr>';} // fin del foreach
-	echo '</table>'; // fin de la tabla
-}; // Fin de la función
+<?php break;}
+	echo '</td></tr>';}
+	echo '</table>';
+};
 
 // Grabar los datos de las imágenes subidas.
-function save_custom_meta($post_id) {
+function save_custom_meta($post_id)
+{
 	global $custom_meta_fields;
-// verificamos usando nonce
-/*if (!wp_verify_nonce($_POST['custom_meta_box_nonce'], basename(__FILE__)))
-Reemplazé por lo de más abajo para desaparecer los errores del depurador.*/
+
+	// verificamos usando nonce
+	// if (!wp_verify_nonce($_POST['custom_meta_box_nonce'], basename(__FILE__)))
+	// Reemplazé por lo de más abajo para desaparecer los errores del depurador.
     if (!isset($_POST['custom_meta_box_nonce']) || !wp_verify_nonce($_POST['custom_meta_box_nonce'], basename(__FILE__)))
     return $post_id;
-// comprobamos si se ha realizado una grabación automática, para no tenerla en cuenta
+	
+	// comprobamos si se ha realizado una grabación automática, para no tenerla en cuenta
 	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
 	return $post_id;
-// comprobamos que el usuario puede editar
-	if ('page' == $_POST['post_type']) {
+
+	// comprobamos que el usuario puede editar
+	if ('page' == $_POST['post_type'])
+	{
 		if (!current_user_can('edit_page', $post_id))
 		return $post_id;
-		} elseif (!current_user_can('edit_post', $post_id)) {
-		return $post_id;
-}
-// hacemos un loop por todos los campos y guardamos los datos
-	foreach ($custom_meta_fields as $field) {
+		}
+		elseif (!current_user_can('edit_post', $post_id))
+		{
+			return $post_id;
+		}
+
+	foreach ($custom_meta_fields as $field)
+	{
 		$old = get_post_meta($post_id, $field['id'], true);
 		$new = $_POST[$field['id']];
-	if ($new && $new != $old) {
+	if ($new && $new != $old)
+	{
 		update_post_meta($post_id, $field['id'], $new);
-	} elseif ('' == $new && $old) {
+	}
+	elseif ('' == $new && $old)
+	{
 		delete_post_meta($post_id, $field['id'], $old);}
-	} // final del foreach
+	}
 };
 add_action('save_post', 'save_custom_meta');
+
 
 // Paginación avanzada
 function pagination($pages = '', $range = 4)
@@ -554,7 +574,7 @@ require_once "includes/cpt_cabanas.php";
 
 
 //Relativas las urls
-require_once "includes/url_relativas.php";
+// require_once "includes/url_relativas.php";
 
 
 // Eliminar cajas innecesarias del dashboard
@@ -606,6 +626,11 @@ function remove_meta_boxes()
 	remove_meta_box('authordiv','page','normal');
 	remove_meta_box('revisionsdiv','page','normal');
 	remove_meta_box('postexcerpt','page','normal');
+
+	// Cabañas
+	remove_meta_box('commentstatusdiv','cabana','normal');
+	remove_meta_box('trackbacksdiv','cabana','normal');
+	remove_meta_box('commentsdiv','cabana','normal');
 }
 add_action('admin_init','remove_meta_boxes');
 

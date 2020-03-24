@@ -5,8 +5,11 @@
 * @since yunyay 1.0
 * Template Name: Servicios
 */ ?>
-<?php get_header();?>
-	<?php if (have_posts()):while(have_posts()):the_post();?>
+<?php get_header();
+$yunyay_plupload = rwmb_meta('yunyay_plupload', '');
+if (have_posts()):while(have_posts()):the_post();
+
+?>
 	<article id="servicios">
 		<div>
 		<h2><?php the_title();?></h2>

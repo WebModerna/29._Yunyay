@@ -5,7 +5,9 @@
 * @since yunyay 1.0
 * Template Name: Cabaña
 */ ?>
-<?php get_header();?>
+<?php get_header();
+$yunyay_plupload = rwmb_meta('yunyay_plupload', '');
+?>
 			<article id="cabanas">
 				<div>
 
@@ -57,8 +59,8 @@
 									echo '<img src="'.get_stylesheet_directory_uri().'/img/sin_imagen2.png" alt="'.__('Sin imagen', 'yunyay').'" />';
 								}
 
-								
-								//Listado de imágenes para Tablets y Desktops en un slideshow
+								/*
+								// Listado de imágenes para Tablets y Desktops en un slideshow
 								$attachID = ( get_post_meta( $post->ID, 'custom_imagenrepetible', true) );
 
 								foreach ($attachID as $item)
@@ -67,6 +69,19 @@
 									$alt = get_post_meta( $item, '_wp_attachment_image_alt', true );
 									$descripcion = get_post_field( 'post_content', $item );
 									if ( $imagen_chica[0] != '' )
+									{
+										echo '<img src="'.$imagen_chica[0].'" alt="'.$alt.'" />';
+									}
+									else
+									{
+										echo '<img src="'.get_stylesheet_directory_uri().'/img/gravatar.png" alt="'.__('Sin imagen', 'yunyay').'" />';
+									}
+								}*/
+								foreach ($yunyay_plupload  as $item => $value) {
+									$imagen_chica = wp_get_attachment_image_src($item,'custom-thumb-800-600');
+									$alt = get_post_meta( $item, '_wp_attachment_image_alt', true );
+									$descripcion = get_post_field( 'post_content', $item );
+									if ( $imagen_chica[0] )
 									{
 										echo '<img src="'.$imagen_chica[0].'" alt="'.$alt.'" />';
 									}
@@ -107,24 +122,26 @@
 								}
 							}?>
 							</figure>
-						</div><!-- .list_item_img -->
+						</div>
 
 						<div class="list_item_content">
 							<?php the_content();?>
 						</div>
 
 
-						<?php if(wpmd_is_phone()) { ?>
+						<?php if( wpmd_is_phone() ) { ?>
 						<div>
 							<figure>
 								<?php
 									//listado de imágenes para smatphones
 									$attachID = (get_post_meta( $post->ID, 'custom_imagenrepetible',true));
+
 									foreach ($attachID as $item)
 									{
-										$imagen = wp_get_attachment_image_src($item,'custom-thumb-600-x');
+										$imagen = wp_get_attachment_image_src( $item,'custom-thumb-600-x' );
 										$alt = get_post_meta($item, '_wp_attachment_image_alt', true);
 										$descripcion = get_post_field('post_content', $item);
+
 										if ($imagen[0]!='') 
 										{
 											echo '<img src="'.$imagen[0].'" alt="'.$alt.'" />';
@@ -134,12 +151,12 @@
 										{
 											echo '<img src="'.get_stylesheet_directory_uri().'/img/gravatar.png" alt="'.__('Sin imagen', 'yunyay').'" />';
 										};
-								};?>
+								} ?>
 							</figure>
 						</div>
-						<?php };?>
+						<?php } ?>
 					<?php endwhile; endif; ?>
-					</div><!-- .list_item -->
+					</div>
 
 					<div class="list_item">
 						<div class="list_item_content">
