@@ -606,7 +606,7 @@ require_once "includes/cpt_cabanas.php";
 
 
 //Relativas las urls
-// require_once "includes/url_relativas.php";
+require_once "includes/url_relativas.php";
 
 
 // Eliminar cajas innecesarias del dashboard

@@ -2,15 +2,15 @@
 <html <?php language_attributes();?>>
 <head>
 	<meta charset="<?php bloginfo('charset');?>"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=2.0" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=3.0" />
 <?php
 
 // Variables necesarias
 $meta_keywords2 	= of_get_option("meta_keywords2", "");
 $meta_description	= of_get_option("meta_description", "");
 $logo_uploader		= of_get_option("logo_uploader", "");
-$meta_keywords = rwmb_meta('meta_keywords', '');
-$meta_descripcion = rwmb_meta('meta_descripcion', '');
+$meta_keywords 		= rwmb_meta('meta_keywords', '');
+$meta_descripcion 	= rwmb_meta('meta_descripcion', '');
 
 // Averiguando son las determinadas páginas
 if( is_front_page() || is_home() || is_search() || is_404() )

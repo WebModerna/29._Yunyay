@@ -1,44 +1,46 @@
 .navegacion
-	display block
+	box-sizing border-box
+	align-items stretch
+	display flex
+	flex-direction row
+	flex-wrap nowrap
+	justify-content space-between
 	font-family 'Raleway'
 	font-weight lighter
 	position absolute
-	top 35%
+	left 0
+	top 0
+	height 100%
 	width 100%
 	z-index 120
 
 	div
-		display: inline-block
+		align-items center
+		display flex
+
 		a
 			background rgba(0,0,0,0.4)
 			color #eee
 			cursor pointer
 			font-size 3rem
-			padding 0 0.3em 0.2em 0.3em
+			padding 0.1em 0.3em 0.3em 0.3em
+			line-height 100%
+			vertical-align middle
 
 			&:hover			
 				color #E39250
 
 		&.back
-			float left
 			a
 				border-radius 0 50% 50% 0
 
 		&.next
-			float right
-
 			a
 				border-radius: 50% 0 0 50%
 
 
-@media screen and (min-width: 650px)
-	.navegacion
-		top 43%
-
-
 @media screen and (min-width: 860px)
 	.navegacion
-		top: 43%
 
 		.back
 			a
@@ -57,7 +59,7 @@
 
 // BArra navegacion del menú principal
 .barra_navegacion
-	font-family: 'Raleway'
+	font-family 'Raleway'
 	position absolute
 	right 0px
 	top 0

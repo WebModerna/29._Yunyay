@@ -14,12 +14,16 @@ get_header();
 if (have_posts()):while(have_posts()):the_post();?>
 
 			<article id="ubicacion">
-				<div id="slider">
+				<div>
 				<h2><?php the_title();?></h2>
+					
+					<div id="googlemaps" class="contenido_una_columna">
+						<?php echo $mapa_de_google;?>
+					</div>
 
-					<div class="flexbox">
+					<!-- <div class="flexbox">
 						<div id="googlemaps" class="flexbox__item">
-							<?php echo $mapa_de_google;?>
+							<?php /*echo $mapa_de_google;?>
 						</div>
 
 						<div id="mapa-curabrochero" class="flexbox__item">
@@ -54,20 +58,20 @@ if (have_posts()):while(have_posts()):the_post();?>
 									</a>
 								</figcaption>
 										
-								<?php if(has_post_thumbnail()=='')
+								<?php //if(has_post_thumbnail()=='')
 									{
-										echo '<img src="'.get_stylesheet_directory_uri().'/img/gravatar.png" alt="'.__('Sin imagen', 'yunyay').'" />';
+										//echo '<img src="'.get_stylesheet_directory_uri().'/img/gravatar.png" alt="'.__('Sin imagen', 'yunyay').'" />';
 									?>
-								<figcaption><?php _e('Sin imagen', 'yunyay');?></figcaption>
-								<?php };?>
+								<figcaption><?php //_e('Sin imagen', 'yunyay');?></figcaption>
+								<?php };*/?>
 							</figure>
 						</div>
-					</div>
+					</div> -->
 
-					<div class="clearfix"></div>
+
 					<div id="distancias" class="contenido_una_columna">
 						<?php the_content();?>
 					</div>
 				<?php endwhile; endif;?>
-				</div><!-- #slider -->
+				</div>
 <?php get_footer();?>

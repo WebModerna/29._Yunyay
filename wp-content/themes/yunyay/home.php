@@ -15,7 +15,7 @@
 				data-cycle-prev=".back"
 				>
 					<div id="ventana"></div>
-						<?php if (have_posts()):while(have_posts()):the_post();get_page($page_id);$page_data=get_page($page_id);
+						<?php if (have_posts()):while(have_posts()):the_post();
 						
 							//Móviles
 							if(wpmd_is_phone())
@@ -25,7 +25,7 @@
 								{
 									foreach ($attachID as $item)
 									{
-										$imagen = wp_get_attachment_image_src($item,'custom-thumb-600-334');
+										$imagen = wp_get_attachment_image_src($item,'custom-thumb-800-x');
 										$alt = get_post_meta($item, '_wp_attachment_image_alt', true);
 										$descripcion = get_post_field('post_content', $item);
 										echo '<img class="item" src="' . $imagen[0] . '"';
@@ -72,11 +72,17 @@
 								}
 							}
 							endwhile; endif;?>
+
 					<div class="ventanilla"></div>
+
 					<div class="navegacion">
-						<div class="back"><a class="boton_general" href="#navegacion">‹</a></div>
-						<div class="next"><a class="boton_general" href="#navegacion">›</a></div>
-						<div class="clearfix"></div>
-					</div><!-- .navegación -->
+						<div class="back">
+							<a class="boton_general" href="#navegacion">‹</a>
+						</div>
+						<div class="next">
+							<a class="boton_general" href="#navegacion">›</a>
+						</div>
+					</div>
+
 				</div><!-- #slider -->
 <?php get_footer();?>
