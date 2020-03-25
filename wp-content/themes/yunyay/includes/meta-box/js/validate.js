@@ -32,14 +32,14 @@ jQuery( function ( $ )
 
 	// Execute
 	$form.validate( rules );
-});
+// });
 
 
-$(document).ready(function()
-{
+/*jQuery( function ( $ )
+{*/
 	// Limitar la entrada de caracteres a 160 en los campos de Meta Keywords y Meta Description del dashboard de las entradas.
-	var caracteres = 160;
-	$( "#villabrochero_meta_descripcion, #villabrochero_meta_keywords" ).keyup( function()
+	let caracteres = 160;
+	$( "#meta_descripcion, #meta_keywords" ).keyup( function()
 	{
 		if( $( this ).val().length > caracteres )
 		{
@@ -47,7 +47,7 @@ $(document).ready(function()
 		}
 	});
 
-	// Agregar clases a unos checkboxes
+	/*// Agregar clases a unos checkboxes
 	if ( $( "#villabrochero_reservado" ).is(":checked") )
 	{
 		$( "#villabrochero_reservado" ).parent().parent().addClass('villabrochero_reservado');
@@ -81,5 +81,5 @@ $(document).ready(function()
 		{
 			$( "#villabrochero_vendido" ).parent().parent().removeClass('villabrochero_vendido');
 		}
-	});
+	});*/
 });

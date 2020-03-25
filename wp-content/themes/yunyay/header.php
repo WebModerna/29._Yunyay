@@ -2,32 +2,57 @@
 <html <?php language_attributes();?>>
 <head>
 	<meta charset="<?php bloginfo('charset');?>"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
-<?php 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=2.0" />
+<?php
+
 // Variables necesarias
 $meta_keywords2 	= of_get_option("meta_keywords2", "");
 $meta_description	= of_get_option("meta_description", "");
 $logo_uploader		= of_get_option("logo_uploader", "");
+$meta_keywords = rwmb_meta('meta_keywords', '');
+$meta_descripcion = rwmb_meta('meta_descripcion', '');
 
-if( $meta_description )
+// Averiguando son las determinadas páginas
+if( is_front_page() || is_home() || is_search() || is_404() )
 {
-	echo '<meta name="description" content="'.$meta_description.'" />';
-}
-if( $meta_keywords2 )
-{
-	echo '<meta name="keywords" content="'.$meta_keywords2.'" />';
-}
+	// La descripción
+	if( $meta_description )
+	{
+		echo '<meta name="description" content="'.$meta_description.'" />';
+	}
 
-if( is_front_page() || is_search() || is_404() ) {?>
-<title><?php bloginfo('name');?> | <?php bloginfo('description');?></title>
-<?php } else { ?> 
-<title><?php the_title();?> | <?php bloginfo('name');?></title>
-<?php };
+	// las palabras claves
+	if( $meta_keywords2 )
+	{
+		echo '<meta name="keywords" content="'.$meta_keywords2.'" />';
+	}
+
 ?>
+<title><?php bloginfo('name');?> | <?php bloginfo('description');?></title>
+<?php } else {
+
+	if( $meta_descripcion )
+	{
+		echo '<meta name="description" content="'.$meta_descripcion.'" />';
+	}
+
+	// las palabras claves
+	if( $meta_keywords )
+	{
+		echo '<meta name="keywords" content="'.$meta_keywords.'" />';
+	}
+
+?> 
+<title><?php the_title();?> | <?php bloginfo('name');?></title>
+
+<?php } ?>
+
 	<link type="text/css" rel="stylesheet" href="<?php bloginfo('stylesheet_directory');?>/css/style.css" />
 
-<?php if(is_page()=='contacto') { ?>
+<?php if(is_page('contacto')) { ?>
+
 	<link type="text/css" rel="stylesheet" href="<?php bloginfo('stylesheet_directory');?>/css/datepicker.css" />
+
 <?php };?>
 
 <?php if (!wp_is_mobile()) { //Condicionales para IE ?>
@@ -54,6 +79,7 @@ if( is_front_page() || is_search() || is_404() ) {?>
 	<link rel="icon" type="image/png" href="<?php bloginfo('stylesheet_directory');?>/img/favicon-32x32.png" sizes="32x32" />
 	<link rel="icon" type="image/png" href="<?php bloginfo('stylesheet_directory');?>/img/favicon-16x16.png" sizes="16x16" />
 	<link rel="icon" type="image/png" href="<?php bloginfo('stylesheet_directory');?>/img/favicon-128.png" sizes="128x128" />
+	<link rel="shortcut icon" type="image/x-icon" href="<?php bloginfo('stylesheet_directory');?>/img/favicon.ico" />
 <?php flush();?>
 <?php wp_head();?>
 </head>
@@ -86,7 +112,9 @@ if( is_front_page() || is_search() || is_404() ) {?>
 						</h1>
 					</a>
 				</figure>
-			</div><!-- #logo -->
+			</div>
+
+
 			<nav class="barra_navegacion">
 				<ul>
 					<li>
@@ -94,7 +122,8 @@ if( is_front_page() || is_search() || is_404() ) {?>
 							<a href="#">
 								<div id="menu_hamburguesa" class="circle boton_general">&#9776;</div>
 							</a>
-						</div><!-- #boton_menu -->
+						</div>
+
 						<?php 
 							$default=array(
 								'container'=>false,

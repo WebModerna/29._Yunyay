@@ -363,7 +363,7 @@ function meta_paginas_register_meta_boxes( $meta_boxes )
 				// Field name - Will be used as label
 				'name'  => __( 'Palabras claves.', 'yunyay' ),
 				// Field ID, i.e. the meta key
-				'id'    => "meta_paginas_meta_keywords",
+				'id'    => "meta_keywords",
 				// Field description (optional)
 				'desc'  => __( 'Palabras claves (keywords) separadas por comas. Son útiles para SEO en algunos buscadores. Máximo 160 caracteres.', 'yunyay' ),
 				'type'  => 'text',
@@ -376,7 +376,7 @@ function meta_paginas_register_meta_boxes( $meta_boxes )
 			array(
 				'name' => __( 'Descripción', 'yunyay' ),
 				'desc' => __( 'Es una descripción que aparece en el meta description. Es muy recomendable para SEO. Máximo 160 caracteres.', 'yunyay' ),
-				'id'   => "meta_paginas_meta_descripcion",
+				'id'   => "meta_descripcion",
 				'type' => 'textarea',
 				'cols' => 20,
 				'rows' => 2,

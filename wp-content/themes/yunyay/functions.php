@@ -60,6 +60,27 @@ function admin_favicon()
 }
 add_action('admin_head', 'admin_favicon', 1);
 
+// Deshabilitando la api de WordPress
+add_filter('rest_enabled', '__return_false');
+add_filter('rest_jsonp_enabled', '__return_false');
+remove_action( 'xmlrpc_rsd_apis', 'rest_output_rsd' );
+remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
+remove_action( 'template_redirect', 'rest_output_link_header', 11 );
+//Remove the REST API endpoint.
+remove_action('rest_api_init', 'wp_oembed_register_route');
+ 
+// Turn off oEmbed auto discovery.
+add_filter( 'embed_oembed_discover', '__return_false' );
+ 
+//Don't filter oEmbed results.
+remove_filter('oembed_dataparse', 'wp_filter_oembed_result', 10);
+ 
+//Remove oEmbed discovery links.
+remove_action('wp_head', 'wp_oembed_add_discovery_links');
+ 
+//Remove oEmbed JavaScript from the front-end and back-end.
+remove_action('wp_head', 'wp_oembed_add_host_js');
+
 
 
 // Remover clases automáticas del the_post_thumbnail
@@ -339,7 +360,8 @@ add_filter("mce_buttons_3","habilitar_mas_botones");
 
 
 // Agregar varias imágenes a las entradas y páginas
-function add_custom_meta_box() {
+function add_custom_meta_box()
+{
 	add_meta_box(
 	'custom_meta_box',
 	'<strong>Subir las fotos del producto desde aquí</strong>',
@@ -348,6 +370,7 @@ function add_custom_meta_box() {
 	'normal',
 	'high');
 
+/*
 	add_meta_box(
 	'custom_meta_box',
 	'<strong>Subir las fotos del producto desde aquí</strong>',
@@ -355,6 +378,7 @@ function add_custom_meta_box() {
 	'cabana',
 	'normal',
 	'high');
+*/
 };
 add_action('add_meta_boxes', 'add_custom_meta_box');
 

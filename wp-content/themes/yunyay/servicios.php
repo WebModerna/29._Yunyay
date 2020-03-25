@@ -6,6 +6,7 @@
 * Template Name: Servicios
 */ ?>
 <?php get_header();
+
 $yunyay_plupload = rwmb_meta('yunyay_plupload', '');
 if (have_posts()):while(have_posts()):the_post();
 
