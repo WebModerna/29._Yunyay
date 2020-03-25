@@ -21,7 +21,6 @@ if (have_posts()):while(have_posts()):the_post();
 						<figure>
 							<?php if(wpmd_is_notphone()) { ?>
 							<div class="cycle-slideshow"
-							data-cycle-fx="tileBlind"
 							data-cycle-speed="2000" 
 							data-cycle-pause-on-hover="true"
 							data-cycle-prev=".back"
@@ -60,7 +59,6 @@ if (have_posts()):while(have_posts()):the_post();
 						<div class="navegacion">
 							<div class="back"><a class="boton_general">‹</a></div>
 							<div class="next"><a class="boton_general">›</a></div>
-							<div class="clearfix"></div>
 						</div><!-- .navegación -->
 						<?php };?>
 						</figure>

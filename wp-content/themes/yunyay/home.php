@@ -16,6 +16,16 @@
 				>
 					<div id="ventana"></div>
 						<?php if (have_posts()):while(have_posts()):the_post();
+
+							/*
+
+							falta reemplazar la función que muestra las imágenes en:
+							- home.php
+							- servicios.php
+
+							También: reemplazar las imágenes subidas.
+
+							*/
 						
 							//Móviles
 							if(wpmd_is_phone())
