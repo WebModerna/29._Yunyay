@@ -6,8 +6,9 @@
 * Template Name: Servicios
 */ ?>
 <?php get_header();
-
 $yunyay_plupload = rwmb_meta('yunyay_plupload', '');
+$segundo_contenido = rwmb_meta( 'yunyay_wysiwyg', '');
+
 if (have_posts()):while(have_posts()):the_post();
 
 ?>
@@ -40,7 +41,7 @@ if (have_posts()):while(have_posts()):the_post();
 								};?>
 							<?php if(wpmd_is_notphone())
 							{
-								$attachID = (get_post_meta( $post->ID, 'custom_imagenrepetible',true));
+								/*$attachID = (get_post_meta( $post->ID, 'custom_imagenrepetible',true));
 								if ($attachID !== '')
 								{
 									foreach ($attachID as $item)
@@ -50,6 +51,31 @@ if (have_posts()):while(have_posts()):the_post();
 										$descripcion = get_post_field('post_content', $item);
 										echo '<img class="item" src="' . $imagen[0] . '"';
 										echo ' alt="' . $alt . '"';
+										echo ' />';
+									}
+								}*/
+								if($yunyay_plupload)
+								{
+									foreach ($yunyay_plupload as $item => $value)
+									{
+										$imagen = wp_get_attachment_image_src($item,'custom-thumb-800-600');
+										$alt = get_post_meta($item, '_wp_attachment_image_alt', true);
+										$descripcion = get_post_field('post_content', $item);
+										echo '<img class="item" src="' . $imagen[0] . '"';
+										echo ' alt="';
+										if($alt)
+										{
+											echo $alt;
+										}
+										elseif($descripcion)
+										{
+											echo $descripcion;
+										}
+										else
+										{
+											echo get_the_title();
+										}
+										echo '"';
 										echo ' />';
 									}
 								}
@@ -73,7 +99,7 @@ if (have_posts()):while(have_posts()):the_post();
 						<div>
 						<?php if(wpmd_is_phone())
 						{
-							$attachID = (get_post_meta( $post->ID, 'custom_imagenrepetible',true));
+							/*$attachID = (get_post_meta( $post->ID, 'custom_imagenrepetible',true));
 							if ($attachID !== '')
 							{
 								foreach ($attachID as $item)
@@ -85,11 +111,46 @@ if (have_posts()):while(have_posts()):the_post();
 									echo ' alt="' . $alt . '"';
 									echo ' />';
 								}
+							}*/
+							if($yunyay_plupload)
+							{
+								foreach ($yunyay_plupload as $item => $value)
+								{
+									$imagen = wp_get_attachment_image_src($item,'custom-thumb-600-x');
+									$alt = get_post_meta($item, '_wp_attachment_image_alt', true);
+									$descripcion = get_post_field('post_content', $item);
+									echo '<img class="item" src="' . $imagen[0] . '"';
+									echo ' alt="';
+									if($alt)
+									{
+										echo $alt;
+									}
+									elseif($descripcion)
+									{
+										echo $descripcion;
+									}
+									else
+									{
+										echo get_the_title();
+									}
+									echo '"';
+									echo ' />';
+								}
 							}
 						}?>
 						</div>
 					</figure>
 				</div><!-- .list_item -->
+				<div class="contenido_una_columna">
+					<?php 
+					if($segundo_contenido)
+					{
+						echo $segundo_contenido;
+					} else {
+						echo __("Algo falló.", "yunyay");
+					}
+					;?>
+				</div>
 			</div>
 		<?php endwhile; endif;?>
 	</div><!-- #slider -->

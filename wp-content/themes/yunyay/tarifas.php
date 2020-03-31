@@ -10,7 +10,7 @@
 
 			// Obtención del segundo contenido
 
-			$segundo_contenido = rwmb_meta( 'tarifas_condicones_no_show', '');
+			$segundo_contenido = rwmb_meta( 'second_content', '');
 
 		?>
 

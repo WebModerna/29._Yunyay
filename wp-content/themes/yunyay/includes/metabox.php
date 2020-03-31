@@ -403,7 +403,7 @@ function cabana_meta_boxes( $meta_boxes )
 		'title'      => __( 'Subir las fotos de las cabañas desde aqui', 'yunyay' ),
 
 		// Post types, accept custom post types as well - DEFAULT is 'post'. Can be array (multiple post types) or string (1 post type). Optional.
-		'post_types' => array( 'cabana' ),
+		'post_types' => array( 'cabana', 'page' ),
 
 		// 'post_types' => array( 'home_page' ),
 		// Where the meta box appear: normal (default), advanced, side. Optional.
