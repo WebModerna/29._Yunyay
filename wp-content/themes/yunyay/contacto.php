@@ -18,7 +18,7 @@ if (have_posts()):while(have_posts()):the_post();
 					<div class="flexbox">
 						
 						<div class="flexbox__item">
-							<?php echo do_shortcode('[contact-form-7 id="149" title="Formulario de contacto 1"]');?>
+							<?php echo do_shortcode('[contact-form-7 id="1199" title="Formulario de contacto"]');?>
 						</div>
 
 

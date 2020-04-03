@@ -83,7 +83,7 @@ $twitter_contact		=	of_get_option( 'twitter_contact', '');
 	</div>
 	<script type="text/javascript" src="<?php bloginfo('stylesheet_directory');?>/js/scripts.js"></script>
 	
-<?php if( is_page( 'contacto' ) ) {
+<?php if( is_page( 'contacto2' ) ) {
 	//Solo se cargará en la página del formulario ?>
 	<script type="text/javascript" src="<?php bloginfo('stylesheet_directory');?>/js/datepicker-completo.js"></script>
 <?php

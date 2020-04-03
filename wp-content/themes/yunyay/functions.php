@@ -126,7 +126,7 @@ function change_wp_login_title()
 {
 	return get_option('blogname');
 };
-add_filter('login_headertitle', 'change_wp_login_title');
+add_filter('login_headertext', 'change_wp_login_title');
 
 
 //Permitir svg en las imágenes para cargar.
