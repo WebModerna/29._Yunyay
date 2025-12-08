@@ -79,6 +79,23 @@ remove_action('wp_head', 'wp_oembed_add_discovery_links');
 //Remove oEmbed JavaScript from the front-end and back-end.
 remove_action('wp_head', 'wp_oembed_add_host_js');
 
+// Deshabilitar completamente REST API para usuarios no autenticados
+add_filter( 'rest_authentication_errors', function( $result ) {
+	if ( $result === true || is_wp_error( $result ) ) {
+		return $result;
+	}
+	
+	// Verificar si el usuario está autenticado
+	if ( ! is_user_logged_in() ) {
+		return new \WP_Error( 'rest_forbidden', esc_html__( 'Acceso denegado.', 'yunyay' ), array( 'status' => 403 ) );
+	}
+	
+	return $result;
+} );
+
+// Deshabilitar XML-RPC completamente
+add_filter( 'xmlrpc_enabled', '__return_false' );
+
 
 
 // Remover clases automáticas del the_post_thumbnail
