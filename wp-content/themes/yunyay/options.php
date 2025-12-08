@@ -170,8 +170,8 @@ function optionsframework_options()
 		'id' => 'direccion_web',
 		'placeholder' => __('Man Sartín 453, Dpto. 3, Las Catitas, Tierra del Agua.', 'yunyay'),
 		'class' => '',
-		'type' => 'editor',
-		'settings' => $wp_editor_settings,
+		'type' => 'textarea'
+		// 'settings' => $wp_editor_settings,
 	);
 
 	// Google Maps

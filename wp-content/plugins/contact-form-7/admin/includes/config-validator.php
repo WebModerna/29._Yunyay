@@ -9,7 +9,7 @@ function wpcf7_admin_init_bulk_cv() {
 	}
 
 	$result = WPCF7::get_option( 'bulk_validate' );
-	$last_important_update = '5.1.5';
+	$last_important_update = WPCF7_ConfigValidator::last_important_update;
 
 	if ( ! empty( $result['version'] )
 	and version_compare( $last_important_update, $result['version'], '<=' ) ) {
@@ -17,10 +17,14 @@ function wpcf7_admin_init_bulk_cv() {
 	}
 
 	add_filter( 'wpcf7_admin_menu_change_notice',
-		'wpcf7_admin_menu_change_notice_bulk_cv', 10, 1 );
+		'wpcf7_admin_menu_change_notice_bulk_cv',
+		10, 1
+	);
 
 	add_action( 'wpcf7_admin_warnings',
-		'wpcf7_admin_warnings_bulk_cv', 5, 3 );
+		'wpcf7_admin_warnings_bulk_cv',
+		5, 3
+	);
 }
 
 function wpcf7_admin_menu_change_notice_bulk_cv( $counts ) {
@@ -43,10 +47,13 @@ function wpcf7_admin_warnings_bulk_cv( $page, $action, $object ) {
 
 	$message = __( "Misconfiguration leads to mail delivery failure or other troubles. Validate your contact forms now.", 'contact-form-7' );
 
-	echo sprintf(
-		'<div class="notice notice-warning"><p>%1$s &raquo; %2$s</p></div>',
-		esc_html( $message ),
-		$link
+	wp_admin_notice(
+		sprintf(
+			'%1$s &raquo; %2$s',
+			esc_html( $message ),
+			$link
+		),
+		'type=warning'
 	);
 }
 
@@ -69,7 +76,7 @@ function wpcf7_load_bulk_validate_page( $page, $action ) {
 	$contact_forms = WPCF7_ContactForm::find();
 
 	$result = array(
-		'timestamp' => current_time( 'timestamp' ),
+		'timestamp' => time(),
 		'version' => WPCF7_VERSION,
 		'count_valid' => 0,
 		'count_invalid' => 0,

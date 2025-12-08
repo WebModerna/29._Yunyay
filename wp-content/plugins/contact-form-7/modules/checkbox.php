@@ -52,6 +52,12 @@ function wpcf7_checkbox_form_tag_handler( $tag ) {
 	$atts['class'] = $tag->get_class_option( $class );
 	$atts['id'] = $tag->get_id_option();
 
+	if ( $validation_error ) {
+		$atts['aria-describedby'] = wpcf7_get_validation_error_reference(
+			$tag->name
+		);
+	}
+
 	$tabindex = $tag->get_option( 'tabindex', 'signed_int', true );
 
 	if ( false !== $tabindex ) {
@@ -66,11 +72,14 @@ function wpcf7_checkbox_form_tag_handler( $tag ) {
 			$tag->values = array_merge(
 				array_slice( $tag->values, 0, -1 ),
 				array_values( $data ),
-				array_slice( $tag->values, -1 ) );
+				array_slice( $tag->values, -1 )
+			);
+
 			$tag->labels = array_merge(
 				array_slice( $tag->labels, 0, -1 ),
 				array_values( $data ),
-				array_slice( $tag->labels, -1 ) );
+				array_slice( $tag->labels, -1 )
+			);
 		} else {
 			$tag->values = array_merge( $tag->values, array_values( $data ) );
 			$tag->labels = array_merge( $tag->labels, array_values( $data ) );
@@ -103,8 +112,8 @@ function wpcf7_checkbox_form_tag_handler( $tag ) {
 			'type' => $tag->basetype,
 			'name' => $tag->name . ( $multiple ? '[]' : '' ),
 			'value' => $value,
-			'checked' => $checked ? 'checked' : '',
-			'tabindex' => false !== $tabindex ? $tabindex : '',
+			'checked' => $checked,
+			'tabindex' => $tabindex,
 		);
 
 		$item_atts = wpcf7_format_atts( $item_atts );
@@ -112,19 +121,22 @@ function wpcf7_checkbox_form_tag_handler( $tag ) {
 		if ( $label_first ) { // put label first, input last
 			$item = sprintf(
 				'<span class="wpcf7-list-item-label">%1$s</span><input %2$s />',
-				esc_html( $label ), $item_atts );
+				esc_html( $label ),
+				$item_atts
+			);
 		} else {
 			$item = sprintf(
 				'<input %2$s /><span class="wpcf7-list-item-label">%1$s</span>',
-				esc_html( $label ), $item_atts );
+				esc_html( $label ),
+				$item_atts
+			);
 		}
 
 		if ( $use_label_element ) {
 			$item = '<label>' . $item . '</label>';
 		}
 
-		if ( false !== $tabindex
-		and 0 < $tabindex ) {
+		if ( false !== $tabindex and 0 < $tabindex ) {
 			$tabindex += 1;
 		}
 
@@ -139,19 +151,17 @@ function wpcf7_checkbox_form_tag_handler( $tag ) {
 			$class .= ' last';
 
 			if ( $free_text ) {
-				$free_text_name = sprintf(
-					'_wpcf7_%1$s_free_text_%2$s', $tag->basetype, $tag->name );
+				$free_text_name = sprintf( '_wpcf7_free_text_%s', $tag->name );
 
 				$free_text_atts = array(
 					'name' => $free_text_name,
 					'class' => 'wpcf7-free-text',
-					'tabindex' => false !== $tabindex ? $tabindex : '',
+					'tabindex' => $tabindex,
 				);
 
 				if ( wpcf7_is_posted()
 				and isset( $_POST[$free_text_name] ) ) {
-					$free_text_atts['value'] = wp_unslash(
-						$_POST[$free_text_name] );
+					$free_text_atts['value'] = wp_unslash( $_POST[$free_text_name] );
 				}
 
 				$free_text_atts = wpcf7_format_atts( $free_text_atts );
@@ -166,87 +176,165 @@ function wpcf7_checkbox_form_tag_handler( $tag ) {
 		$html .= $item;
 	}
 
-	$atts = wpcf7_format_atts( $atts );
-
 	$html = sprintf(
-		'<span class="wpcf7-form-control-wrap %1$s"><span %2$s>%3$s</span>%4$s</span>',
-		sanitize_html_class( $tag->name ), $atts, $html, $validation_error );
+		'<span class="wpcf7-form-control-wrap" data-name="%1$s"><span %2$s>%3$s</span>%4$s</span>',
+		esc_attr( $tag->name ),
+		wpcf7_format_atts( $atts ),
+		$html,
+		$validation_error
+	);
 
 	return $html;
 }
 
 
-/* Validation filter */
+add_action(
+	'wpcf7_swv_create_schema',
+	'wpcf7_swv_add_checkbox_rules',
+	10, 2
+);
 
-add_filter( 'wpcf7_validate_checkbox',
-	'wpcf7_checkbox_validation_filter', 10, 2 );
-add_filter( 'wpcf7_validate_checkbox*',
-	'wpcf7_checkbox_validation_filter', 10, 2 );
-add_filter( 'wpcf7_validate_radio',
-	'wpcf7_checkbox_validation_filter', 10, 2 );
+function wpcf7_swv_add_checkbox_rules( $schema, $contact_form ) {
+	$tags = $contact_form->scan_form_tags( array(
+		'basetype' => array( 'checkbox', 'radio' ),
+	) );
 
-function wpcf7_checkbox_validation_filter( $result, $tag ) {
-	$name = $tag->name;
-	$is_required = $tag->is_required() || 'radio' == $tag->type;
-	$value = isset( $_POST[$name] ) ? (array) $_POST[$name] : array();
+	foreach ( $tags as $tag ) {
+		if ( $tag->is_required() or 'radio' === $tag->type ) {
+			$schema->add_rule(
+				wpcf7_swv_create_rule( 'required', array(
+					'field' => $tag->name,
+					'error' => wpcf7_get_message( 'invalid_required' ),
+				) )
+			);
+		}
 
-	if ( $is_required and empty( $value ) ) {
-		$result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );
+		if ( 'radio' === $tag->type or $tag->has_option( 'exclusive' ) ) {
+			$schema->add_rule(
+				wpcf7_swv_create_rule( 'maxitems', array(
+					'field' => $tag->name,
+					'threshold' => 1,
+					'error' => $contact_form->filter_message(
+						__( "Too many items are selected.", 'contact-form-7' )
+					),
+				) )
+			);
+		}
 	}
-
-	return $result;
 }
 
 
-/* Adding free text field */
+add_action(
+	'wpcf7_swv_create_schema',
+	'wpcf7_swv_add_checkbox_enum_rules',
+	20, 2
+);
 
-add_filter( 'wpcf7_posted_data', 'wpcf7_checkbox_posted_data', 10, 1 );
+function wpcf7_swv_add_checkbox_enum_rules( $schema, $contact_form ) {
+	$tags = $contact_form->scan_form_tags( array(
+		'basetype' => array( 'checkbox', 'radio' ),
+	) );
 
-function wpcf7_checkbox_posted_data( $posted_data ) {
-	$tags = wpcf7_scan_form_tags(
-		array( 'type' => array( 'checkbox', 'checkbox*', 'radio' ) ) );
+	$values = array_reduce(
+		$tags,
+		function ( $values, $tag ) {
+			if ( $tag->has_option( 'free_text' ) ) {
+				$values[$tag->name] = 'free_text';
+			}
 
-	if ( empty( $tags ) ) {
-		return $posted_data;
-	}
+			if (
+				isset( $values[$tag->name] ) and
+				! is_array( $values[$tag->name] ) // Maybe 'free_text'
+			) {
+				return $values;
+			}
 
-	foreach ( $tags as $tag ) {
-		if ( ! isset( $posted_data[$tag->name] ) ) {
+			if ( ! isset( $values[$tag->name] ) ) {
+				$values[$tag->name] = array();
+			}
+
+			$tag_values = array_merge(
+				(array) $tag->values,
+				(array) $tag->get_data_option()
+			);
+
+			$values[$tag->name] = array_merge(
+				$values[$tag->name],
+				$tag_values
+			);
+
+			return $values;
+		},
+		array()
+	);
+
+	foreach ( $values as $field => $field_values ) {
+		if ( ! is_array( $field_values ) ) { // Maybe 'free_text'
 			continue;
 		}
 
-		$posted_items = (array) $posted_data[$tag->name];
+		$field_values = array_map(
+			static function ( $value ) {
+				return html_entity_decode(
+					(string) $value,
+					ENT_QUOTES | ENT_HTML5,
+					'UTF-8'
+				);
+			},
+			$field_values
+		);
 
-		if ( $tag->has_option( 'free_text' ) ) {
-			if ( WPCF7_USE_PIPE ) {
-				$values = $tag->pipes->collect_afters();
-			} else {
-				$values = $tag->values;
+		$field_values = array_filter(
+			array_unique( $field_values ),
+			static function ( $value ) {
+				return '' !== $value;
 			}
+		);
 
-			$last = array_pop( $values );
-			$last = html_entity_decode( $last, ENT_QUOTES, 'UTF-8' );
+		$schema->add_rule(
+			wpcf7_swv_create_rule( 'enum', array(
+				'field' => $field,
+				'accept' => array_values( $field_values ),
+				'error' => $contact_form->filter_message(
+					__( "Undefined value was submitted through this field.", 'contact-form-7' )
+				),
+			) )
+		);
+	}
+}
 
-			if ( in_array( $last, $posted_items ) ) {
-				$posted_items = array_diff( $posted_items, array( $last ) );
 
-				$free_text_name = sprintf(
-					'_wpcf7_%1$s_free_text_%2$s', $tag->basetype, $tag->name );
+add_filter( 'wpcf7_posted_data_checkbox',
+	'wpcf7_posted_data_checkbox',
+	10, 3
+);
 
-				$free_text = $posted_data[$free_text_name];
+add_filter( 'wpcf7_posted_data_checkbox*',
+	'wpcf7_posted_data_checkbox',
+	10, 3
+);
 
-				if ( ! empty( $free_text ) ) {
-					$posted_items[] = trim( $last . ' ' . $free_text );
-				} else {
-					$posted_items[] = $last;
-				}
-			}
+add_filter( 'wpcf7_posted_data_radio',
+	'wpcf7_posted_data_checkbox',
+	10, 3
+);
+
+function wpcf7_posted_data_checkbox( $value, $value_orig, $form_tag ) {
+	if ( $form_tag->has_option( 'free_text' ) ) {
+		$value = (array) $value;
+
+		$free_text_name = sprintf( '_wpcf7_free_text_%s', $form_tag->name );
+		$free_text = wp_unslash( $_POST[$free_text_name] ?? '' );
+
+		$last_val = array_pop( $value );
+
+		if ( isset( $last_val ) ) {
+			$last_val = sprintf( '%s %s', $last_val, $free_text );
+			$value[] = trim( $last_val );
 		}
-
-		$posted_data[$tag->name] = $posted_items;
 	}
 
-	return $posted_data;
+	return $value;
 }
 
 
@@ -257,93 +345,87 @@ add_action( 'wpcf7_admin_init',
 
 function wpcf7_add_tag_generator_checkbox_and_radio() {
 	$tag_generator = WPCF7_TagGenerator::get_instance();
-	$tag_generator->add( 'checkbox', __( 'checkboxes', 'contact-form-7' ),
-		'wpcf7_tag_generator_checkbox' );
-	$tag_generator->add( 'radio', __( 'radio buttons', 'contact-form-7' ),
-		'wpcf7_tag_generator_checkbox' );
+
+	$basetypes = array(
+		'checkbox' => __( 'checkboxes', 'contact-form-7' ),
+		'radio' => __( 'radio buttons', 'contact-form-7' ),
+	);
+
+	foreach ( $basetypes as $id => $title ) {
+		$tag_generator->add( $id, $title,
+			'wpcf7_tag_generator_checkbox',
+			array( 'version' => '2' )
+		);
+	}
 }
 
-function wpcf7_tag_generator_checkbox( $contact_form, $args = '' ) {
-	$args = wp_parse_args( $args, array() );
-	$type = $args['id'];
+function wpcf7_tag_generator_checkbox( $contact_form, $options ) {
+	$field_types = array(
+		'checkbox' => array(
+			'display_name' => __( 'Checkboxes', 'contact-form-7' ),
+			'heading' => __( 'Checkboxes form-tag generator', 'contact-form-7' ),
+			'description' => __( 'Generates a form-tag for a group of <a href="https://contactform7.com/checkboxes-radio-buttons-and-menus/">checkboxes</a>.', 'contact-form-7' ),
+		),
+		'radio' => array(
+			'display_name' => __( 'Radio buttons', 'contact-form-7' ),
+			'heading' => __( 'Radio buttons form-tag generator', 'contact-form-7' ),
+			'description' => __( 'Generates a form-tag for a group of <a href="https://contactform7.com/checkboxes-radio-buttons-and-menus/">radio buttons</a>.', 'contact-form-7' ),
+		),
+	);
 
-	if ( 'radio' != $type ) {
-		$type = 'checkbox';
+	$basetype = $options['id'];
+
+	if ( ! in_array( $basetype, array_keys( $field_types ) ) ) {
+		$basetype = 'checkbox';
 	}
 
-	if ( 'checkbox' == $type ) {
-		$description = __( "Generate a form-tag for a group of checkboxes. For more details, see %s.", 'contact-form-7' );
-	} elseif ( 'radio' == $type ) {
-		$description = __( "Generate a form-tag for a group of radio buttons. For more details, see %s.", 'contact-form-7' );
-	}
-
-	$desc_link = wpcf7_link( __( 'https://contactform7.com/checkboxes-radio-buttons-and-menus/', 'contact-form-7' ), __( 'Checkboxes, radio buttons and menus', 'contact-form-7' ) );
+	$tgg = new WPCF7_TagGeneratorGenerator( $options['content'] );
 
 ?>
+<header class="description-box">
+	<h3><?php
+		echo esc_html( $field_types[$basetype]['heading'] );
+	?></h3>
+
+	<p><?php
+		$description = wp_kses(
+			$field_types[$basetype]['description'],
+			array(
+				'a' => array( 'href' => true ),
+				'strong' => array(),
+			),
+			array( 'http', 'https' )
+		);
+
+		echo $description;
+	?></p>
+</header>
+
 <div class="control-box">
-<fieldset>
-<legend><?php echo sprintf( esc_html( $description ), $desc_link ); ?></legend>
+	<?php
+		$tgg->print( 'field_type', array(
+			'with_required' => 'checkbox' === $basetype,
+			'select_options' => array(
+				$basetype => $field_types[$basetype]['display_name'],
+			),
+		) );
 
-<table class="form-table">
-<tbody>
-<?php if ( 'checkbox' == $type ) : ?>
-	<tr>
-	<th scope="row"><?php echo esc_html( __( 'Field type', 'contact-form-7' ) ); ?></th>
-	<td>
-		<fieldset>
-		<legend class="screen-reader-text"><?php echo esc_html( __( 'Field type', 'contact-form-7' ) ); ?></legend>
-		<label><input type="checkbox" name="required" /> <?php echo esc_html( __( 'Required field', 'contact-form-7' ) ); ?></label>
-		</fieldset>
-	</td>
-	</tr>
-<?php endif; ?>
+		$tgg->print( 'field_name' );
 
-	<tr>
-	<th scope="row"><label for="<?php echo esc_attr( $args['content'] . '-name' ); ?>"><?php echo esc_html( __( 'Name', 'contact-form-7' ) ); ?></label></th>
-	<td><input type="text" name="name" class="tg-name oneline" id="<?php echo esc_attr( $args['content'] . '-name' ); ?>" /></td>
-	</tr>
+		$tgg->print( 'class_attr' );
 
-	<tr>
-	<th scope="row"><?php echo esc_html( __( 'Options', 'contact-form-7' ) ); ?></th>
-	<td>
-		<fieldset>
-		<legend class="screen-reader-text"><?php echo esc_html( __( 'Options', 'contact-form-7' ) ); ?></legend>
-		<textarea name="values" class="values" id="<?php echo esc_attr( $args['content'] . '-values' ); ?>"></textarea>
-		<label for="<?php echo esc_attr( $args['content'] . '-values' ); ?>"><span class="description"><?php echo esc_html( __( "One option per line.", 'contact-form-7' ) ); ?></span></label><br />
-		<label><input type="checkbox" name="label_first" class="option" /> <?php echo esc_html( __( 'Put a label first, a checkbox last', 'contact-form-7' ) ); ?></label><br />
-		<label><input type="checkbox" name="use_label_element" class="option" /> <?php echo esc_html( __( 'Wrap each item with label element', 'contact-form-7' ) ); ?></label>
-<?php if ( 'checkbox' == $type ) : ?>
-		<br /><label><input type="checkbox" name="exclusive" class="option" /> <?php echo esc_html( __( 'Make checkboxes exclusive', 'contact-form-7' ) ); ?></label>
-<?php endif; ?>
-		</fieldset>
-	</td>
-	</tr>
-
-	<tr>
-	<th scope="row"><label for="<?php echo esc_attr( $args['content'] . '-id' ); ?>"><?php echo esc_html( __( 'Id attribute', 'contact-form-7' ) ); ?></label></th>
-	<td><input type="text" name="id" class="idvalue oneline option" id="<?php echo esc_attr( $args['content'] . '-id' ); ?>" /></td>
-	</tr>
-
-	<tr>
-	<th scope="row"><label for="<?php echo esc_attr( $args['content'] . '-class' ); ?>"><?php echo esc_html( __( 'Class attribute', 'contact-form-7' ) ); ?></label></th>
-	<td><input type="text" name="class" class="classvalue oneline option" id="<?php echo esc_attr( $args['content'] . '-class' ); ?>" /></td>
-	</tr>
-
-</tbody>
-</table>
-</fieldset>
+		$tgg->print( 'selectable_values', array(
+			'use_label_element' => 'checked',
+		) );
+	?>
 </div>
 
-<div class="insert-box">
-	<input type="text" name="<?php echo $type; ?>" class="tag code" readonly="readonly" onfocus="this.select()" />
+<footer class="insert-box">
+	<?php
+		$tgg->print( 'insert_box_content' );
 
-	<div class="submitbox">
-	<input type="button" class="button button-primary insert-tag" value="<?php echo esc_attr( __( 'Insert Tag', 'contact-form-7' ) ); ?>" />
-	</div>
-
-	<br class="clear" />
-
-	<p class="description mail-tag"><label for="<?php echo esc_attr( $args['content'] . '-mailtag' ); ?>"><?php echo sprintf( esc_html( __( "To use the value input through this field in a mail field, you need to insert the corresponding mail-tag (%s) into the field on the Mail tab.", 'contact-form-7' ) ), '<strong><span class="mail-tag"></span></strong>' ); ?><input type="text" class="mail-tag code hidden" readonly="readonly" id="<?php echo esc_attr( $args['content'] . '-mailtag' ); ?>" /></label></p>
-</div>
+		$tgg->print( 'mail_tag_tip' );
+	?>
+</footer>
 <?php
 }
