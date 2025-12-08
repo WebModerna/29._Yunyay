@@ -9,9 +9,6 @@
 require_once "includes/meta-box/meta-box.php";
 require_once "includes/metabox.php";
 
-// Las tarifas
-// require_once "includes/tarifa.php";
-
 // Cargar Panel de Opciones
 if ( !function_exists( 'optionsframework_init' ) )
 {
@@ -66,6 +63,7 @@ add_filter('rest_jsonp_enabled', '__return_false');
 remove_action( 'xmlrpc_rsd_apis', 'rest_output_rsd' );
 remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
 remove_action( 'template_redirect', 'rest_output_link_header', 11 );
+
 //Remove the REST API endpoint.
 remove_action('rest_api_init', 'wp_oembed_register_route');
  
@@ -139,7 +137,7 @@ add_filter('upload_mimes','cc_mime_types');
 // Modifica el pie de página del panel de administarción
 function remove_footer_admin()
 {
-	echo _e('Desarrollado por', 'webmoderna') . ' <a title="'.__('WebModerna | el futuro de la web', 'webmoderna') . '" href="http://www.webmoderna.com.ar" target="_blank"> <img title="WebModerna" src="' . get_bloginfo("stylesheet_directory") . '/img/webmoderna.png" width="150" style="display:inline-block;vertical-align:middle;" alt="WebModerna" /></a>';
+	echo _e('Desarrollado por', 'webmoderna') . ' <a title="'.__('Cr. Edgardo Raúl Galletto: WebModerna | Estudio Contable y Agencia Web', 'webmoderna') . '" href="//www.webmoderna.com.ar" target="_blank"> <img title="WebModerna" src="' . get_bloginfo("stylesheet_directory") . '/img/webmoderna.png" width="150" style="display:inline-block;vertical-align:middle;" alt="WebModerna" /></a>';
 };
 add_filter('admin_footer_text', 'remove_footer_admin');
 
@@ -295,7 +293,7 @@ function hmuda_image_sizes($sizes)
 
 
 // Habilitar la compresión de imágenes
-// add_filter( 'jpeg_quality', create_function( '', 'return 50;' ) );
+add_filter( 'jpeg_quality', function($arg){ return 50; } );
 
 
 //Registrar las menúes de navegación
@@ -446,26 +444,6 @@ require_once "includes/cpt_cabanas.php";
 //Relativas las urls
 // require_once "includes/url_relativas.php";
 
-
-// Eliminar cajas innecesarias del dashboard
-// Quitar cajas del escritorio
-function quita_cajas_escritorio()
-{
-	// if( !current_user_can('manage_options') )
-	// {
-	remove_meta_box('dashboard_activity', 'dashboard', 'normal' ); // Actividad
-	remove_meta_box('dashboard_right_now', 'dashboard', 'normal');   // Ahoramismo
-	remove_meta_box('dashboard_recent_comments', 'dashboard', 'normal'); // Comentarios recientes
-	remove_meta_box('dashboard_incoming_links', 'dashboard', 'normal');  // Enlaces entrantes
-	remove_meta_box('dashboard_plugins', 'dashboard', 'normal');   // Plugins
-	remove_meta_box('dashboard_quick_press', 'dashboard', 'side');  // Publicación rápida
-	remove_meta_box('dashboard_recent_drafts', 'dashboard', 'side');  // Borradores recientes
-	remove_meta_box('dashboard_primary', 'dashboard', 'side');   // Noticas del blog de WordPress
-	remove_meta_box('dashboard_secondary', 'dashboard', 'side');   // Otras noticias de WordPress
-	// utiliza 'dashboard-network' como segundo parámetro para quitar cajas del escritorio de red.
-	// }
-}
-add_action('wp_dashboard_setup', 'quita_cajas_escritorio' );
 
 // Removiendo el panel de bienvenida del wordpress
 remove_action('welcome_panel', 'wp_welcome_panel');
