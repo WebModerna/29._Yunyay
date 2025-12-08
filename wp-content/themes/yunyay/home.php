@@ -22,19 +22,6 @@ $yunyay_plupload = rwmb_meta('yunyay_plupload', '');
 							//Móviles
 							if(wpmd_is_phone())
 							{
-								/*$attachID = (get_post_meta( $post->ID, 'custom_imagenrepetible',true));
-								if ($attachID !== '')
-								{
-									foreach ($attachID as $item)
-									{
-										$imagen = wp_get_attachment_image_src($item,'custom-thumb-800-x');
-										$alt = get_post_meta($item, '_wp_attachment_image_alt', true);
-										$descripcion = get_post_field('post_content', $item);
-										echo '<img class="item" src="' . $imagen[0] . '"';
-										echo ' alt="' . $alt . '"';
-										echo ' />';
-									}
-								}*/
 								if($yunyay_plupload)
 								{
 									foreach ($yunyay_plupload as $item => $value)
@@ -66,19 +53,6 @@ $yunyay_plupload = rwmb_meta('yunyay_plupload', '');
 							//Tablets
 							if(wpmd_is_tablet())
 							{
-								/*$attachID = (get_post_meta( $post->ID, 'custom_imagenrepetible',true));
-								if ($attachID !== '')
-								{
-									foreach ($attachID as $item)
-									{
-										$imagen = wp_get_attachment_image_src($item,'custom-thumb-1200-666');
-										$alt = get_post_meta($item, '_wp_attachment_image_alt', true);
-										$descripcion = get_post_field('post_content', $item);
-										echo '<img class="item" src="' . $imagen[0] . '"';
-										echo ' alt="' . $alt . '"';
-										echo ' />';
-									}
-								}*/
 								if($yunyay_plupload)
 								{
 									foreach ($yunyay_plupload as $item => $value)
@@ -110,19 +84,6 @@ $yunyay_plupload = rwmb_meta('yunyay_plupload', '');
 							//Desktop.
 							if(wpmd_is_notdevice()) 
 							{
-								/*$attachID = (get_post_meta( $post->ID, 'custom_imagenrepetible',true));
-								if ($attachID !== '')
-								{
-									foreach ($attachID as $item)
-									{
-										$imagen = wp_get_attachment_image_src($item,'custom-thumb-1800-1000');
-										$alt = get_post_meta($item, '_wp_attachment_image_alt', true);
-										$descripcion = get_post_field('post_content', $item);
-										echo '<img class="item" src="' . $imagen[0] . '"';
-										echo ' alt="' . $alt . '"';
-										echo ' />';
-									}
-								}*/
 								if($yunyay_plupload)
 								{
 									foreach ($yunyay_plupload as $item => $value)

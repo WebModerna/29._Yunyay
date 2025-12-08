@@ -41,19 +41,6 @@ if (have_posts()):while(have_posts()):the_post();
 								};?>
 							<?php if(wpmd_is_notphone())
 							{
-								/*$attachID = (get_post_meta( $post->ID, 'custom_imagenrepetible',true));
-								if ($attachID !== '')
-								{
-									foreach ($attachID as $item)
-									{
-										$imagen = wp_get_attachment_image_src($item,'custom-thumb-800-600');
-										$alt = get_post_meta($item, '_wp_attachment_image_alt', true);
-										$descripcion = get_post_field('post_content', $item);
-										echo '<img class="item" src="' . $imagen[0] . '"';
-										echo ' alt="' . $alt . '"';
-										echo ' />';
-									}
-								}*/
 								if($yunyay_plupload)
 								{
 									foreach ($yunyay_plupload as $item => $value)
@@ -99,19 +86,6 @@ if (have_posts()):while(have_posts()):the_post();
 						<div>
 						<?php if(wpmd_is_phone())
 						{
-							/*$attachID = (get_post_meta( $post->ID, 'custom_imagenrepetible',true));
-							if ($attachID !== '')
-							{
-								foreach ($attachID as $item)
-								{
-									$imagen = wp_get_attachment_image_src($item,'custom-thumb-600-x');
-									$alt = get_post_meta($item, '_wp_attachment_image_alt', true);
-									$descripcion = get_post_field('post_content', $item);
-									echo '<img class="item" src="' . $imagen[0] . '"';
-									echo ' alt="' . $alt . '"';
-									echo ' />';
-								}
-							}*/
 							if($yunyay_plupload)
 							{
 								foreach ($yunyay_plupload as $item => $value)

@@ -59,24 +59,6 @@ $yunyay_plupload = rwmb_meta('yunyay_plupload', '');
 									echo '<img src="'.get_stylesheet_directory_uri().'/img/sin_imagen2.png" alt="'.__('Sin imagen', 'yunyay').'" />';
 								}
 
-								/*
-								// Listado de imágenes para Tablets y Desktops en un slideshow
-								$attachID = ( get_post_meta( $post->ID, 'custom_imagenrepetible', true) );
-
-								foreach ($attachID as $item)
-								{
-									$imagen_chica = wp_get_attachment_image_src($item,'custom-thumb-800-600');
-									$alt = get_post_meta( $item, '_wp_attachment_image_alt', true );
-									$descripcion = get_post_field( 'post_content', $item );
-									if ( $imagen_chica[0] != '' )
-									{
-										echo '<img src="'.$imagen_chica[0].'" alt="'.$alt.'" />';
-									}
-									else
-									{
-										echo '<img src="'.get_stylesheet_directory_uri().'/img/gravatar.png" alt="'.__('Sin imagen', 'yunyay').'" />';
-									}
-								}*/
 								foreach ($yunyay_plupload  as $item => $value)
 								{
 									$imagen_chica = wp_get_attachment_image_src($item,'custom-thumb-800-600');
@@ -120,20 +102,7 @@ $yunyay_plupload = rwmb_meta('yunyay_plupload', '');
 							<?php }
 
 							if(wpmd_is_notphone())
-							{		
-								/*//Enlaces provistos por el listado de imágenes
-								$attachID = (get_post_meta( $post->ID, 'custom_imagenrepetible', true) );
-								foreach( $attachID as $item )
-								{
-									$imagen 		= wp_get_attachment_image_src( $item, 'custom-thumb-1800-x' );
-									$alt 			= get_post_meta( $item, '_wp_attachment_image_alt', true );
-									$descripcion 	= get_post_field( 'post_content', $item );
-									
-									if( $imagen[0] != '' ) 
-									{
-										echo '<a title="'.$alt.'" class="fancybox" rel="gallery'.$post->ID.'" href="'.$imagen[0].'"></a>';
-									}
-								}*/
+							{
 								foreach ($yunyay_plupload  as $item2 => $value2)
 								{
 									$imagen_grande = wp_get_attachment_image_src($item2,'custom-thumb-1800-x');
@@ -171,24 +140,6 @@ $yunyay_plupload = rwmb_meta('yunyay_plupload', '');
 						<div>
 							<figure>
 								<?php
-									//listado de imágenes para smatphones
-									/*$attachID = (get_post_meta( $post->ID, 'custom_imagenrepetible',true));
-
-									foreach ($attachID as $item)
-									{
-										$imagen = wp_get_attachment_image_src( $item,'custom-thumb-600-x' );
-										$alt = get_post_meta($item, '_wp_attachment_image_alt', true);
-										$descripcion = get_post_field('post_content', $item);
-
-										if ($imagen[0]) 
-										{
-											echo '<img src="'.$imagen[0].'" alt="'.$alt.'" />';
-											
-										}
-										else
-										{
-											echo '<img src="'.get_stylesheet_directory_uri().'/img/gravatar.png" alt="'.__('Sin imagen', 'yunyay').'" />';
-										};*/
 								foreach ($yunyay_plupload  as $item => $value)
 								{
 									$imagen_chica = wp_get_attachment_image_src($item,'custom-thumb-600-x');
