@@ -18,12 +18,11 @@ function wpcf7_control_init() {
 		return;
 	}
 
-	if ( isset( $_POST['_wpcf7'] ) ) {
-		$contact_form = wpcf7_contact_form( (int) $_POST['_wpcf7'] );
-
-		if ( $contact_form ) {
-			$contact_form->submit();
-		}
+	if (
+		$id = (int) wpcf7_superglobal_post( '_wpcf7' ) and
+		$contact_form = wpcf7_contact_form( $id )
+	) {
+		$contact_form->submit();
 	}
 }
 
@@ -34,9 +33,7 @@ function wpcf7_control_init() {
 add_action(
 	'wp_enqueue_scripts',
 	static function () {
-		$assets = include(
-			wpcf7_plugin_path( 'includes/js/index.asset.php' )
-		);
+		$assets = include wpcf7_plugin_path( 'includes/js/index.asset.php' );
 
 		$assets = wp_parse_args( $assets, array(
 			'dependencies' => array(),

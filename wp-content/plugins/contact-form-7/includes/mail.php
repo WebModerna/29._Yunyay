@@ -365,7 +365,7 @@ class WPCF7_Mail {
 		foreach ( explode( "\n", $template ) as $line ) {
 			$line = trim( $line );
 
-			if ( '' === $line or '[' == substr( $line, 0, 1 ) ) {
+			if ( '' === $line or '[' === substr( $line, 0, 1 ) ) {
 				continue;
 			}
 
@@ -414,8 +414,10 @@ function wpcf7_mail_replace_tags( $content, $options = '' ) {
 		if ( $options['exclude_blank'] ) {
 			$replaced_tags = $line->get_replaced_tags();
 
-			if ( empty( $replaced_tags )
-			or array_filter( $replaced_tags, 'strlen' ) ) {
+			if (
+				empty( $replaced_tags ) or
+				array_filter( $replaced_tags, 'strlen' )
+			) {
 				$content[$num] = $replaced;
 			} else {
 				unset( $content[$num] ); // Remove a line.
@@ -482,8 +484,10 @@ class WPCF7_MailTaggedText {
 
 		$this->html = (bool) $options['html'];
 
-		if ( null !== $options['callback']
-		and is_callable( $options['callback'] ) ) {
+		if (
+			null !== $options['callback'] and
+			is_callable( $options['callback'] )
+		) {
 			$this->callback = $options['callback'];
 		} elseif ( $this->html ) {
 			$this->callback = array( $this, 'replace_tags_callback_html' );
@@ -531,8 +535,7 @@ class WPCF7_MailTaggedText {
 	 */
 	private function replace_tags_callback( $matches, $html = false ) {
 		// allow [[foo]] syntax for escaping a tag
-		if ( $matches[1] == '['
-		and $matches[4] == ']' ) {
+		if ( '[' === $matches[1] and ']' === $matches[4] ) {
 			return substr( $matches[0], 1, -1 );
 		}
 
@@ -549,7 +552,7 @@ class WPCF7_MailTaggedText {
 			: null;
 
 		if ( $mail_tag->get_option( 'do_not_heat' ) ) {
-			$submitted = wp_unslash( $_POST[$field_name] ?? '' );
+			$submitted = wpcf7_superglobal_post( $field_name );
 		}
 
 		$replaced = $submitted;

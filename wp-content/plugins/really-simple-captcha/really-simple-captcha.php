@@ -1,77 +1,129 @@
 <?php
 /*
-Plugin Name: Really Simple CAPTCHA
-Plugin URI: https://contactform7.com/captcha/
-Description: Really Simple CAPTCHA is a CAPTCHA module intended to be called from other plugins. It is originally created for my Contact Form 7 plugin.
-Author: Takayuki Miyoshi
-Author URI: https://ideasilo.wordpress.com/
-Text Domain: really-simple-captcha
-Version: 2.0.2
-*/
+ * Plugin Name: Really Simple CAPTCHA
+ * Plugin URI: https://contactform7.com/captcha/
+ * Description: Really Simple CAPTCHA is a CAPTCHA module intended to be called from other plugins. It is originally created for my Contact Form 7 plugin.
+ * Author: Takayuki Miyoshi
+ * Author URI: https://ideasilo.wordpress.com/
+ * License: GPL v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * Version: 2.4
+ * Requires at least: 6.6
+ * Requires PHP: 7.4
+ */
 
-define( 'REALLYSIMPLECAPTCHA_VERSION', '2.0.2' );
+define( 'REALLYSIMPLECAPTCHA_VERSION', '2.4' );
+
+require_once __DIR__ . '/includes/filesystem.php';
 
 class ReallySimpleCaptcha {
 
-	public $chars;
-	public $char_length;
-	public $fonts;
-	public $tmp_dir;
-	public $img_size;
-	public $bg;
-	public $fg;
-	public $base;
-	public $font_size;
-	public $font_char_width;
-	public $img_type;
-	public $file_mode;
-	public $answer_file_mode;
+	use ReallySimpleCaptcha_Filesystem;
 
+	/**
+	 * Characters available in a CAPTCHA image.
+	 *
+	 * @var string All characters that can be used in a CAPTCHA image.
+	 */
+	public $chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+
+	/**
+	 * Number of characters that are displayed in a CAPTCHA image.
+	 *
+	 * @var int
+	 */
+	public $char_length = 4;
+
+	/**
+	 * Font paths. Randomly picked up from the list per character.
+	 *
+	 * @var array
+	 */
+	public $fonts = array(
+		__DIR__ . '/gentium/GenBkBasR.ttf',
+		__DIR__ . '/gentium/GenBkBasI.ttf',
+		__DIR__ . '/gentium/GenBkBasBI.ttf',
+		__DIR__ . '/gentium/GenBkBasB.ttf',
+	);
+
+	/**
+	 * Temp directory for CAPTCHA images and text files.
+	 *
+	 * @var string
+	 */
+	public $tmp_dir = __DIR__ . '/tmp';
+
+	/**
+	 * Array of CAPTCHA image size.
+	 *
+	 * @var array 0: Width, 1: Height (in pixels)
+	 */
+	public $img_size = array( 72, 24 );
+
+	/**
+	 * Background color of a CAPTCHA image in RGB-notation.
+	 *
+	 * @var array 0: R, 1: G, 2: B (each within 0-255)
+	 */
+	public $bg = array( 255, 255, 255 );
+
+	/**
+	 * Foreground (character) color of a CAPTCHA image in RGB-notation.
+	 *
+	 * @var array 0: R, 1: G, 2: B (each within 0-255)
+	 */
+	public $fg = array( 0, 0, 0 );
+
+	/**
+	 * Coordinates for a text in an image. I don't know the meaning. Just adjust.
+	 *
+	 * @var array
+	 */
+	public $base = array( 6, 18 );
+
+	/**
+	 * Font size.
+	 *
+	 * @var int
+	 */
+	public $font_size = 14;
+
+	/**
+	 * Width of a character.
+	 *
+	 * @var int
+	 */
+	public $font_char_width = 15;
+
+	/**
+	 * Image type.
+	 *
+	 * @var string png, gif, or jpeg.
+	 */
+	public $img_type = 'png';
+
+	/**
+	 * File mode set for a CAPTCHA image.
+	 *
+	 * @var int
+	 */
+	public $file_mode = 0644;
+
+	/**
+	 * File mode set for an answer text file.
+	 *
+	 * @var int
+	 */
+	public $answer_file_mode = 0640;
+
+
+	/**
+	 * Constructor.
+	 */
 	public function __construct() {
-		/* Characters available in images */
-		$this->chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-
-		/* Length of a word in an image */
-		$this->char_length = 4;
-
-		/* Array of fonts. Randomly picked up per character */
-		$this->fonts = array(
-			dirname( __FILE__ ) . '/gentium/GenBkBasR.ttf',
-			dirname( __FILE__ ) . '/gentium/GenBkBasI.ttf',
-			dirname( __FILE__ ) . '/gentium/GenBkBasBI.ttf',
-			dirname( __FILE__ ) . '/gentium/GenBkBasB.ttf',
-		);
-
-		/* Directory temporary keeping CAPTCHA images and corresponding text files */
-		$this->tmp_dir = path_join( dirname( __FILE__ ), 'tmp' );
-
-		/* Array of CAPTCHA image size. Width and height */
-		$this->img_size = array( 72, 24 );
-
-		/* Background color of CAPTCHA image. RGB color 0-255 */
-		$this->bg = array( 255, 255, 255 );
-
-		/* Foreground (character) color of CAPTCHA image. RGB color 0-255 */
-		$this->fg = array( 0, 0, 0 );
-
-		/* Coordinates for a text in an image. I don't know the meaning. Just adjust. */
-		$this->base = array( 6, 18 );
-
-		/* Font size */
-		$this->font_size = 14;
-
-		/* Width of a character */
-		$this->font_char_width = 15;
-
-		/* Image type. 'png', 'gif' or 'jpeg' */
-		$this->img_type = 'png';
-
-		/* Mode of temporary image files */
-		$this->file_mode = 0644;
-
-		/* Mode of temporary answer text files */
-		$this->answer_file_mode = 0640;
+		$this->connect();
 	}
+
 
 	/**
 	 * Generate and return a random word.
@@ -82,13 +134,14 @@ class ReallySimpleCaptcha {
 		$word = '';
 
 		for ( $i = 0; $i < $this->char_length; $i++ ) {
-			$pos = mt_rand( 0, strlen( $this->chars ) - 1 );
+			$pos = wp_rand( 0, strlen( $this->chars ) - 1 );
 			$char = $this->chars[$pos];
 			$word .= $char;
 		}
 
 		return $word;
 	}
+
 
 	/**
 	 * Generate CAPTCHA image and corresponding answer file.
@@ -118,43 +171,48 @@ class ReallySimpleCaptcha {
 
 			imagefill( $im, 0, 0, $bg );
 
-			$x = $this->base[0] + mt_rand( -2, 2 );
+			$x = $this->base[0] + wp_rand( -2, 2 );
 
 			for ( $i = 0; $i < strlen( $word ); $i++ ) {
 				$font = $this->fonts[array_rand( $this->fonts )];
-				$font = $this->normalize_path( $font );
+				$font = wp_normalize_path( $font );
 
-				imagettftext( $im, $this->font_size, mt_rand( -12, 12 ), $x,
-					$this->base[1] + mt_rand( -2, 2 ), $fg, $font, $word[$i] );
+				imagettftext(
+					$im, $this->font_size, wp_rand( -12, 12 ), $x,
+					$this->base[1] + wp_rand( -2, 2 ), $fg, $font, $word[$i]
+				);
+
 				$x += $this->font_char_width;
 			}
 
 			switch ( $this->img_type ) {
 				case 'jpeg':
 					$filename = sanitize_file_name( $prefix . '.jpeg' );
-					$file = $this->normalize_path( $dir . $filename );
+					$file = wp_normalize_path( path_join( $dir, $filename ) );
 					imagejpeg( $im, $file );
 					break;
 				case 'gif':
 					$filename = sanitize_file_name( $prefix . '.gif' );
-					$file = $this->normalize_path( $dir . $filename );
+					$file = wp_normalize_path( path_join( $dir, $filename ) );
 					imagegif( $im, $file );
 					break;
 				case 'png':
 				default:
 					$filename = sanitize_file_name( $prefix . '.png' );
-					$file = $this->normalize_path( $dir . $filename );
+					$file = wp_normalize_path( path_join( $dir, $filename ) );
 					imagepng( $im, $file );
 			}
 
 			imagedestroy( $im );
-			@chmod( $file, $this->file_mode );
+
+			$this->chmod( $file, $this->file_mode );
 		}
 
 		$this->generate_answer_file( $prefix, $word );
 
 		return $filename;
 	}
+
 
 	/**
 	 * Generate answer file corresponding to CAPTCHA image.
@@ -164,20 +222,17 @@ class ReallySimpleCaptcha {
 	 */
 	public function generate_answer_file( $prefix, $word ) {
 		$dir = trailingslashit( $this->tmp_dir );
-		$answer_file = $dir . sanitize_file_name( $prefix . '.txt' );
-		$answer_file = $this->normalize_path( $answer_file );
+		$answer_file = path_join( $dir, sanitize_file_name( $prefix . '.txt' ) );
+		$answer_file = wp_normalize_path( $answer_file );
 
-		if ( $fh = fopen( $answer_file, 'w' ) ) {
-			$word = strtoupper( $word );
-			$salt = wp_generate_password( 64 );
-			$hash = hash_hmac( 'md5', $word, $salt );
-			$code = $salt . '|' . $hash;
-			fwrite( $fh, $code );
-			fclose( $fh );
-		}
+		$word = strtoupper( $word );
+		$salt = wp_generate_password( 64 );
+		$hash = hash_hmac( 'sha256', $word, $salt );
+		$code = $salt . '|' . $hash;
 
-		@chmod( $answer_file, $this->answer_file_mode );
+		$this->put_contents( $answer_file, $code, $this->answer_file_mode );
 	}
+
 
 	/**
 	 * Check a response against the code kept in the temporary file.
@@ -187,7 +242,7 @@ class ReallySimpleCaptcha {
 	 * @return bool Return true if the two match, otherwise return false.
 	 */
 	public function check( $prefix, $response ) {
-		if ( 0 == strlen( $prefix ) ) {
+		if ( 0 === strlen( $prefix ) ) {
 			return false;
 		}
 
@@ -196,21 +251,19 @@ class ReallySimpleCaptcha {
 
 		$dir = trailingslashit( $this->tmp_dir );
 		$filename = sanitize_file_name( $prefix . '.txt' );
-		$file = $this->normalize_path( $dir . $filename );
+		$file = wp_normalize_path( path_join( $dir, $filename ) );
 
-		if ( is_readable( $file )
-		and $code = file_get_contents( $file ) ) {
+		if ( is_readable( $file ) and $code = $this->get_contents( $file ) ) {
 			$code = explode( '|', $code, 2 );
 			$salt = $code[0];
 			$hash = $code[1];
 
-			if ( hash_hmac( 'md5', $response, $salt ) === $hash ) {
-				return true;
-			}
+			return hash_equals( $hash, hash_hmac( 'sha256', $response, $salt ) );
 		}
 
 		return false;
 	}
+
 
 	/**
 	 * Remove temporary files with given prefix.
@@ -223,13 +276,14 @@ class ReallySimpleCaptcha {
 
 		foreach ( $suffixes as $suffix ) {
 			$filename = sanitize_file_name( $prefix . $suffix );
-			$file = $this->normalize_path( $dir . $filename );
+			$file = wp_normalize_path( path_join( $dir, $filename ) );
 
 			if ( is_file( $file ) ) {
-				@unlink( $file );
+				$this->delete( $file );
 			}
 		}
 	}
+
 
 	/**
 	 * Clean up dead files older than given length of time.
@@ -239,16 +293,13 @@ class ReallySimpleCaptcha {
 	 */
 	public function cleanup( $minutes = 60, $max = 100 ) {
 		$dir = trailingslashit( $this->tmp_dir );
-		$dir = $this->normalize_path( $dir );
+		$dir = wp_normalize_path( $dir );
 
-		if ( ! is_dir( $dir )
-		or ! is_readable( $dir ) ) {
-			return false;
-		}
-
-		$is_win = ( 'WIN' === strtoupper( substr( PHP_OS, 0, 3 ) ) );
-
-		if ( ! ( $is_win ? win_is_writable( $dir ) : is_writable( $dir ) ) ) {
+		if (
+			! is_dir( $dir ) or
+			! is_readable( $dir ) or
+			! wp_is_writable( $dir )
+		) {
 			return false;
 		}
 
@@ -260,17 +311,16 @@ class ReallySimpleCaptcha {
 					continue;
 				}
 
-				$file = $this->normalize_path( $dir . $filename );
+				$file = wp_normalize_path( path_join( $dir, $filename ) );
 
-				if ( ! file_exists( $file )
-				or ! $stat = stat( $file ) ) {
+				if ( ! file_exists( $file ) or ! $stat = stat( $file ) ) {
 					continue;
 				}
 
-				if ( ( $stat['mtime'] + $minutes * 60 ) < time() ) {
-					if ( ! @unlink( $file ) ) {
-						@chmod( $file, 0644 );
-						@unlink( $file );
+				if ( ( $stat['mtime'] + $minutes * MINUTE_IN_SECONDS ) < time() ) {
+					if ( ! $this->delete( $file ) ) {
+						$this->chmod( $file, 0644 );
+						$this->delete( $file );
 					}
 
 					$count += 1;
@@ -287,6 +337,7 @@ class ReallySimpleCaptcha {
 		return $count;
 	}
 
+
 	/**
 	 * Make a temporary directory and generate .htaccess file in it.
 	 *
@@ -294,42 +345,45 @@ class ReallySimpleCaptcha {
 	 */
 	public function make_tmp_dir() {
 		$dir = trailingslashit( $this->tmp_dir );
-		$dir = $this->normalize_path( $dir );
+		$dir = wp_normalize_path( $dir );
 
 		if ( ! wp_mkdir_p( $dir ) ) {
 			return false;
 		}
 
-		$htaccess_file = $this->normalize_path( $dir . '.htaccess' );
+		$htaccess_file = wp_normalize_path( path_join( $dir, '.htaccess' ) );
 
 		if ( file_exists( $htaccess_file ) ) {
-			return true;
+			list( $first_line_comment ) = (array) file(
+				$htaccess_file,
+				FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES
+			);
+
+			if ( '# Apache 2.4+' === $first_line_comment ) {
+				return true;
+			}
 		}
 
-		if ( $handle = fopen( $htaccess_file, 'w' ) ) {
-			fwrite( $handle, 'Order deny,allow' . "\n" );
-			fwrite( $handle, 'Deny from all' . "\n" );
-			fwrite( $handle, '<Files ~ "^[0-9A-Za-z]+\\.(jpeg|gif|png)$">' . "\n" );
-			fwrite( $handle, '    Allow from all' . "\n" );
-			fwrite( $handle, '</Files>' . "\n" );
-			fclose( $handle );
-		}
+		$htaccess_body = '
+# Apache 2.4+
+<IfModule authz_core_module>
+    Require all denied
+    <FilesMatch "^\w+\.(jpe?g|gif|png)$">
+        Require all granted
+    </FilesMatch>
+</IfModule>
 
-		return true;
+# Apache 2.2
+<IfModule !authz_core_module>
+    Order deny,allow
+    Deny from all
+    <FilesMatch "^\w+\.(jpe?g|gif|png)$">
+        Allow from all
+    </FilesMatch>
+</IfModule>
+';
+
+		return $this->put_contents( $htaccess_file, ltrim( $htaccess_body ), 0644 );
 	}
 
-	/**
-	 * Normalize a filesystem path.
-	 *
-	 * This should be replaced by wp_normalize_path when the plugin's
-	 * minimum requirement becomes WordPress 3.9 or higher.
-	 *
-	 * @param string $path Path to normalize.
-	 * @return string Normalized path.
-	 */
-	private function normalize_path( $path ) {
-		$path = str_replace( '\\', '/', $path );
-		$path = preg_replace( '|/+|', '/', $path );
-		return $path;
-	}
 }
